@@ -15,3 +15,5 @@ a bit easier, by example.
 [GTK Frequently asked questions](https://docs.gtk.org/gtk4/question_index.html)
 
 [GTK4 Widget Gallery](https://docs.gtk.org/gtk4/visual_index.html)
+
+[GTK Documentation](https://www.gtk.org/docs/)
