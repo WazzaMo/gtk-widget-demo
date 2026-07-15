@@ -17,6 +17,12 @@ C being smaller in both keywords and concepts, requires more code
 to cover the same functional ground compared to higher-level languages.
 This means we need a strategy for handling many small files.
 
+### Main entry point
+
+The main entry point should be located at `src/main.c` so that it
+exists outside any code groups. It should refer to other source
+code that exists within groups to compose the program.
+
 ### Arranging code in groups
 
 For clarity code can be arranged in groups which represent an area
