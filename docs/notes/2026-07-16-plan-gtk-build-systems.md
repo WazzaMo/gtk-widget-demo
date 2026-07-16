@@ -199,12 +199,12 @@ Plain GNU make with hand-written rules is the simplest option on Linux.
 
 # GTK-specific factors
 
-| Factor                    | Meson | CMake | GNU make |
-|---------------------------|-------|-------|----------|
-| Matches GTK4 upstream     | Yes   | No    | No       |
-| pkg-config integration    | Built-in | Via modules | Manual |
-| GNOME doc examples        | Primary | Common | Legacy |
-| Scales with grouped `src/` | Yes  | Yes   | With effort |
+| Factor                     | Meson    | CMake   | GNU make |
+|----------------------------|----------|---------|----------|
+| Matches GTK4 upstream      | Yes      | No      | No       |
+| pkg-config integration     | Built-in | modular | Manual   |
+| GNOME doc examples         | Primary  | Common  | Legacy   |
+| Scales with grouped `src/` | Yes      | Yes     | W effort |
 
 All three ultimately invoke the same compiler and link against the same
 GTK libraries. The choice is about orchestration and portability, not
