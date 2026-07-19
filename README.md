@@ -13,11 +13,39 @@ This is intended to be an implementation of the GTK4 Widget Gallery, see referen
 for code examples and executions of different widgets to make UI design and app design
 a bit easier, by example.
 
+# Build
+
+## Prerequisites
+
+On Debian or Ubuntu:
+
+```bash
+sudo apt install build-essential meson ninja-build libgtk-4-dev
+```
+
+You also need a working C compiler, Meson, Ninja, and pkg-config (included in
+the packages above).
+
+## Configure, compile, and run
+
+From the repository root:
+
+```bash
+meson setup build
+meson compile -C build
+./build/gtk-widget-demo
+```
+
+Re-run `meson compile -C build` after changing source files. Re-run
+`meson setup build` when `meson.build` changes.
+
 # Documents to note
 
 - [Documentation standard](docs/doc-guide.md)
 
 - [C coding standard](docs/c-code-standard.md)
+
+- [Agent guidance](AGENTS.md)
 
 # References
 

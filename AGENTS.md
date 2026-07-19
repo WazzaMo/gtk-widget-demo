@@ -17,9 +17,9 @@ The repository is in an early **planning and documentation** phase.
 
 | Present | Not yet present |
 |---------|-----------------|
-| `docs/` conventions and feature specs | `src/`, `include/` |
-| Build-system decision (Meson) | `meson.build` |
-| Feature 1 spec | `test/` |
+| `docs/` conventions and feature specs | `include/` (group headers) |
+| Meson build and Feature 1 base app | Widget gallery demos |
+| `src/main.c` entry point | `test/` |
 
 When adding code, follow the layout and decisions below before inventing new
 structure.
