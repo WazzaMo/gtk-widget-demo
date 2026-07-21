@@ -5,6 +5,13 @@
 (c) Copyright 2026 onwards Warwick Molloy.
 Contribution to this project is supported and contributors will be recognised.
 
+# Status
+
+**Complete** — verified on Linux, 2026-07-22.
+
+All acceptance criteria below are met. See [As built](#as-built) for
+implementation details that extend the minimum spec.
+
 # Overview
 
 This feature establishes the project foundation: a cross-platform Meson build
@@ -50,7 +57,8 @@ a window and a **File → Exit** menu so later features can add demo groups unde
    `src/<GROUP>/` and `include/` as later features land.
 
 6. The repository root contains a `meson.build` that declares a GTK4 dependency
-   via `dependency('gtk4')` and builds one executable target from `src/main.c`.
+   via `dependency('gtk4', include_type: 'system')` and builds one executable
+   target from `src/main.c`.
 
 # Technical acceptance criteria
 
@@ -59,13 +67,14 @@ a window and a **File → Exit** menu so later features can add demo groups unde
 Meson is the build system (see the
 [build-system plan note](../notes/2026-07-16-plan-gtk-build-systems.md)).
 
-| Requirement     | Detail                              |
-|-----------------|-------------------------------------|
-| Root build file | `meson.build` at repository root    |
-| GTK dependency  | `dependency('gtk4')`                |
-| Backend         | Ninja (Meson default)               |
-| Executable      | One target built from `src/main.c`  |
-| Project name    | from (Meson `project()` name)       |
+| Requirement     | Detail                                              |
+|-----------------|-----------------------------------------------------|
+| Root build file | `meson.build` at repository root                    |
+| GTK dependency  | `dependency('gtk4', include_type: 'system')`        |
+| Warnings        | `warning_level=3` (`-Wpedantic` on project code)    |
+| Backend         | Ninja (Meson default)                               |
+| Executable      | One target built from `src/main.c`                  |
+| Project name    | `gtk-widget-demo` (Meson `project()` name)          |
 
 Expected contributor workflow on Linux:
 
@@ -114,6 +123,24 @@ The following belong in later features, not Feature 1:
 5. CMake or GNU make build files (Meson only unless the build-system note is
    revised).
 
+# As built
+
+Implementation matches the acceptance criteria with these specifics:
+
+| Item | Detail |
+|------|--------|
+| Application | `GtkApplication` with ID `com.example.gtk-widget-demo` |
+| Window | Title **GTK Widget Demo**, default size 640×480 |
+| Menu | `GtkPopoverMenuBar` with `GMenu` (**File → Exit** → `app.quit`) |
+| Quit action | `GSimpleAction` registered on `startup` |
+| Entry point | All logic in `src/main.c` (no groups yet) |
+| Install | `install: false` on the executable target |
+
+GTK headers are included as system headers (`include_type: 'system'`) so
+`-Wpedantic` warnings from GLib/GTK macro expansions are suppressed while
+strict warnings still apply to project source. See
+[2026-07-22-coding-gtk-system-includes.md](../notes/2026-07-22-coding-gtk-system-includes.md).
+
 # References
 
 [README.md](../../README.md)
@@ -121,5 +148,7 @@ The following belong in later features, not Feature 1:
 [c-code-standard.md](../c-code-standard.md)
 
 [2026-07-16-plan-gtk-build-systems.md](../notes/2026-07-16-plan-gtk-build-systems.md)
+
+[2026-07-22-coding-gtk-system-includes.md](../notes/2026-07-22-coding-gtk-system-includes.md)
 
 [GTK4 Documentation](https://docs.gtk.org/gtk4/index.html)

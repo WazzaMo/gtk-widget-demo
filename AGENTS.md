@@ -13,7 +13,8 @@ See [README.md](./README.md) for overview and upstream GTK references.
 
 ## Current state
 
-The repository is in an early **planning and documentation** phase.
+Feature 1 (base application) is **complete**. The repository has a runnable
+Meson/GTK4 shell; widget gallery demos and test infrastructure are next.
 
 | Present | Not yet present |
 |---------|-----------------|
@@ -37,9 +38,10 @@ structure.
 
 - **Language:** C (portability and performance).
 - **UI toolkit:** GTK4.
-- **Build system:** Meson with Ninja backend (`dependency('gtk4')`).
-  CMake is the fallback if CI requires native MSVC; GNU make is out of scope
-  unless the project is explicitly Linux-only.
+- **Build system:** Meson with Ninja backend
+  (`dependency('gtk4', include_type: 'system')`). CMake is the fallback if CI
+  requires native MSVC; GNU make is out of scope unless the project is
+  explicitly Linux-only.
 - **Entry point:** `src/main.c` (outside code groups).
 - **Modules:** `src/<GROUP>/<UNIT>.c` with `include/<GROUP>.h` and
   `include/<GROUP>/<UNIT>.h`.
@@ -58,7 +60,7 @@ structure.
    ([c-code-standard.md](./docs/c-code-standard.md)).
 5. Do not commit or push unless the user explicitly asks.
 
-## Build (once source exists)
+## Build
 
 Prerequisites on Debian/Ubuntu:
 
@@ -74,19 +76,17 @@ meson compile -C build
 ./build/gtk-widget-demo
 ```
 
-Update this section when `meson.build` lands.
+## Feature 1 (complete)
 
-## Feature 1 checklist
-
-Binding acceptance criteria are in
+Acceptance criteria are in
 [feature-1-base-application.md](./docs/features/feature-1-base-application.md).
-Summary:
+Delivered as of 2026-07-22:
 
-1. Add root `meson.build` — project `gtk-widget-demo`, `dependency('gtk4')`,
-   executable from `src/main.c`.
-2. Add `src/main.c` — GTK4 window with **File → Exit** menu.
-3. Document prerequisites and build/run commands in [README.md](./README.md).
-4. Verify on Linux: `meson setup build`, `meson compile -C build`, run
+1. Root `meson.build` — project `gtk-widget-demo`, GTK4 dependency with
+   system includes, executable from `src/main.c`.
+2. `src/main.c` — GTK4 window with **File → Exit** menu.
+3. Build prerequisites and commands documented in [README.md](./README.md).
+4. Verified on Linux: `meson setup build`, `meson compile -C build`, run
    `./build/gtk-widget-demo`.
 
 ## Documentation naming (summary)

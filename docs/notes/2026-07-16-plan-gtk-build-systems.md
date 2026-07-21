@@ -244,8 +244,10 @@ Linux-only development.
 1. Contributors on Windows must use MSYS2 (or similar) regardless of whether
    Meson or CMake is chosen; native MSVC workflows remain secondary for GTK.
 
-2. No build files exist in the repository yet; whichever system is chosen
-   should be added before the first `src/main.c` lands.
+2. ~~No build files exist in the repository yet; whichever system is chosen
+   should be added before the first `src/main.c` lands.~~ **Resolved**
+   (2026-07-22): root `meson.build` and `src/main.c` are in place; see
+   [feature-1-base-application.md](../features/feature-1-base-application.md).
 
 3. Meson and CMake both add meta-build dependencies that GNU make avoids;
    this trade-off is acceptable given the cross-platform goal stated in the
@@ -253,14 +255,19 @@ Linux-only development.
 
 # Next steps
 
-1. Add a minimal `meson.build` at the repository root with `dependency('gtk4')`
-   and a single executable target for `src/main.c`.
+1. ~~Add a minimal `meson.build` at the repository root with `dependency('gtk4')`
+   and a single executable target for `src/main.c`.~~ **Done** (Feature 1).
 
-2. Document build prerequisites and commands in the README once the first
-   source files are in place.
+2. ~~Document build prerequisites and commands in the README once the first
+   source files are in place.~~ **Done** (Feature 1).
 
 3. Revisit this note if CI requirements (for example Windows MSVC) push the
    project toward CMake instead.
+
+# Implementation
+
+Meson was adopted as recommended. Feature 1 landed on 2026-07-22; see
+[feature-1-base-application.md](../features/feature-1-base-application.md).
 
 # References
 
