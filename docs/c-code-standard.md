@@ -2,6 +2,11 @@
 
 C is a beautifully small and simple language.
 
+## Copyright
+
+(c) Copyright 2026 onwards Warwick Molloy.
+Contribution to this project is supported and contributors will be recognised.
+
 ## Code organisation
 
 Many small files are preferred over fewer, larger files.
@@ -16,6 +21,12 @@ The project base directories for source code:
 C being smaller in both keywords and concepts, requires more code
 to cover the same functional ground compared to higher-level languages.
 This means we need a strategy for handling many small files.
+
+### Main entry point
+
+The main entry point should be located at `src/main.c` so that it
+exists outside any code groups. It should refer to other source
+code that exists within groups to compose the program.
 
 ### Arranging code in groups
 
@@ -57,3 +68,9 @@ src/file-management/file-objects.c
 src/file-management/directory-ops.c
 src/file-management/file-read-ops.c
 src/file-management/file-write-ops.c
+
+### Unit tests
+
+Unit tests for the groups and their unit should be present in the
+`test/` directory and should be organised by groups and units, so
+the convention is consistent.
