@@ -50,8 +50,10 @@ the widget is destroyed.
 `meson.build` links the introspection group into `gtk-widget-demo` and adds
 `test-introspection` under `test/introspection/`.
 
-Tests cover ancestry for `GObject` and `GtkLabel`, property count for
-`GtkLabel`, and formatted instance properties containing `label`.
+Tests cover ancestry for `GObject` and `GtkLabel`, property listing for
+`GtkLabel`, and signal listing for `GtkButton`. Test sources mirror units
+under `test/introspection/` (`type-ancestry.c`, `property-list.c`,
+`signal-list.c`).
 
 Verified with:
 
@@ -125,6 +127,24 @@ Fix in `inspector-pane.c`:
 
 3. Escape handler uses `g_action_change_state()` so disabling pick mode goes
    through the same `inspect_change_state` path as the menu toggle.
+
+# Refactor for c-code-standard
+
+After review against [c-code-standard.md](../c-code-standard.md), the shell
+was split out of `src/main.c`:
+
+| Unit | Path | Role |
+|------|------|------|
+| sample-palette | `src/main/sample-palette.c` | Feature 2 demo widget grid |
+| window-shell | `src/main/window-shell.c` | Menus, paned layout, actions, introspection wiring |
+
+Headers: `include/main.h`, `include/main/sample-palette.h`,
+`include/main/window-shell.h`. Entry point `src/main.c` now only creates
+`GtkApplication` and connects startup/activate signals.
+
+Introspection tests were split to mirror units:
+`test/introspection/type-ancestry.c`, `property-list.c`, `signal-list.c`,
+each with its own Meson test target.
 
 # References
 

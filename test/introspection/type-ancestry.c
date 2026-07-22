@@ -8,7 +8,6 @@
 #include <gtk/gtk.h>
 
 #include "introspection/type-ancestry.h"
-#include "introspection/property-list.h"
 
 static void
 test_gobject_ancestry(void)
@@ -37,30 +36,6 @@ test_gtk_label_ancestry(void)
   g_free(chain);
 }
 
-static void
-test_gtk_label_properties(void)
-{
-  guint count;
-
-  count = introspection_property_count(GTK_TYPE_LABEL);
-  g_assert_cmpuint(count, >, 0);
-}
-
-static void
-test_gtk_label_instance_properties(void)
-{
-  GtkWidget *label;
-  gchar *formatted;
-
-  label = gtk_label_new("Property test");
-  g_object_ref_sink(label);
-  formatted = introspection_format_properties(G_OBJECT(label));
-  g_assert_nonnull(formatted);
-  g_assert(strstr(formatted, "label") != NULL);
-  g_free(formatted);
-  g_object_unref(label);
-}
-
 int
 main(int argc, char *argv[])
 {
@@ -69,12 +44,8 @@ main(int argc, char *argv[])
   gtk_init();
   g_test_init(&argc, &argv, NULL);
 
-  g_test_add_func("/introspection/ancestry/gobject", test_gobject_ancestry);
-  g_test_add_func("/introspection/ancestry/gtk-label", test_gtk_label_ancestry);
-  g_test_add_func("/introspection/properties/gtk-label-class",
-                  test_gtk_label_properties);
-  g_test_add_func("/introspection/properties/gtk-label-instance",
-                  test_gtk_label_instance_properties);
+  g_test_add_func("/introspection/type-ancestry/gobject", test_gobject_ancestry);
+  g_test_add_func("/introspection/type-ancestry/gtk-label", test_gtk_label_ancestry);
 
   status = g_test_run();
 

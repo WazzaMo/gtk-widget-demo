@@ -14,11 +14,14 @@ introspection_format_signals(GType type)
   guint *signal_ids;
   guint n_signals;
   guint i;
+  GTypeClass *klass;
 
   if (!G_TYPE_IS_CLASSED(type))
     return g_strdup("(no signals)");
 
+  klass = g_type_class_ref(type);
   signal_ids = g_signal_list_ids(type, &n_signals);
+  g_type_class_unref(klass);
 
   if (n_signals == 0)
     {
