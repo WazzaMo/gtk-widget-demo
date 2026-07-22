@@ -13,14 +13,18 @@ See [README.md](./README.md) for overview and upstream GTK references.
 
 ## Current state
 
-Feature 1 (base application) is **complete**. The repository has a runnable
-Meson/GTK4 shell; widget gallery demos and test infrastructure are next.
+Feature 1 (base application) is **complete**. Feature 2 (GObject introspection) is
+**complete**. The repository has a runnable Meson/GTK4 app with an in-app
+introspection pane and unit tests; widget gallery demos are next.
 
 | Present | Not yet present |
 |---------|-----------------|
-| `docs/` conventions and feature specs | `include/` (group headers) |
-| Meson build and Feature 1 base app | Widget gallery demos |
-| `src/main.c` entry point | `test/` |
+| `docs/` conventions and feature specs | Widget gallery demos |
+| Meson build and Feature 1 base app | Full Widget Gallery navigation |
+| `src/main.c` entry point | |
+| `include/` introspection group headers | |
+| `src/introspection/` introspection units | |
+| `test/introspection/` unit tests | |
 
 When adding code, follow the layout and decisions below before inventing new
 structure.
@@ -32,6 +36,7 @@ structure.
 | Markdown, notes, features, stories | [docs/doc-guide.md](./docs/doc-guide.md) |
 | C layout, groups, units, tests | [docs/c-code-standard.md](./docs/c-code-standard.md) |
 | First deliverable | [docs/features/feature-1-base-application.md](./docs/features/feature-1-base-application.md) |
+| GObject introspection | [docs/features/feature-2-gobject-introspection.md](./docs/features/feature-2-gobject-introspection.md) |
 | Build system choice | [docs/notes/2026-07-16-plan-gtk-build-systems.md](./docs/notes/2026-07-16-plan-gtk-build-systems.md) |
 
 ## Key decisions

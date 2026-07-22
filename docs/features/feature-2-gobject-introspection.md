@@ -7,12 +7,11 @@ Contribution to this project is supported and contributors will be recognised.
 
 # Status
 
-Planned — not yet implemented.
+Complete — verified on Linux, 2026-07-23.
 
-This feature implements Phase A and Phase B of
+Implements Phase A (README GTK Inspector docs) and Phase B (introspection group,
+sample palette, pick mode, unit tests) of
 [2026-07-22-plan-gobject-type-exploration.md](../notes/2026-07-22-plan-gobject-type-exploration.md).
-When complete, update this section and add an [As built](#as-built) subsection
-with implementation specifics.
 
 # Overview
 
@@ -66,11 +65,15 @@ The Feature 1 window is extended as follows:
 |---------|--------|
 | File menu | **File → Exit** unchanged from Feature 1 |
 | View menu | **View → Inspect widget** toggles widget pick mode |
+| Escape    | Exits pick mode and returns to normal widget interaction |
 | Layout    | Menu bar, main content area, and side or split introspection pane |
 
 In pick mode, the pointer selects widgets in the main window (menu bar, content
 area, and nested children). Pick mode does not target non-widget objects such
 as `GMenu` models.
+
+Exit pick mode with **View → Inspect widget** again or by pressing Escape.
+The introspection pane remains visible with the last inspected widget.
 
 ## Introspection pane
 
@@ -183,14 +186,18 @@ per-widget curated "type facts" panels.
    **View** menu (or equivalent) containing **Inspect widget** that toggles
    widget pick mode.
 
-3. In pick mode, clicking a widget in the main window (shell or sample palette)
+3. While pick mode is active, pressing Escape exits pick mode and restores
+   normal widget interaction; the **View → Inspect widget** menu state stays
+   in sync.
+
+4. In pick mode, clicking a widget in the main window (shell or sample palette)
    updates a visible introspection pane with that widget's type information.
 
-4. The main content area includes a sample palette with at least `GtkLabel`
+5. The main content area includes a sample palette with at least `GtkLabel`
    plus a small set of varied controls (see [Sample palette](#sample-palette))
    so introspection can compare types, properties, and signals in one window.
 
-5. The introspection pane displays, at minimum:
+6. The introspection pane displays, at minimum:
 
    - the selected widget's GType name;
 
@@ -202,24 +209,24 @@ per-widget curated "type facts" panels.
 
    - signal names with basic metadata (read-only listing; no handlers attached).
 
-6. Property values are read-only in the UI; the feature does not expose live
+7. Property values are read-only in the UI; the feature does not expose live
    `g_object_set()` editing.
 
-7. If the inspected widget is destroyed or replaced while the pane is open, the
+8. If the inspected widget is destroyed or replaced while the pane is open, the
    application does not crash or dereference a stale `GObject` pointer.
 
-8. [README.md](../../README.md) documents:
+9. [README.md](../../README.md) documents:
 
    - GTK Inspector usage (`GTK_DEBUG=interactive`, keyboard shortcuts, link to
      [GTK running and debugging](https://docs.gtk.org/gtk4/running.html));
 
-   - the in-app **View → Inspect widget** workflow.
+   - the in-app **View → Inspect widget** workflow and Escape to exit pick mode.
 
-9. Unit tests under `test/introspection/` pass and cover type ancestry and
-   property listing for at least `GObject` and `GtkLabel` against the installed
-   GTK version.
+10. Unit tests under `test/introspection/` pass and cover type ancestry and
+    property listing for at least `GObject` and `GtkLabel` against the installed
+    GTK version.
 
-10. New source and header files follow [c-code-standard.md](../c-code-standard.md)
+11. New source and header files follow [c-code-standard.md](../c-code-standard.md)
     and carry the project copyright notice.
 
 # Technical acceptance criteria
@@ -285,7 +292,7 @@ widget knowledge:
 | Shell               | Extend Feature 1 `GtkApplication` window; preserve **File → Exit** |
 | Introspection scope | Global pane on the main window (not per-demo pages)               |
 | Sample palette      | Compact set of controls in content area; at least `GtkLabel`      |
-| Pick mode           | **View → Inspect widget** enables picking widgets in the window   |
+| Pick mode           | **View → Inspect widget** enables picking; Escape exits pick mode |
 | Pane placement      | Side pane or split view; exact layout is an implementation choice |
 | Property editing    | Not supported; display only                                       |
 | Signal handlers     | Not connected for exploration in this feature                     |
@@ -369,8 +376,15 @@ The following belong in later features or plan phases, not Feature 2:
 
 # As built
 
-Not yet implemented. When Feature 2 is complete, record specifics here (pane
-layout, pick API chosen, test command output, any deviations from this spec).
+| Item | Detail |
+|------|--------|
+| Layout | `GtkPaned` horizontal split: main window (menu + sample palette) and introspection pane |
+| Pick mode | **View → Inspect widget** toggle; Escape exits pick mode; `GtkGestureClick` in capture phase with crosshair cursor |
+| Pick API | `gtk_widget_pick()` on the main `GtkBox` (menu bar and content) |
+| Pane display | Read-only monospace `GtkTextView` with type, ancestry, interfaces, properties, signals |
+| Object lifetime | `GWeakRef` on selected widget; pane clears when widget is destroyed |
+| Sample palette | `GtkLabel`, `GtkButton`, `GtkEntry`, `GtkSwitch`, `GtkScale`, nested `GtkBox` + `GtkCheckButton` |
+| Tests | `meson test -C build` — ancestry and property tests for `GObject` and `GtkLabel` |
 
 # References
 
