@@ -52,6 +52,127 @@ GObject type tutorials. Those belong in later features.
    `introspection` group to inspect demo widgets without duplicating
    introspection logic.
 
+# Application UI
+
+Feature 2 is an introspection shell, not the Widget Gallery. The running
+application has two layers: widgets the user can pick, and a read-only pane
+that displays GObject metadata for the selection.
+
+## Shell
+
+The Feature 1 window is extended as follows:
+
+| Element | Detail |
+|---------|--------|
+| File menu | **File → Exit** unchanged from Feature 1 |
+| View menu | **View → Inspect widget** toggles widget pick mode |
+| Layout    | Menu bar, main content area, and side or split introspection pane |
+
+In pick mode, the pointer selects widgets in the main window (menu bar, content
+area, and nested children). Pick mode does not target non-widget objects such
+as `GMenu` models.
+
+## Introspection pane
+
+When the user clicks a widget, the pane updates with read-only metadata:
+
+| Section     | Content |
+|-------------|---------|
+| Type        | GType name (for example `GtkButton`) |
+| Ancestry    | Chain from the concrete type to `GObject` |
+| Interfaces  | Interfaces implemented by the type, when present |
+| Properties  | Name, value type, flags, blurb, and formatted current value |
+| Signals     | Signal names and basic metadata (parameter count); no handlers attached |
+
+Example output after picking a button might read:
+
+```
+Type: GtkButton
+Ancestry: GtkButton → GtkWidget → GInitiallyUnowned → GObject
+Properties: label="Click me", receives-default=false, …
+Signals: clicked (0 params), activate (0 params), …
+```
+
+The pane itself uses ordinary GTK widgets for display (for example
+`GtkScrolledWindow` and list or text views). Those are implementation detail,
+not gallery demo content.
+
+## GTK Inspector
+
+[README.md](../../README.md) documents GTK Inspector (`GTK_DEBUG=interactive`,
+Control+Shift+I) as the complementary tool for widget tree, CSS, and layout
+debugging. The in-app pane focuses on GObject type metadata; it does not
+duplicate Inspector capabilities.
+
+```mermaid
+flowchart TB
+  subgraph window [Main window]
+    MB[GtkPopoverMenuBar]
+    subgraph content [Content - sample palette]
+      L[GtkLabel]
+      B[GtkButton]
+      E[GtkEntry]
+      SW[GtkSwitch]
+      BOX[GtkBox with nested label]
+    end
+    subgraph pane [Introspection pane]
+      T[Type and ancestry]
+      P[Property list]
+      S[Signal list]
+    end
+  end
+  MB --> content
+  content --> pane
+```
+
+# Sample widget targets
+
+The acceptance criteria can be met by inspecting Feature 1 shell widgets alone,
+but an empty content area is a weak demo. Add a compact sample palette in the
+main content area so users can compare types, properties, and signals without
+building the full Widget Gallery.
+
+## Feature 1 shell
+
+These widgets already exist and are valid pick targets:
+
+| Widget | Typical GType | Why inspect it |
+|--------|---------------|----------------|
+| `GtkApplicationWindow` | `GtkApplicationWindow` | Deep hierarchy; window properties such as `title` |
+| `GtkPopoverMenuBar` | `GtkPopoverMenuBar` | Menu chrome; different branch from content widgets |
+| `GtkBox` (root and content) | `GtkBox` | Container layout properties (`orientation`, `spacing`) |
+
+## Sample palette
+
+Place a small fixed set of controls in the content area (one row or a simple
+grid). `GtkLabel` is required because unit tests assert ancestry and properties
+against it.
+
+| Widget | What introspection demonstrates |
+|--------|----------------------------------|
+| `GtkLabel` | Simple string and alignment props; short ancestry chain; test target |
+| `GtkButton` | `clicked` signal; action-related properties |
+| `GtkEntry` | Text properties; `changed` and `activate` signals |
+| `GtkCheckButton` or `GtkSwitch` | Boolean `active` state |
+| `GtkScale` or `GtkSpinButton` | Numeric or range properties (`value`, `adjustment`) |
+| Nested `GtkBox` with child widgets | Pick parent versus child; container versus control hierarchy |
+
+## Optional additions
+
+These are not required but add teaching value if layout space allows:
+
+| Widget | Why |
+|--------|-----|
+| `GtkFrame` or `GtkExpander` | Labelled container; nested picking |
+| `GtkImage` | Different property types (`icon-name`, paintable) |
+| Widget implementing an interface | Exercises the interfaces section (for example `GtkOrientable` on a box) |
+
+## Not required for Feature 2
+
+Lists, trees, text views, dialogs, and other gallery-scale widgets belong in
+later features. Feature 2 does not need a navigable Widget Gallery or
+per-widget curated "type facts" panels.
+
 # Acceptance criteria
 
 1. On a Linux system with GTK4 development libraries installed, `meson setup build`
@@ -62,10 +183,14 @@ GObject type tutorials. Those belong in later features.
    **View** menu (or equivalent) containing **Inspect widget** that toggles
    widget pick mode.
 
-3. In pick mode, clicking a widget in the main window content updates a
-   visible introspection pane with that widget's type information.
+3. In pick mode, clicking a widget in the main window (shell or sample palette)
+   updates a visible introspection pane with that widget's type information.
 
-4. The introspection pane displays, at minimum:
+4. The main content area includes a sample palette with at least `GtkLabel`
+   plus a small set of varied controls (see [Sample palette](#sample-palette))
+   so introspection can compare types, properties, and signals in one window.
+
+5. The introspection pane displays, at minimum:
 
    - the selected widget's GType name;
 
@@ -77,25 +202,25 @@ GObject type tutorials. Those belong in later features.
 
    - signal names with basic metadata (read-only listing; no handlers attached).
 
-5. Property values are read-only in the UI; the feature does not expose live
+6. Property values are read-only in the UI; the feature does not expose live
    `g_object_set()` editing.
 
-6. If the inspected widget is destroyed or replaced while the pane is open, the
+7. If the inspected widget is destroyed or replaced while the pane is open, the
    application does not crash or dereference a stale `GObject` pointer.
 
-7. [README.md](../../README.md) documents:
+8. [README.md](../../README.md) documents:
 
    - GTK Inspector usage (`GTK_DEBUG=interactive`, keyboard shortcuts, link to
      [GTK running and debugging](https://docs.gtk.org/gtk4/running.html));
 
    - the in-app **View → Inspect widget** workflow.
 
-8. Unit tests under `test/introspection/` pass and cover type ancestry and
+9. Unit tests under `test/introspection/` pass and cover type ancestry and
    property listing for at least `GObject` and `GtkLabel` against the installed
    GTK version.
 
-9. New source and header files follow [c-code-standard.md](../c-code-standard.md)
-   and carry the project copyright notice.
+10. New source and header files follow [c-code-standard.md](../c-code-standard.md)
+    and carry the project copyright notice.
 
 # Technical acceptance criteria
 
@@ -159,6 +284,7 @@ widget knowledge:
 |---------------------|-------------------------------------------------------------------|
 | Shell               | Extend Feature 1 `GtkApplication` window; preserve **File → Exit** |
 | Introspection scope | Global pane on the main window (not per-demo pages)               |
+| Sample palette      | Compact set of controls in content area; at least `GtkLabel`      |
 | Pick mode           | **View → Inspect widget** enables picking widgets in the window   |
 | Pane placement      | Side pane or split view; exact layout is an implementation choice |
 | Property editing    | Not supported; display only                                       |
@@ -197,6 +323,10 @@ These resolve open questions in
 
 3. **Custom GObject tutorial types:** deferred to a later feature; Feature 2
    inspects existing GTK/GObject types only.
+
+4. **Sample palette versus empty content:** add a small fixed set of widgets in
+   the main content area rather than an empty box; this is not the Widget
+   Gallery and does not require navigation or per-demo curated panels.
 
 # Out of scope
 
