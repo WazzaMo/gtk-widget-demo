@@ -314,23 +314,28 @@ up front.
 
 # Open decisions
 
-1. Should introspection live in the main window globally, or only inside each
-   demo page?
+These were resolved in
+[feature-2-gobject-introspection.md](../features/feature-2-gobject-introspection.md)
+(see [Design decisions](../features/feature-2-gobject-introspection.md#design-decisions)):
 
-2. Is live property editing in scope for any phase, or permanently out of
-   scope?
+1. Introspection lives in the main window globally, not only inside each demo
+   page.
 
-3. Should Option 4 (custom GObject tutorial types) be Feature 2 or a later
-   story once the widget gallery covers core controls?
+2. Live property editing is out of scope for Feature 2; values are read-only.
+
+3. Option 4 (custom GObject tutorial types) is deferred to a later feature;
+   Feature 2 covers Phase B introspection only.
 
 
 # Next steps
 
 1. Record Phase A in README when the first widget demo lands.
 
-2. If proceeding with Phase B, write
+2. ~~If proceeding with Phase B, write
    `docs/features/feature-2-gobject-introspection.md` with acceptance
-   criteria (pick widget, show ancestry, list properties, read-only values).
+   criteria (pick widget, show ancestry, list properties, read-only values).~~
+   **Done** — see
+   [feature-2-gobject-introspection.md](../features/feature-2-gobject-introspection.md).
 
 3. Split stories under `docs/stories/` for `introspection` units before
    implementation.

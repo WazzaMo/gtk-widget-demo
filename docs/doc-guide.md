@@ -21,7 +21,7 @@ and only made "nicer" to read when rendered as HTML or other manner.
 2. Space out the file around headings and between paragraphs so that
    the file does not get cluttered. Place an empty line after a heading.
 
-3. Use Mermaid for images where they add value
+3. Use Mermaid for images where they add value.
 
 4. Use headings instead of **highlight**.
 
@@ -39,7 +39,7 @@ and only made "nicer" to read when rendered as HTML or other manner.
 |----------|----------------------|
 | Note 1   | make it easy to read |
 
-... and...
+All columns but the last need the `|` column markers to be aligned so the markdown file looks good as a text file, without being rendered.
 
 # Long Form text
 
@@ -59,12 +59,12 @@ List of labelled infos:
 Documentation is organised under `docs/`. The layout below shows which
 directories exist now and which are planned.
 
-| Directory | Status |
-|-----------|--------|
-| `docs/notes` | Existing |
-| `docs/features` | Existing |
-| `docs/release-notes` | Planned |
-| `docs/stories` | Planned |
+| Directory            | Status   |
+|----------------------|----------|
+| `docs/notes`         | Existing |
+| `docs/features`      | Existing |
+| `docs/release-notes` | Planned  |
+| `docs/stories`       | Planned  |
 
 AI agents should start with [AGENTS.md](../AGENTS.md) at the repository root,
 which links to this guide and the other convention docs.
@@ -76,12 +76,18 @@ Notes can have one of the following kinds...
 {kind} in the convention below refers to one of these.
 
 1. plan - ideas, concerns and risks for implementing a feature, epic or a user story.
+
 2. coding - a summary of what code changes were recently made.
-3. bug - a bug that was found that needs to be addressed, the root cause and acceptance criteria
-4. todo - a deferred thought or path for exploration
+
+3. bug - a bug that was found that needs to be addressed, the root cause and acceptance criteria.
+
+4. todo - a deferred thought or path for exploration.
+
 5. concern - a question that explores a possible limitation and may result in a plan or coding change.
+
 6. test - unit or integration tests that were added with a summary of coverage and pass rate.
-7. other - when nothing else fits
+
+7. other - when nothing else fits.
 
 
 Notes are held in the `docs/notes` directory and follow this document guide for formatting.
@@ -105,12 +111,13 @@ format. For example: `1.0.0-Release-2026-07-12.md`.
 
 Describe what new features were added in the commits that resulted in this release.
 
-Release notes can collect information from a sequence of notes (docs/notes) where there are
-notes of kinds in a series:
-1. [todo] -> [plan] -> coding -> test to flag
-  - what work was completed, where [x] was an optional kind step; and
-2. bug -> test
-  - to collect information about bugs found and fixed.
+Release notes can collect information from sequences of notes (`docs/notes`) in
+these patterns:
+
+1. todo -> plan -> coding -> test — to summarise completed work (each kind is
+   an optional step); and
+
+2. bug -> test — to summarise bugs found and fixed.
 
 
 ## Features
@@ -124,7 +131,7 @@ They will be found in `docs/features`.
 Feature files follow the naming convention
 `docs/features/feature-{n}-{short-name}.md`, where `{n}` is a sequential number
 and `{short-name}` describes the feature topic. For example:
-`docs/features/feature-1-basic-editing.md`.
+`docs/features/feature-1-base-application.md`.
 
 Each feature should include use cases and acceptance criteria.
 
@@ -137,7 +144,7 @@ These are to be written into `docs/stories/`.
 
 Write requirements to `docs/stories/{epic|story}-{feature-name}-{component}-{description}.md`,
 using either `epic` or `story` as the prefix. For example:
-`docs/stories/story-basic-editing-file-explorer-tree-view.md`.
+`docs/stories/story-gobject-introspection-inspector-pane-pick-mode.md`.
 
 Stories should be used to take the intention written in a feature
 and turn it into a set of epics and stories that should be used

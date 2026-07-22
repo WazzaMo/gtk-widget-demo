@@ -7,7 +7,7 @@ C is a beautifully small and simple language.
 (c) Copyright 2026 onwards Warwick Molloy.
 Contribution to this project is supported and contributors will be recognised.
 
-## Code organisation
+# Code organisation
 
 Many small files are preferred over fewer, larger files.
 Smaller files are easier to navigate and can have meaningful filenames,
@@ -22,13 +22,13 @@ C being smaller in both keywords and concepts, requires more code
 to cover the same functional ground compared to higher-level languages.
 This means we need a strategy for handling many small files.
 
-### Main entry point
+## Main entry point
 
 The main entry point should be located at `src/main.c` so that it
 exists outside any code groups. It should refer to other source
 code that exists within groups to compose the program.
 
-### Arranging code in groups
+## Arranging code in groups
 
 For clarity code can be arranged in groups which represent an area
 of functionality that has a natural relationship.
@@ -53,7 +53,7 @@ The source code should be organised in groups with multiple units:
 The C file units by their UNIT-NAME should correspond to the include
 file UNIT-NAME include, declaration files.
 
-#### Example - file management
+### Example - file management
 
 As an example, for a group that implements file management, the following structure could be adopted:
 
@@ -69,7 +69,7 @@ src/file-management/directory-ops.c
 src/file-management/file-read-ops.c
 src/file-management/file-write-ops.c
 
-### Unit tests
+## Unit tests
 
 Unit tests for the groups and their unit should be present in the
 `test/` directory and should be organised by groups and units, so
