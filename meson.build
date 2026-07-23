@@ -19,6 +19,9 @@ introspection_core_sources = files(
 
 introspection_sources = introspection_core_sources + files(
   'src/introspection/inspector-pane.c',
+  'src/introspection/inspector-pane/display.c',
+  'src/introspection/inspector-pane/pick-mode.c',
+  'src/introspection/inspector-pane/selection.c',
 )
 
 executable('gtk-widget-demo',
