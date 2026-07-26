@@ -7,7 +7,109 @@ C is a beautifully small and simple language.
 (c) Copyright 2026 onwards Warwick Molloy.
 Contribution to this project is supported and contributors will be recognised.
 
-# Code organisation
+# Code organisation within source files
+
+The content of source files should remain easy to extend and maintain.
+This means recognising the author of a source contribution, handling multiple
+header file inclusions and conventions for header inclusion order, to name
+a few.
+
+## Source Code layout
+
+### Source code header block
+
+All .c and .h files should carry this header block to declare the copyright
+and the license used for the file.
+
+```c
+/*
+ * (c) Copyright 2026 onwards <AUTHOR>.
+ * Contribution to this project is supported and contributors will be recognised.
+ *
+ * Licensed under the Apache License, Version 2.0.
+ */
+```
+
+Where AUTHOR is the contributor of the code file contributing the code to the project.
+The license is important so that it is consistent with the rest of the project.
+
+### Header include guards
+
+Header files should declare macros to protect against duplicate definitions of the same
+data types and functions being seen by the compiler when the same header is included
+directly, or indirectly, more than once.
+
+For a given header file where `<HEADER_FILE>` refers to the header file name all capitalised.
+
+```c
+#ifndef <HEADER_FILE>_H
+#define <HEADER_FILE>_H
+
+// Include directives go here
+
+// Declarations go here...
+
+#endif
+```
+
+So for `main/window-shell.h` this would be:
+
+```c
+#ifndef WINDOW_SHELL_H
+#define WINDOW_SHELL_H
+
+// Include directives go here
+
+// Declarations go here...
+
+#endif
+```
+
+### Inclusion directive order
+
+System header files should be included first to indicate the dependencies of the source file.
+Project header files should follow for internal dependencies.
+
+### Coding conventions
+
+#### Functions
+
+Function names should be snake case to match the C naming conventions in general like `printf`.
+Public function names should reflect the source file organisation {group}_{verb}_{noun} so their ownership
+and roles are clear.
+
+Static functions do not need to indicate their ownership, so they should replace the {group} with
+a double underscore `__`. This will make them stand out visually.
+
+So in `property-list.c` the static function should appear as:
+
+```c
+static gchar *
+__format_param_flags(GParamSpec *pspec)
+{
+    // function body...
+}
+
+```
+
+#### Type declarations
+
+Defined types should have pascal case identifiers, with a group prefix.
+
+#### File naming
+
+File names and group directory names should be kebab-cased such as `data-processing/file-handling.h`.
+
+Test files should appear within the `test/` directory from the project root and should be organised
+in Group, Unit, Test-scope where:
+- Group means the group from the source and header area.
+- Unit means the code unit (e.g. main.c) that is under test.
+- Test-scope being the function or type that is being validated in the test source file.
+
+And so for the test file validating signal lists Test-scope within the introspection Group
+for the signal-list Unit, the file name and path would be `test/introspection/signal-list.c`.
+
+# Organising source files
 
 Many small files are preferred over fewer, larger files.
 Smaller files are easier to navigate and can have meaningful filenames,
