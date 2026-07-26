@@ -10,7 +10,7 @@
 #include "introspection/property-list.h"
 
 static void
-test_gtk_label_class_properties(void)
+__test_gtk_label_class_properties(void)
 {
   guint count;
 
@@ -19,7 +19,7 @@ test_gtk_label_class_properties(void)
 }
 
 static void
-test_gtk_label_instance_properties(void)
+__test_gtk_label_instance_properties(void)
 {
   GtkWidget *label;
   gchar *formatted;
@@ -42,9 +42,9 @@ main(int argc, char *argv[])
   g_test_init(&argc, &argv, NULL);
 
   g_test_add_func("/introspection/property-list/gtk-label-class",
-                  test_gtk_label_class_properties);
+                  __test_gtk_label_class_properties);
   g_test_add_func("/introspection/property-list/gtk-label-instance",
-                  test_gtk_label_instance_properties);
+                  __test_gtk_label_instance_properties);
 
   status = g_test_run();
 

@@ -10,7 +10,7 @@
 #include "introspection/signal-list.h"
 
 static void
-test_gtk_button_signals(void)
+__test_gtk_button_signals(void)
 {
   gchar *formatted;
 
@@ -29,7 +29,7 @@ main(int argc, char *argv[])
   g_test_init(&argc, &argv, NULL);
 
   g_test_add_func("/introspection/signal-list/gtk-button",
-                  test_gtk_button_signals);
+                  __test_gtk_button_signals);
 
   status = g_test_run();
 
