@@ -76,7 +76,7 @@ and **View → Sample palette** (radio group; gallery selected on startup).
 | Escape | Exits pick mode (Feature 2 behaviour preserved) |
 | Layout | Menu bar; gallery or sample palette in main content; introspection pane |
 | Default content | Widget gallery on startup |
-| Title | Window title remains **GTK Widget Demo** (or includes active demo name — implementation choice) |
+| Title | See [open decisions](../notes/2026-07-26-todo-feature-3-open-decisions.md#open-decision-1--window-title) (static vs dynamic) |
 
 The introspection pick root continues to cover the menu bar and gallery content
 (the same region as today’s `root_box` in `window-shell.c`).
@@ -422,17 +422,14 @@ The following belong in later features or stories, not Feature 3:
 
 # Open decisions
 
-Resolve before or during implementation:
+Unresolved before or during implementation — options and follow-up in
+[2026-07-26-todo-feature-3-open-decisions.md](../notes/2026-07-26-todo-feature-3-open-decisions.md):
 
-1. **Window title:** static **GTK Widget Demo** vs dynamic title including active
-   demo name.
+1. **Window title** — static **GTK Widget Demo** vs dynamic title including active demo name.
 
-2. **Sidebar widget choice:** `GtkListBox` vs `GtkColumnView` vs nested
-   `GtkTreeView` — pick the simplest that reads well at 14 demos and scales to
-   dozens.
+2. **Sidebar widget choice** — `GtkListBox` vs `GtkColumnView` vs nested `GtkTreeView`.
 
-3. **Stories:** split implementation stories under `docs/stories/` before coding
-   (recommended per [doc-guide.md](../doc-guide.md)).
+3. **Stories** — split implementation stories under `docs/stories/` before coding.
 
 # References
 
@@ -457,6 +454,8 @@ Resolve before or during implementation:
 [2026-07-26-plan-feature-3-one-widget-per-demo-page.md](../notes/2026-07-26-plan-feature-3-one-widget-per-demo-page.md)
 
 [2026-07-26-plan-feature-3-modal-dialogs-window-types.md](../notes/2026-07-26-plan-feature-3-modal-dialogs-window-types.md)
+
+[2026-07-26-todo-feature-3-open-decisions.md](../notes/2026-07-26-todo-feature-3-open-decisions.md)
 
 [GTK4 Widget Gallery — visual index](https://docs.gtk.org/gtk4/visual_index.html)
 
