@@ -14,15 +14,18 @@ See [README.md](./README.md) for overview and upstream GTK references.
 ## Current state
 
 Feature 1 (base application) is **complete**. Feature 2 (GObject introspection) is
-**complete**. The repository has a runnable Meson/GTK4 app with an in-app
-introspection pane and unit tests; widget gallery demos are next.
+**complete**. Feature 3 (widget gallery) is **draft** — spec and plan notes are
+written; implementation has not started.
+
+The repository has a runnable Meson/GTK4 app with an in-app introspection pane,
+a sample widget palette, and unit tests. Next work is the `gallery` code group
+per [feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md).
 
 | Present | Not yet present |
 |---------|-----------------|
-| `docs/` conventions and feature specs | Widget gallery demos |
-| Meson build and Feature 1 base app | Full Widget Gallery navigation |
-| `src/main.c` entry point | |
-| `include/` introspection group headers | |
+| `docs/` conventions and feature specs (Features 1–3) | `gallery` group and widget gallery demos |
+| Meson build and GTK4 executable | Full visual-index catalog |
+| `src/main.c` entry point; `src/main/` shell units | `docs/stories/` (planned, unused) |
 | `src/introspection/` introspection units | |
 | `test/introspection/` unit tests | |
 
@@ -37,6 +40,8 @@ structure.
 | C layout, groups, units, tests | [docs/c-code-standard.md](./docs/c-code-standard.md) |
 | First deliverable | [docs/features/feature-1-base-application.md](./docs/features/feature-1-base-application.md) |
 | GObject introspection | [docs/features/feature-2-gobject-introspection.md](./docs/features/feature-2-gobject-introspection.md) |
+| Widget gallery (draft) | [docs/features/feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md) |
+| Feature 3 open decisions | [docs/notes/2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md) |
 | Build system choice | [docs/notes/2026-07-16-plan-gtk-build-systems.md](./docs/notes/2026-07-16-plan-gtk-build-systems.md) |
 
 ## Key decisions
@@ -78,8 +83,12 @@ Expected workflow:
 ```bash
 meson setup build
 meson compile -C build
+meson test -C build
 ./build/gtk-widget-demo
 ```
+
+Re-run `meson compile -C build` after changing source files. Re-run
+`meson setup build` when `meson.build` changes.
 
 ## Feature 1 (complete)
 
@@ -93,6 +102,35 @@ Delivered as of 2026-07-22:
 3. Build prerequisites and commands documented in [README.md](./README.md).
 4. Verified on Linux: `meson setup build`, `meson compile -C build`, run
    `./build/gtk-widget-demo`.
+
+## Feature 2 (complete)
+
+Acceptance criteria are in
+[feature-2-gobject-introspection.md](./docs/features/feature-2-gobject-introspection.md).
+Delivered as of 2026-07-23:
+
+1. `introspection` group — type ancestry, property list, signal list, inspector pane.
+2. **View → Inspect widget** pick mode with side introspection pane.
+3. Sample palette in `src/main/sample-palette.c`; shell in `src/main/window-shell.c`.
+4. Unit tests under `test/introspection/` via `meson test -C build`.
+
+See [2026-07-23-coding-feature-2-gobject-introspection.md](./docs/notes/2026-07-23-coding-feature-2-gobject-introspection.md)
+for delivery details and post-delivery refactors.
+
+## Feature 3 (draft)
+
+Acceptance criteria are in
+[feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md).
+Spec dated 2026-07-26; not yet implemented.
+
+1. `gallery` group — navigation shell, demo registry, category demo units.
+2. **View → Widget gallery** (default) and **View → Sample palette** content modes.
+3. Initial set of 14 demos across five visual-index categories.
+4. Tests under `test/gallery/`; README updated when shipped.
+
+Open decisions (window title, sidebar widget, stories granularity) are in
+[2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md).
+Resolve or defer before or during implementation.
 
 ## Documentation naming (summary)
 
