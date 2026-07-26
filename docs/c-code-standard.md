@@ -7,7 +7,7 @@ C is a beautifully small and simple language.
 (c) Copyright 2026 onwards Warwick Molloy.
 Contribution to this project is supported and contributors will be recognised.
 
-## Code organisation
+# Code organisation
 
 Many small files are preferred over fewer, larger files.
 Smaller files are easier to navigate and can have meaningful filenames,
@@ -22,13 +22,13 @@ C being smaller in both keywords and concepts, requires more code
 to cover the same functional ground compared to higher-level languages.
 This means we need a strategy for handling many small files.
 
-### Main entry point
+## Main entry point
 
 The main entry point should be located at `src/main.c` so that it
 exists outside any code groups. It should refer to other source
 code that exists within groups to compose the program.
 
-### Arranging code in groups
+## Arranging code in groups and subgroups
 
 For clarity code can be arranged in groups which represent an area
 of functionality that has a natural relationship.
@@ -53,23 +53,41 @@ The source code should be organised in groups with multiple units:
 The C file units by their UNIT-NAME should correspond to the include
 file UNIT-NAME include, declaration files.
 
-#### Example - file management
+Subgroups allow a unit to be broken down where needed to keep source files
+smaller and to promote function reuse. Applying this results in files and directories like this:
+
+`src/<GROUP-NAME>/<UNIT-NAME>.c`
+`src/<GROUP-NAME>/<UNIT-NAME>/<SUB-UNIT-NAME>.c`
+
+This means that the entry points are in the first unit level:
+`src/<GROUP-NAME>/<UNIT-NAME>.c`
+
+And, that implementations in that file may call functions in the sub-unit.
+
+This group and subgroup arrangement should be applied to `src/main.c` so it
+can be composed of files in `src/main/` allowing for reuse and keeping files small.
+
+### Example - file management
 
 As an example, for a group that implements file management, the following structure could be adopted:
 
 include/file-management.h
 include/file-management/
 include/file-management/file-objects.h
-include/file-management/directory-ops.h
 include/file-management/file-read-ops.h
 include/file-management/file-write-ops.h
+include/file-management/directory-ops.h
+include/file-management/directory-ops/list-dir-ops.h
+include/file-management/directory-ops/stat-files-ops.h
 
 src/file-management/file-objects.c
-src/file-management/directory-ops.c
 src/file-management/file-read-ops.c
 src/file-management/file-write-ops.c
+src/file-management/directory-ops.c
+src/file-management/directory-ops/list-dir-ops.c
+src/file-management/directory-ops/stat-files-ops.c
 
-### Unit tests
+## Unit tests
 
 Unit tests for the groups and their unit should be present in the
 `test/` directory and should be organised by groups and units, so

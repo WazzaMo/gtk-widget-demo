@@ -7,7 +7,7 @@ Contribution to this project is supported and contributors will be recognised.
 
 # Status
 
-**Complete** — verified on Linux, 2026-07-22.
+Complete — verified on Linux, 2026-07-22.
 
 All acceptance criteria below are met. See [As built](#as-built) for
 implementation details that extend the minimum spec.
