@@ -17,7 +17,7 @@ typedef struct
 } WindowData;
 
 static void
-quit_activated(GSimpleAction *action, GVariant *parameter, gpointer user_data)
+__quit_activated(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
   (void) action;
   (void) parameter;
@@ -26,7 +26,7 @@ quit_activated(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 }
 
 static void
-inspect_change_state(GSimpleAction *action, GVariant *state, gpointer user_data)
+__inspect_change_state(GSimpleAction *action, GVariant *state, gpointer user_data)
 {
   WindowData *data = user_data;
   gboolean enabled;
@@ -39,7 +39,7 @@ inspect_change_state(GSimpleAction *action, GVariant *state, gpointer user_data)
 }
 
 static void
-exit_pick_mode(gpointer user_data)
+__exit_pick_mode(gpointer user_data)
 {
   WindowData *data = user_data;
 
@@ -51,7 +51,7 @@ exit_pick_mode(gpointer user_data)
 }
 
 static void
-window_data_free(gpointer data)
+__window_data_free(gpointer data)
 {
   WindowData *window_data = data;
 
@@ -68,7 +68,7 @@ main_window_shell_startup(GtkApplication *app)
   GSimpleAction *quit_action;
 
   quit_action = g_simple_action_new("quit", NULL);
-  g_signal_connect(quit_action, "activate", G_CALLBACK(quit_activated), app);
+  g_signal_connect(quit_action, "activate", G_CALLBACK(__quit_activated), app);
   g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(quit_action));
   g_object_unref(quit_action);
 }
@@ -97,13 +97,13 @@ main_window_shell_activate(GtkApplication *app)
   gtk_window_set_title(GTK_WINDOW(window), "GTK Widget Demo");
   gtk_window_set_default_size(GTK_WINDOW(window), 960, 520);
   g_object_set_data_full(G_OBJECT(window), "window-data", window_data,
-                         window_data_free);
+                         __window_data_free);
 
   inspect_action = g_simple_action_new_stateful("inspect",
                                                 NULL,
                                                 g_variant_new_boolean(FALSE));
   g_signal_connect(inspect_action, "change-state",
-                   G_CALLBACK(inspect_change_state), window_data);
+                   G_CALLBACK(__inspect_change_state), window_data);
   window_data->inspect_action = inspect_action;
   g_object_ref(inspect_action);
 
@@ -150,7 +150,7 @@ main_window_shell_activate(GtkApplication *app)
 
   introspection_inspector_pane_set_pick_root(window_data->inspector, root_box);
   introspection_inspector_pane_set_exit_pick_mode_handler(window_data->inspector,
-                                                          exit_pick_mode,
+                                                          __exit_pick_mode,
                                                           window_data);
 
   gtk_window_set_child(GTK_WINDOW(window), paned);

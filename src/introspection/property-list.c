@@ -8,7 +8,7 @@
 #include "introspection/property-list.h"
 
 static gchar *
-format_param_flags(GParamSpec *pspec)
+__format_param_flags(GParamSpec *pspec)
 {
   GString *flags;
   guint f;
@@ -50,7 +50,7 @@ format_param_flags(GParamSpec *pspec)
 }
 
 static gchar *
-format_property_value(GObject *object, GParamSpec *pspec)
+__format_property_value(GObject *object, GParamSpec *pspec)
 {
   GValue value = G_VALUE_INIT;
   gchar *contents;
@@ -122,8 +122,8 @@ introspection_format_properties(GObject *object)
       gchar *value;
       const gchar *blurb;
 
-      flags = format_param_flags(pspec);
-      value = format_property_value(object, pspec);
+      flags = __format_param_flags(pspec);
+      value = __format_property_value(object, pspec);
       blurb = g_param_spec_get_blurb(pspec);
 
       g_string_append_printf(text,
