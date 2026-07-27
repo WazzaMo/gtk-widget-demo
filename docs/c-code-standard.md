@@ -1,6 +1,7 @@
 # C Code Standard
 
-C is a beautifully small and simple language.
+C is a beautifully small and simple language and it is well-served with
+small and simple source files that are organised cleanly and clearly.
 
 ## Copyright
 
@@ -14,9 +15,8 @@ This means recognising the author of a source contribution, handling multiple
 header file inclusions and conventions for header inclusion order, to name
 a few.
 
-## Source Code layout
 
-### Source code header block
+## Source code header block
 
 All .c and .h files should carry this header block to declare the copyright
 and the license used for the file.
@@ -33,13 +33,14 @@ and the license used for the file.
 Where AUTHOR is the contributor of the code file contributing the code to the project.
 The license is important so that it is consistent with the rest of the project.
 
-### Header include guards
+## Header include guards
 
 Header files should declare macros to protect against duplicate definitions of the same
 data types and functions being seen by the compiler when the same header is included
 directly, or indirectly, more than once.
 
-For a given header file where `<HEADER_FILE>` refers to the header file name all capitalised.
+For a given header file where `<HEADER_FILE>` refers to the header file name all capitalised
+as the path and name to the file.
 
 ```c
 #ifndef <HEADER_FILE>_H
@@ -55,8 +56,8 @@ For a given header file where `<HEADER_FILE>` refers to the header file name all
 So for `main/window-shell.h` this would be:
 
 ```c
-#ifndef WINDOW_SHELL_H
-#define WINDOW_SHELL_H
+#ifndef MAIN_WINDOW_SHELL_H
+#define MAIN_WINDOW_SHELL_H
 
 // Include directives go here
 
@@ -65,14 +66,31 @@ So for `main/window-shell.h` this would be:
 #endif
 ```
 
-### Inclusion directive order
+## Inclusion directive order
 
 System header files should be included first to indicate the dependencies of the source file.
 Project header files should follow for internal dependencies.
 
-### Coding conventions
+## Coding conventions
 
-#### Functions
+### Function declarations in header files
+
+Each function should have Doxygen comment blocks, so that hovering over functions in VS Code
+will reveal helpful information about the function. This only needs to appear once for VS Code
+and the header files should not bloat too much from this.
+
+```c
+/**
+ * Inspector pane initializer that writes a helpful message into
+ * the inspector pane.
+ * @param pane the pane object to populate
+ * @return none
+ */
+void introspection_inspector_pane_display_set_initial_text(
+  IntrospectionInspectorPane *pane);
+```
+
+### Functions
 
 Function names should be snake case to match the C naming conventions in general like `printf`.
 Public function names should reflect the source file organisation {group}_{verb}_{noun} so their ownership
@@ -89,25 +107,27 @@ __format_param_flags(GParamSpec *pspec)
 {
     // function body...
 }
-
 ```
 
-#### Type declarations
+### Type declarations
 
 Defined types should have pascal case identifiers, with a group prefix.
 
-#### File naming
+## File naming
 
 File names and group directory names should be kebab-cased such as `data-processing/file-handling.h`.
 
 Test files should appear within the `test/` directory from the project root and should be organised
-in Group, Unit, Test-scope where:
+in Group, Unit where:
 - Group means the group from the source and header area.
 - Unit means the code unit (e.g. main.c) that is under test.
-- Test-scope being the function or type that is being validated in the test source file.
 
-And so for the test file validating signal lists Test-scope within the introspection Group
+And so for the test file validating signal lists within the introspection Group
 for the signal-list Unit, the file name and path would be `test/introspection/signal-list.c`.
+
+GTest case paths (e.g. /introspection/signal-list/gtk-button)
+Linking test executables to source units via `meson.build`.
+Test static helpers should use the same `__` prefix.
 
 # Organising source files
 
@@ -166,8 +186,8 @@ This means that the entry points are in the first unit level:
 
 And, that implementations in that file may call functions in the sub-unit.
 
-This group and subgroup arrangement should be applied to `src/main.c` so it
-can be composed of files in `src/main/` allowing for reuse and keeping files small.
+When this group and subgroup arrangement is used for `src/main.c` it results
+in code that is composed of files in `src/main/` allowing for reuse and keeping files small.
 
 ### Example - file management
 
