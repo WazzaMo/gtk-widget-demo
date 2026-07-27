@@ -5,16 +5,17 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
-#include "main/window-shell.h"
+#include <gtk/gtk.h>
 
 #include "introspection.h"
 #include "main/sample-palette.h"
+#include "main/window-shell.h"
 
 typedef struct
 {
   IntrospectionInspectorPane *inspector;
   GSimpleAction *inspect_action;
-} WindowData;
+} MainWindowData;
 
 static void
 __quit_activated(GSimpleAction *action, GVariant *parameter, gpointer user_data)
@@ -28,7 +29,7 @@ __quit_activated(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 static void
 __inspect_change_state(GSimpleAction *action, GVariant *state, gpointer user_data)
 {
-  WindowData *data = user_data;
+  MainWindowData *data = user_data;
   gboolean enabled;
 
   (void) action;
@@ -41,7 +42,7 @@ __inspect_change_state(GSimpleAction *action, GVariant *state, gpointer user_dat
 static void
 __exit_pick_mode(gpointer user_data)
 {
-  WindowData *data = user_data;
+  MainWindowData *data = user_data;
 
   if (!introspection_inspector_pane_get_pick_mode(data->inspector))
     return;
@@ -53,7 +54,7 @@ __exit_pick_mode(gpointer user_data)
 static void
 __window_data_free(gpointer data)
 {
-  WindowData *window_data = data;
+  MainWindowData *window_data = data;
 
   if (window_data->inspect_action != NULL)
     g_object_unref(window_data->inspect_action);
@@ -88,9 +89,9 @@ main_window_shell_activate(GtkApplication *app)
   GMenu *menubar;
   GSimpleAction *inspect_action;
   GSimpleActionGroup *window_actions;
-  WindowData *window_data;
+  MainWindowData *window_data;
 
-  window_data = g_new0(WindowData, 1);
+  window_data = g_new0(MainWindowData, 1);
   window_data->inspector = introspection_inspector_pane_new();
 
   window = gtk_application_window_new(app);

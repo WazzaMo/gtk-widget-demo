@@ -10,8 +10,18 @@
 
 #include <gtk/gtk.h>
 
+/**
+ * Register application-level actions for the main window shell.
+ * @param app the GTK application
+ * @return none
+ */
 void main_window_shell_startup(GtkApplication *app);
 
+/**
+ * Create and present the main application window.
+ * @param app the GTK application
+ * @return none
+ */
 void main_window_shell_activate(GtkApplication *app);
 
 #endif

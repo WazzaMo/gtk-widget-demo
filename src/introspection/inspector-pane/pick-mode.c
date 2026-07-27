@@ -5,8 +5,9 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
-#include "introspection/inspector-pane.h"
+#include <gtk/gtk.h>
 
+#include "introspection/inspector-pane/inspector-pane-private.h"
 #include "introspection/inspector-pane/pick-mode.h"
 
 static void

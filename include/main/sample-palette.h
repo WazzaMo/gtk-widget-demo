@@ -10,6 +10,10 @@
 
 #include <gtk/gtk.h>
 
+/**
+ * Build the sample widget palette used for introspection demos.
+ * @return a new palette widget
+ */
 GtkWidget *main_sample_palette_new(void);
 
 #endif
