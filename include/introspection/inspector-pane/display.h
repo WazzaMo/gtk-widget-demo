@@ -10,6 +10,12 @@
 
 #include "introspection/inspector-pane/inspector-pane-private.h"
 
+/**
+ * Inspector pane initializer that writes a helpful message into
+ * the inspector pane.
+ * @param pane the pane object to populate
+ * @return none
+ */
 void introspection_inspector_pane_display_set_initial_text(
   IntrospectionInspectorPane *pane);
 
