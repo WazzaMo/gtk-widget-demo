@@ -71,6 +71,17 @@ Inspector alongside the in-app pane:
 See [GTK running and debugging](https://docs.gtk.org/gtk4/running.html) in the
 upstream GTK documentation.
 
+## VScode
+
+This project uses **Meson** for build and VScode works better if you install the Meson
+VScode extension. It is described as **Meson language support for Visual Studio Code.**
+
+| Item      | Value from Extension  |
+|-----------|-----------------------|
+| Identifier| mesonbuild.mesonbuild |
+| Version   | 1.28.2 or better      |
+
+
 # Documents to note
 
 - [Documentation standard](docs/doc-guide.md)
