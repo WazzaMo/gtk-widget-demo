@@ -14,20 +14,22 @@ See [README.md](./README.md) for overview and upstream GTK references.
 ## Current state
 
 Feature 1 (base application) is **complete**. Feature 2 (GObject introspection) is
-**complete**. Feature 3 (widget gallery) is **draft** — spec and plan notes are
-written; implementation has not started.
+**complete**. Feature 3 (widget gallery) is **complete** — gallery navigation,
+14 initial demos, content-mode switching, and tests under `test/gallery/`.
 
-The repository has a runnable Meson/GTK4 app with an in-app introspection pane,
-a sample widget palette, and unit tests. Next work is the `gallery` code group
-per [feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md).
+The repository has a runnable Meson/GTK4 app with a widget gallery (default
+content), an in-app introspection pane, a sample widget palette, and unit tests.
+Follow-on work can extend the gallery catalog beyond the initial 14 demos per
+[feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md).
 
 | Present | Not yet present |
 |---------|-----------------|
-| `docs/` conventions and feature specs (Features 1–3) | `gallery` group and widget gallery demos |
-| Meson build and GTK4 executable | Full visual-index catalog |
-| `src/main.c` entry point; `src/main/` shell units | `docs/stories/` (planned, unused) |
+| `docs/` conventions and feature specs (Features 1–3) | Full visual-index catalog |
+| Meson build and GTK4 executable | `docs/stories/` (planned, unused) |
+| `src/main.c` entry point; `src/main/` shell units | |
+| `src/gallery/` gallery framework and initial demos | |
 | `src/introspection/` introspection units | |
-| `test/introspection/` unit tests | |
+| `test/introspection/` and `test/gallery/` unit tests | |
 
 When adding code, follow the layout and decisions below before inventing new
 structure.
@@ -117,20 +119,20 @@ Delivered as of 2026-07-23:
 See [2026-07-23-coding-feature-2-gobject-introspection.md](./docs/notes/2026-07-23-coding-feature-2-gobject-introspection.md)
 for delivery details and post-delivery refactors.
 
-## Feature 3 (draft)
+## Feature 3 (complete)
 
 Acceptance criteria are in
 [feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md).
-Spec dated 2026-07-26; not yet implemented.
+Delivered as of 2026-07-29:
 
-1. `gallery` group — navigation shell, demo registry, category demo units.
+1. `gallery` group — navigation shell, demo registry, demo page chrome, category demo units.
 2. **View → Widget gallery** (default) and **View → Sample palette** content modes.
 3. Initial set of 14 demos across five visual-index categories.
-4. Tests under `test/gallery/`; README updated when shipped.
+4. Tests under `test/gallery/` via `meson test -C build`; README updated.
 
-Open decisions (window title, sidebar widget, stories granularity) are in
-[2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md).
-Resolve or defer before or during implementation.
+Open decisions (window title, sidebar widget, stories granularity) remain in
+[2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md)
+for follow-on refinement.
 
 ## Documentation naming (summary)
 

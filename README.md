@@ -40,6 +40,36 @@ meson test -C build
 Re-run `meson compile -C build` after changing source files. Re-run
 `meson setup build` when `meson.build` changes.
 
+# Widget gallery
+
+The application opens on the **widget gallery** by default — a navigable set of
+runnable demos aligned with the upstream
+[GTK4 Widget Gallery](https://docs.gtk.org/gtk4/visual_index.html).
+
+## Browse demos
+
+1. Run `./build/gtk-widget-demo`.
+
+2. Use the sidebar to pick a category (Display widgets, Buttons, Entries,
+   Containers, or Windows) and a demo entry (for example **GtkSwitch**).
+
+3. The content area shows the demo page with a short description, a link to
+   the matching GTK documentation, and the runnable widget example.
+
+4. Windows-category demos (**GtkAboutDialog**, **GtkMessageDialog**) open from
+   a **Show …** button on the demo page.
+
+## Switch content mode
+
+Use the **View** menu to switch between:
+
+- **Widget gallery** — visual-index demos (default on startup)
+
+- **Sample palette** — the compact Feature 2 control grid for quick inspect
+  practice across several widgets on one screen
+
+Only one content mode is visible at a time.
+
 # GObject introspection
 
 The application includes a read-only introspection pane for exploring GObject
@@ -52,8 +82,8 @@ types on widgets in the window.
 2. Choose **View → Inspect widget** to enable pick mode (the cursor becomes a
    crosshair over the main window).
 
-3. Click a widget — for example a control in the sample palette, the menu bar,
-   or a container — to show its GType name, ancestry, interfaces, properties,
+3. Click a widget — for example a control in the widget gallery, the sample
+   palette, the menu bar, or a container — to show its GType name, ancestry, interfaces, properties,
    and signals in the side pane.
 
 4. Toggle **View → Inspect widget** off, or press Escape, to interact with

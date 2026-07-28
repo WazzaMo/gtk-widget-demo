@@ -34,7 +34,8 @@ main_sample_palette_new(void)
   gtk_widget_set_valign(palette, GTK_ALIGN_START);
 
   heading = gtk_label_new(
-    "Sample palette — use View → Inspect widget, then click a control.");
+    "Sample palette — switch to Widget gallery from the View menu, "
+    "or use Inspect widget and click a control.");
   gtk_label_set_xalign(GTK_LABEL(heading), 0.0f);
   gtk_widget_set_hexpand(heading, TRUE);
   gtk_grid_attach(GTK_GRID(palette), heading, 0, 0, 2, 1);

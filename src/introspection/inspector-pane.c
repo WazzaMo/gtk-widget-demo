@@ -61,11 +61,8 @@ introspection_inspector_pane_free(IntrospectionInspectorPane *pane)
   introspection_inspector_pane_selection_clear(pane);
   g_weak_ref_clear(&pane->selected_widget);
 
-  if (pane->pick_gesture != NULL)
-    g_object_unref(pane->pick_gesture);
-
-  if (pane->pick_key_controller != NULL)
-    g_object_unref(pane->pick_key_controller);
+  g_clear_object(&pane->pick_gesture);
+  g_clear_object(&pane->pick_key_controller);
 
   g_free(pane);
 }

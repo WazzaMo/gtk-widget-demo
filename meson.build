@@ -11,6 +11,17 @@ main_sources = files(
   'src/main/window-shell.c',
 )
 
+gallery_sources = files(
+  'src/gallery/button-demos.c',
+  'src/gallery/container-demos.c',
+  'src/gallery/demo-page.c',
+  'src/gallery/demo-registry.c',
+  'src/gallery/display-demos.c',
+  'src/gallery/entry-demos.c',
+  'src/gallery/gallery-shell.c',
+  'src/gallery/window-demos.c',
+)
+
 introspection_core_sources = files(
   'src/introspection/type-ancestry.c',
   'src/introspection/property-list.c',
@@ -27,6 +38,7 @@ introspection_sources = introspection_core_sources + files(
 executable('gtk-widget-demo',
   'src/main.c',
   main_sources,
+  gallery_sources,
   introspection_sources,
   include_directories : inc,
   dependencies : gtk4_dep,
@@ -53,6 +65,32 @@ test_introspection_signal_list = executable('test-introspection-signal-list',
   dependencies : gtk4_dep,
   install : false)
 
+gallery_test_sources = files(
+  'src/gallery/button-demos.c',
+  'src/gallery/container-demos.c',
+  'src/gallery/demo-page.c',
+  'src/gallery/demo-registry.c',
+  'src/gallery/display-demos.c',
+  'src/gallery/entry-demos.c',
+  'src/gallery/window-demos.c',
+)
+
+test_gallery_demo_registry = executable('test-gallery-demo-registry',
+  'test/gallery/demo-registry.c',
+  gallery_test_sources,
+  include_directories : inc,
+  dependencies : gtk4_dep,
+  install : false)
+
+test_gallery_demo_builders = executable('test-gallery-demo-builders',
+  'test/gallery/demo-builders.c',
+  gallery_test_sources,
+  include_directories : inc,
+  dependencies : gtk4_dep,
+  install : false)
+
 test('introspection-type-ancestry', test_introspection_type_ancestry)
 test('introspection-property-list', test_introspection_property_list)
 test('introspection-signal-list', test_introspection_signal_list)
+test('gallery-demo-registry', test_gallery_demo_registry)
+test('gallery-demo-builders', test_gallery_demo_builders)

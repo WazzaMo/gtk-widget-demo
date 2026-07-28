@@ -7,11 +7,11 @@ Contribution to this project is supported and contributors will be recognised.
 
 # Status
 
-Draft — 2026-07-26.
+Complete — 2026-07-29.
 
 Defines navigable widget demos aligned with the upstream
 [GTK4 Widget Gallery](https://docs.gtk.org/gtk4/visual_index.html). Implementation
-has not started.
+delivers the gallery framework and initial demo set on branch `wm/feature-3`.
 
 Builds on the Feature 1 shell and Feature 2 introspection pane. Adds a structured
 gallery as default content. The user switches to the Feature 2 sample palette or
