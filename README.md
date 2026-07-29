@@ -26,6 +26,11 @@ sudo apt install build-essential meson ninja-build libgtk-4-dev
 You also need a working C compiler, Meson, Ninja, and pkg-config (included in
 the packages above).
 
+## Handling library versions in code
+
+The file `include/gtk-version.h` is a local file that include GTK-4.0 and LIB-2.0
+as specific versions and is the one place to change for other library versions.
+
 ## Configure, compile, and run
 
 From the repository root:
