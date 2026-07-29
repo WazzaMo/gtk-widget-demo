@@ -51,6 +51,13 @@ __build_gtk_check_button(GtkWindow *parent_window)
   return check;
 }
 
+/*
+ * Returns the demo widget only. Page chrome (title, frame, full-width wrapper)
+ * and default sizing (hexpand FALSE, halign CENTER when still FILL) are applied
+ * in gallery_demo_page_new() — see demo-page.c. Set halign here to override
+ * centre/start/end placement within that wrapper; see docs/notes/2026-07-30-plan-
+ * widget-align-natural-size.md.
+ */
 static GtkWidget *
 __build_gtk_switch(GtkWindow *parent_window)
 {

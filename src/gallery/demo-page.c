@@ -74,9 +74,23 @@ gallery_demo_page_new(const char *title,
 
   if (content != NULL)
     {
+      GtkWidget *content_area;
+
+      gtk_widget_set_hexpand(content, FALSE);
+      gtk_widget_set_vexpand(content, FALSE);
+      if (gtk_widget_get_halign(content) == GTK_ALIGN_FILL)
+        gtk_widget_set_halign(content, GTK_ALIGN_CENTER);
+
+      content_area = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+      gtk_widget_set_halign(content_area, GTK_ALIGN_FILL);
+      gtk_widget_set_hexpand(content_area, TRUE);
+      gtk_widget_set_valign(content_area, GTK_ALIGN_START);
+      gtk_widget_set_vexpand(content_area, FALSE);
+      gtk_box_append(GTK_BOX(content_area), content);
+
       content_frame = gtk_frame_new(NULL);
       gtk_widget_set_margin_top(content_frame, 8);
-      gtk_frame_set_child(GTK_FRAME(content_frame), content);
+      gtk_frame_set_child(GTK_FRAME(content_frame), content_area);
       gtk_box_append(GTK_BOX(page), content_frame);
     }
 
