@@ -8,7 +8,7 @@
 #ifndef MAIN_WINDOW_SHELL_H
 #define MAIN_WINDOW_SHELL_H
 
-#include <gtk/gtk.h>
+#include <gtk-4.0/gtk/gtk.h>
 
 /**
  * Register application-level actions for the main window shell.
