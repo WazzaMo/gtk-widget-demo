@@ -5,7 +5,8 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
-#include <gtk/gtk.h>
+#include "gtk-version.h"
+
 
 #include "gallery/window-demos.h"
 

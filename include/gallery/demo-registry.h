@@ -8,8 +8,8 @@
 #ifndef GALLERY_DEMO_REGISTRY_H
 #define GALLERY_DEMO_REGISTRY_H
 
-#include <glib.h>
-#include <gtk/gtk.h>
+#include "gtk-version.h"
+
 
 typedef GtkWidget *(*GalleryDemoContentFunc)(GtkWindow *parent_window);
 

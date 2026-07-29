@@ -8,7 +8,7 @@
 #ifndef INTROSPECTION_INSPECTOR_PANE_H
 #define INTROSPECTION_INSPECTOR_PANE_H
 
-#include <gtk/gtk.h>
+#include "gtk-version.h"
 
 typedef struct _IntrospectionInspectorPane IntrospectionInspectorPane;
 

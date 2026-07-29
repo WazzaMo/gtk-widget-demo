@@ -8,7 +8,7 @@
 #ifndef GALLERY_GALLERY_SHELL_H
 #define GALLERY_GALLERY_SHELL_H
 
-#include <gtk/gtk.h>
+#include "gtk-version.h"
 
 /**
  * Build the widget gallery navigation shell and demo stack.

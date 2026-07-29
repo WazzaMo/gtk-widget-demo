@@ -4,11 +4,10 @@
  *
  * Licensed under the Apache License, Version 2.0.
  */
+#include "gtk-version.h"
 
 #ifndef GALLERY_DEMO_PAGE_H
 #define GALLERY_DEMO_PAGE_H
-
-#include <gtk/gtk.h>
 
 /**
  * Build a demo page with title, description, upstream link, and content area.

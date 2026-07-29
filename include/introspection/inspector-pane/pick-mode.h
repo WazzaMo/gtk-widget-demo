@@ -8,7 +8,7 @@
 #ifndef INTROSPECTION_INSPECTOR_PANE_PICK_MODE_H
 #define INTROSPECTION_INSPECTOR_PANE_PICK_MODE_H
 
-#include <gtk/gtk.h>
+#include "gtk-version.h"
 
 #include "introspection/inspector-pane.h"
 
