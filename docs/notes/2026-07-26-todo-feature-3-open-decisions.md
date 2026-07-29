@@ -5,17 +5,19 @@
 (c) Copyright 2026 onwards Warwick Molloy.
 Contribution to this project is supported and contributors will be recognised.
 
+# Status
+
+Closed — 2026-07-29. All three items below were resolved during Feature 3
+implementation on branch `wm/feature-3`. See [Resolution summary](#resolution-summary).
+
 # Context
 
 [Feature 3 Widget Gallery](../features/feature-3-widget-gallery.md) design
 decisions 1–6 are resolved in dated plan notes under `docs/notes/`. Three items
-remain open before or during implementation.
+were open before implementation; this **todo** note captured options and
+follow-up questions until each was closed at delivery.
 
-This **todo** note captures options and follow-up questions so implementation can
-proceed once each item is closed. Update this note or replace sections with
-resolved plan notes when decisions are made.
-
-Resolved decisions for reference:
+Resolved design decisions for reference:
 
 | # | Topic | Note |
 |---|-------|------|
@@ -25,6 +27,14 @@ Resolved decisions for reference:
 | 4 | Reuse introspection | [2026-07-26-plan-feature-3-reuse-introspection.md](./2026-07-26-plan-feature-3-reuse-introspection.md) |
 | 5 | One widget per page | [2026-07-26-plan-feature-3-one-widget-per-demo-page.md](./2026-07-26-plan-feature-3-one-widget-per-demo-page.md) |
 | 6 | Modal window demos | [2026-07-26-plan-feature-3-modal-dialogs-window-types.md](./2026-07-26-plan-feature-3-modal-dialogs-window-types.md) |
+
+Resolved at delivery (formerly open in this note):
+
+| # | Topic | Resolution |
+|---|-------|------------|
+| 7 | Window title | Static **GTK Widget Demo** (`window-shell.c`) |
+| 8 | Sidebar widget | `GtkListBox` with unselectable category header rows (`gallery-shell.c`) |
+| 9 | Implementation stories | Feature spec only; no `docs/stories/` entries |
 
 # Open decision 1 — Window title
 
@@ -62,16 +72,16 @@ mode.
 | Balance | App identity preserved; gallery browsing gains context |
 | Cost | Slightly more state wiring in `window-shell.c` |
 
-## Follow up
+## Resolution
 
-1. Choose static, dynamic, or hybrid before `gallery-shell` wires selection signals.
+**Static title — GTK Widget Demo.** `gtk_window_set_title()` in `window-shell.c`
+sets a fixed title on startup. The title does not change when switching demos or
+content modes. Matches the suggested default in the resolution order below.
 
-2. If dynamic, define format (prefix vs suffix) and whether category name appears
-   (for example `Buttons — GtkSwitch`).
+Dynamic or hybrid titles remain a follow-on UX refinement if user feedback
+favours more context in the window list or task switcher.
 
-3. Update feature spec shell table and README once resolved.
-
-**Status:** unresolved.
+**Status:** resolved — static title at delivery (2026-07-29).
 
 # Open decision 2 — Sidebar widget choice
 
@@ -109,18 +119,18 @@ Grouped sections can use separators, labels, or unselectable header rows.
 |-----------|--------|
 | Complexity | More model and selection code for Feature 3’s first pass |
 
-## Follow up
+## Resolution
 
-1. Prototype or sketch layout with 14 demos and five categories.
+**`GtkListBox` with category headers.** `gallery-shell.c` builds one flat
+`GtkListBox`: unselectable header rows per visual-index category (CSS class
+`heading`), then selectable demo rows indented under each header. Demo selection
+drives a `GtkStack` of demo pages. No separate plan note was added; the
+implementation is the record.
 
-2. Prefer the **simplest widget that reads well at 14 demos and scales to dozens**
-   (wording from the feature spec).
+Revisit nested list or tree widgets if the catalog grows large enough that a
+single flat list becomes hard to scan.
 
-3. Record choice in a short plan note; reference from feature spec and
-   `gallery-shell` header comment.
-
-**Status:** unresolved. Lean for discussion: **`GtkListBox` with category headers**
-unless scaling concerns favour a tree early.
+**Status:** resolved — `GtkListBox` with category headers at delivery (2026-07-29).
 
 # Open decision 3 — Implementation stories
 
@@ -172,27 +182,34 @@ story files.
 |---------|--------|
 | Balance | Documents the critical path without N story files for N widgets |
 
-## Follow up
+## Resolution
 
-1. Decide whether to create `docs/stories/` entries before the first gallery merge.
+**Implement from feature spec only (no stories yet).** Feature 3 shipped from
+[feature-3-widget-gallery.md](../features/feature-3-widget-gallery.md) and the
+dated plan notes without creating `docs/stories/` entries. Work landed on branch
+`wm/feature-3` with incremental commits rather than story-scoped PRs.
 
-2. If yes, agree story naming (`story-feature-3-…`) and which units belong in
-   story 1 (framework) vs story 2 (demos + tests).
+Use stories for the next large feature or when multiple contributors need
+parallel, reviewable slices; establish the story template from
+[doc-guide.md](../doc-guide.md) on first use.
 
-3. Establish story file template from [doc-guide.md](../doc-guide.md) on first use.
+**Status:** resolved — feature spec only at delivery (2026-07-29).
 
-**Status:** unresolved. Recommended direction from feature spec: **split stories
-before coding**, but exact granularity still to agree.
+# Resolution summary
 
-# Suggested resolution order
+All three formerly open decisions were closed during Feature 3 delivery
+(2026-07-29):
 
-1. **Stories** — determines how implementation is chunked (can be decided in one
-   planning pass).
+1. **Window title** — static **GTK Widget Demo** (default suggested before merge).
 
-2. **Sidebar widget** — blocks `gallery-shell` layout.
+2. **Sidebar widget** — `GtkListBox` with unselectable category header rows and
+   selectable demo rows.
 
-3. **Window title** — can default to static for first merge and revisit if UX
-   feedback favours dynamic titles.
+3. **Stories** — no `docs/stories/` split; implementation followed the feature
+   spec and plan notes.
+
+Follow-on refinements (dynamic title, tree sidebar, story files for catalog
+expansion) are optional and not blockers for Feature 3 acceptance.
 
 # References
 

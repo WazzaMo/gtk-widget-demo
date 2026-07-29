@@ -42,8 +42,8 @@ structure.
 | C layout, groups, units, tests | [docs/c-code-standard.md](./docs/c-code-standard.md) |
 | First deliverable | [docs/features/feature-1-base-application.md](./docs/features/feature-1-base-application.md) |
 | GObject introspection | [docs/features/feature-2-gobject-introspection.md](./docs/features/feature-2-gobject-introspection.md) |
-| Widget gallery (draft) | [docs/features/feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md) |
-| Feature 3 open decisions | [docs/notes/2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md) |
+| Widget gallery | [docs/features/feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md) |
+| Feature 3 delivery decisions | [docs/notes/2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md) |
 | Build system choice | [docs/notes/2026-07-16-plan-gtk-build-systems.md](./docs/notes/2026-07-16-plan-gtk-build-systems.md) |
 
 ## Key decisions
@@ -130,9 +130,10 @@ Delivered as of 2026-07-29:
 3. Initial set of 14 demos across five visual-index categories.
 4. Tests under `test/gallery/` via `meson test -C build`; README updated.
 
-Open decisions (window title, sidebar widget, stories granularity) remain in
-[2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md)
-for follow-on refinement.
+Delivery decisions (closed 2026-07-29): static window title **GTK Widget Demo**;
+`GtkListBox` sidebar with category headers; no `docs/stories/` split — see
+[2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md).
+Follow-on work extends the gallery catalog beyond the initial 14 demos.
 
 ## Documentation naming (summary)
 
