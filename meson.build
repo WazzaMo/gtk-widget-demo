@@ -7,6 +7,7 @@ gtk4_dep = dependency('gtk4', include_type: 'system')
 inc = include_directories('include')
 
 main_sources = files(
+  'src/main/about-dialog.c',
   'src/main/sample-palette.c',
   'src/main/window-shell.c',
 )

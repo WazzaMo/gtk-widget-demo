@@ -9,6 +9,7 @@
 
 #include "gallery/gallery-shell.h"
 #include "introspection.h"
+#include "main/about-dialog.h"
 #include "main/sample-palette.h"
 #include "main/window-shell.h"
 
@@ -92,6 +93,8 @@ main_window_shell_startup(GtkApplication *app)
   g_signal_connect(quit_action, "activate", G_CALLBACK(__quit_activated), app);
   g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(quit_action));
   g_object_unref(quit_action);
+
+  main_about_dialog_register_action(app);
 }
 
 void
@@ -107,6 +110,7 @@ main_window_shell_activate(GtkApplication *app)
   GtkWidget *inspector_widget;
   GMenu *file_menu;
   GMenu *view_menu;
+  GMenu *help_menu;
   GMenu *menubar;
   GSimpleAction *inspect_action;
   GSimpleAction *content_mode_action;
@@ -157,9 +161,13 @@ main_window_shell_activate(GtkApplication *app)
                 "win.content-mode::sample-palette");
   g_menu_append(view_menu, "Inspect widget", "win.inspect");
 
+  help_menu = g_menu_new();
+  g_menu_append(help_menu, "About", "app.about");
+
   menubar = g_menu_new();
   g_menu_append_submenu(menubar, "File", G_MENU_MODEL(file_menu));
   g_menu_append_submenu(menubar, "View", G_MENU_MODEL(view_menu));
+  g_menu_append_submenu(menubar, "Help", G_MENU_MODEL(help_menu));
 
   menubar_widget = gtk_popover_menu_bar_new_from_model(G_MENU_MODEL(menubar));
 
@@ -206,6 +214,7 @@ main_window_shell_activate(GtkApplication *app)
 
   g_object_unref(file_menu);
   g_object_unref(view_menu);
+  g_object_unref(help_menu);
   g_object_unref(menubar);
 
   gtk_window_present(GTK_WINDOW(window));
