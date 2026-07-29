@@ -101,10 +101,22 @@ __on_pick_pressed(GtkGestureClick *gesture,
   introspection_inspector_pane_inspect_widget(pane, picked);
 }
 
+static void
+__cancel_exit_pick_mode_idle(IntrospectionInspectorPane *pane)
+{
+  if (pane->exit_pick_mode_idle_id == 0)
+    return;
+
+  g_source_remove(pane->exit_pick_mode_idle_id);
+  pane->exit_pick_mode_idle_id = 0;
+}
+
 static gboolean
 __exit_pick_mode_idle(gpointer user_data)
 {
   IntrospectionInspectorPane *pane = user_data;
+
+  pane->exit_pick_mode_idle_id = 0;
 
   if (pane->exit_pick_mode_func != NULL)
     pane->exit_pick_mode_func(pane->exit_pick_mode_data);
@@ -128,8 +140,13 @@ __on_pick_root_key_pressed(GtkEventControllerKey *controller,
   if (!pane->pick_mode || keyval != GDK_KEY_Escape)
     return FALSE;
 
-  if (pane->exit_pick_mode_func != NULL)
-    g_idle_add(__exit_pick_mode_idle, pane);
+  if (pane->exit_pick_mode_func == NULL)
+    return TRUE;
+
+  if (pane->exit_pick_mode_idle_id != 0)
+    return TRUE;
+
+  pane->exit_pick_mode_idle_id = g_idle_add(__exit_pick_mode_idle, pane);
 
   return TRUE;
 }
@@ -153,6 +170,7 @@ introspection_inspector_pane_pick_mode_init(IntrospectionInspectorPane *pane)
 void
 introspection_inspector_pane_pick_mode_uninit(IntrospectionInspectorPane *pane)
 {
+  __cancel_exit_pick_mode_idle(pane);
   __remove_pick_controllers(pane);
 }
 
