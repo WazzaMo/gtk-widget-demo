@@ -133,6 +133,10 @@ Delivered as of 2026-07-29:
 Delivery decisions (closed 2026-07-29): static window title **GTK Widget Demo**;
 `GtkListBox` sidebar with category headers; no `docs/stories/` split — see
 [2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md).
+
+See [2026-07-29-coding-feature-3-widget-gallery.md](./docs/notes/2026-07-29-coding-feature-3-widget-gallery.md)
+for delivery details and post-delivery fixes.
+
 Follow-on work extends the gallery catalog beyond the initial 14 demos.
 
 ## Documentation naming (summary)

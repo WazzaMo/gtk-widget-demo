@@ -76,7 +76,7 @@ and **View → Sample palette** (radio group; gallery selected on startup).
 | Escape | Exits pick mode (Feature 2 behaviour preserved) |
 | Layout | Menu bar; gallery or sample palette in main content; introspection pane |
 | Default content | Widget gallery on startup |
-| Title | See [open decisions](../notes/2026-07-26-todo-feature-3-open-decisions.md#open-decision-1--window-title) (static vs dynamic) |
+| Title | Static **GTK Widget Demo** (see [delivery decisions](#delivery-decisions)) |
 
 The introspection pick root continues to cover the menu bar and gallery content
 (the same region as today’s `root_box` in `window-shell.c`).
@@ -420,16 +420,22 @@ The following belong in later features or stories, not Feature 3:
 6. **Large category units:** split into sub-units early if a category file exceeds
    roughly 300–400 lines.
 
-# Open decisions
+# Delivery decisions
 
-Unresolved before or during implementation — options and follow-up in
-[2026-07-26-todo-feature-3-open-decisions.md](../notes/2026-07-26-todo-feature-3-open-decisions.md):
+Three items were open before implementation; all were resolved at delivery
+(2026-07-29). Options and rationale are in
+[2026-07-26-todo-feature-3-open-decisions.md](../notes/2026-07-26-todo-feature-3-open-decisions.md).
+Implementation details are in
+[2026-07-29-coding-feature-3-widget-gallery.md](../notes/2026-07-29-coding-feature-3-widget-gallery.md).
 
-1. **Window title** — static **GTK Widget Demo** vs dynamic title including active demo name.
+| # | Topic | Resolution |
+|---|-------|------------|
+| 1 | Window title | Static **GTK Widget Demo** (`window-shell.c`) |
+| 2 | Sidebar widget | `GtkListBox` with unselectable category header rows (`gallery-shell.c`) |
+| 3 | Implementation stories | Feature spec only; no `docs/stories/` entries |
 
-2. **Sidebar widget choice** — `GtkListBox` vs `GtkColumnView` vs nested `GtkTreeView`.
-
-3. **Stories** — split implementation stories under `docs/stories/` before coding.
+Optional follow-on refinements (dynamic title, tree sidebar, story files for
+catalog expansion) are not blockers for Feature 3 acceptance.
 
 # References
 
@@ -456,6 +462,12 @@ Unresolved before or during implementation — options and follow-up in
 [2026-07-26-plan-feature-3-modal-dialogs-window-types.md](../notes/2026-07-26-plan-feature-3-modal-dialogs-window-types.md)
 
 [2026-07-26-todo-feature-3-open-decisions.md](../notes/2026-07-26-todo-feature-3-open-decisions.md)
+
+[2026-07-29-coding-feature-3-widget-gallery.md](../notes/2026-07-29-coding-feature-3-widget-gallery.md)
+
+[2026-07-29-plan-pick-mode-escape-idle-uaf.md](../notes/2026-07-29-plan-pick-mode-escape-idle-uaf.md)
+
+[2026-07-30-plan-widget-align-natural-size.md](../notes/2026-07-30-plan-widget-align-natural-size.md)
 
 [GTK4 Widget Gallery — visual index](https://docs.gtk.org/gtk4/visual_index.html)
 

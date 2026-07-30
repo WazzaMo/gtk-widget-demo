@@ -211,9 +211,14 @@ All three formerly open decisions were closed during Feature 3 delivery
 Follow-on refinements (dynamic title, tree sidebar, story files for catalog
 expansion) are optional and not blockers for Feature 3 acceptance.
 
+Delivery summary:
+[2026-07-29-coding-feature-3-widget-gallery.md](./2026-07-29-coding-feature-3-widget-gallery.md).
+
 # References
 
 [feature-3-widget-gallery.md](../features/feature-3-widget-gallery.md)
+
+[2026-07-29-coding-feature-3-widget-gallery.md](./2026-07-29-coding-feature-3-widget-gallery.md)
 
 [doc-guide.md](../doc-guide.md)
 
