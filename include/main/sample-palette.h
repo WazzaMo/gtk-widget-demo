@@ -8,8 +8,12 @@
 #ifndef MAIN_SAMPLE_PALETTE_H
 #define MAIN_SAMPLE_PALETTE_H
 
-#include <gtk/gtk.h>
+#include <gtk-4.0/gtk/gtk.h>
 
+/**
+ * Build the sample widget palette used for introspection demos.
+ * @return a new palette widget
+ */
 GtkWidget *main_sample_palette_new(void);
 
 #endif

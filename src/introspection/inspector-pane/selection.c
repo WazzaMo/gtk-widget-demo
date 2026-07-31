@@ -5,13 +5,14 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
-#include "introspection/inspector-pane.h"
+#include "gtk-version.h"
 
 #include "introspection/inspector-pane/display.h"
+#include "introspection/inspector-pane/inspector-pane-private.h"
 #include "introspection/inspector-pane/selection.h"
 
 static void
-on_selected_widget_destroyed(gpointer data, GObject *where_the_object_was)
+__on_selected_widget_destroyed(gpointer data, GObject *where_the_object_was)
 {
   IntrospectionInspectorPane *pane = data;
 
@@ -30,7 +31,7 @@ introspection_inspector_pane_selection_clear(IntrospectionInspectorPane *pane)
   selected = g_weak_ref_get(&pane->selected_widget);
   if (selected != NULL)
     {
-      g_object_weak_unref(selected, on_selected_widget_destroyed, pane);
+      g_object_weak_unref(selected, __on_selected_widget_destroyed, pane);
       g_object_unref(selected);
     }
 
@@ -59,7 +60,7 @@ introspection_inspector_pane_inspect_widget(IntrospectionInspectorPane *pane,
   introspection_inspector_pane_selection_clear(pane);
 
   g_weak_ref_set(&pane->selected_widget, object);
-  g_object_weak_ref(object, on_selected_widget_destroyed, pane);
+  g_object_weak_ref(object, __on_selected_widget_destroyed, pane);
 
   if (previous != NULL)
     g_object_unref(previous);

@@ -5,6 +5,8 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
+#include "gtk-version.h"
+
 #include "main/sample-palette.h"
 
 GtkWidget *
@@ -32,7 +34,8 @@ main_sample_palette_new(void)
   gtk_widget_set_valign(palette, GTK_ALIGN_START);
 
   heading = gtk_label_new(
-    "Sample palette — use View → Inspect widget, then click a control.");
+    "Sample palette — switch to Widget gallery from the View menu, "
+    "or use Inspect widget and click a control.");
   gtk_label_set_xalign(GTK_LABEL(heading), 0.0f);
   gtk_widget_set_hexpand(heading, TRUE);
   gtk_grid_attach(GTK_GRID(palette), heading, 0, 0, 2, 1);
@@ -48,6 +51,8 @@ main_sample_palette_new(void)
   gtk_grid_attach(GTK_GRID(palette), entry, 0, 2, 2, 1);
 
   switch_widget = gtk_switch_new();
+  gtk_widget_set_halign(switch_widget, GTK_ALIGN_START);
+  gtk_widget_set_hexpand(switch_widget, FALSE);
   gtk_grid_attach(GTK_GRID(palette), switch_widget, 0, 3, 1, 1);
 
   scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);

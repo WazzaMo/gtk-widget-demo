@@ -67,14 +67,14 @@ a window and a **File → Exit** menu so later features can add demo groups unde
 Meson is the build system (see the
 [build-system plan note](../notes/2026-07-16-plan-gtk-build-systems.md)).
 
-| Requirement     | Detail                                              |
-|-----------------|-----------------------------------------------------|
-| Root build file | `meson.build` at repository root                    |
-| GTK dependency  | `dependency('gtk4', include_type: 'system')`        |
-| Warnings        | `warning_level=3` (`-Wpedantic` on project code)    |
-| Backend         | Ninja (Meson default)                               |
-| Executable      | One target built from `src/main.c`                  |
-| Project name    | `gtk-widget-demo` (Meson `project()` name)          |
+| Requirement     | Detail |
+| --------------- | --- |
+| Root build file | `meson.build` at repository root |
+| GTK dependency  | `dependency('gtk4', include_type: 'system')` |
+| Warnings        | `warning_level=3` (`-Wpedantic` on project code) |
+| Backend         | Ninja (Meson default) |
+| Executable      | One target built from `src/main.c` |
+| Project name    | `gtk-widget-demo` (Meson `project()` name) |
 
 Expected contributor workflow on Linux:
 
@@ -86,12 +86,12 @@ meson compile -C build
 
 ## Application behaviour
 
-| Requirement   | Detail |
-|---------------|--------|
-| Toolkit       | GTK4 (`GtkApplication` or equivalent) |
-| Window        | At least one top-level window with a sensible default title |
-| Menu          | **File → Exit** wired to quit the application |
-| Entry point   | `src/main.c` only; no business logic buried in build files |
+| Requirement | Detail |
+| ----------- | --- |
+| Toolkit     | GTK4 (`GtkApplication` or equivalent) |
+| Window      | At least one top-level window with a sensible default title |
+| Menu        | **File → Exit** wired to quit the application |
+| Entry point | `src/main.c` only; no business logic buried in build files |
 
 For Feature 1, application logic may live entirely in `src/main.c`. Separate
 groups under `src/<GROUP>/` are expected in later features but are not required
@@ -100,7 +100,7 @@ here unless they improve clarity without expanding scope.
 ## Documentation
 
 | Requirement | Detail |
-|-------------|--------|
+| ----------- | --- |
 | README      | Prerequisites (compiler, Meson, Ninja, GTK4 dev packages) |
 | README      | Configure, build, and run commands |
 | Copyright   | New source files carry the project copyright notice |
@@ -127,14 +127,14 @@ The following belong in later features, not Feature 1:
 
 Implementation matches the acceptance criteria with these specifics:
 
-| Item | Detail |
-|------|--------|
+| Item        | Detail |
+| ----------- | --- |
 | Application | `GtkApplication` with ID `com.example.gtk-widget-demo` |
-| Window | Title **GTK Widget Demo**, default size 640×480 |
-| Menu | `GtkPopoverMenuBar` with `GMenu` (**File → Exit** → `app.quit`) |
+| Window      | Title **GTK Widget Demo**, default size 640×480 |
+| Menu        | `GtkPopoverMenuBar` with `GMenu` (**File → Exit** → `app.quit`) |
 | Quit action | `GSimpleAction` registered on `startup` |
 | Entry point | All logic in `src/main.c` (no groups yet) |
-| Install | `install: false` on the executable target |
+| Install     | `install: false` on the executable target |
 
 GTK headers are included as system headers (`include_type: 'system'`) so
 `-Wpedantic` warnings from GLib/GTK macro expansions are suppressed while

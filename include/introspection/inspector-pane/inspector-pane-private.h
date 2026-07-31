@@ -19,6 +19,7 @@ struct _IntrospectionInspectorPane
   GtkEventController *pick_key_controller;
   IntrospectionExitPickModeFunc exit_pick_mode_func;
   gpointer exit_pick_mode_data;
+  guint exit_pick_mode_idle_id;
   GWeakRef selected_widget;
   gboolean pick_mode;
 };

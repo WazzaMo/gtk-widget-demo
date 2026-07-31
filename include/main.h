@@ -8,6 +8,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include "main/about-dialog.h"
 #include "main/sample-palette.h"
 #include "main/window-shell.h"
 

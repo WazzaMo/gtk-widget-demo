@@ -5,8 +5,10 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
-#include "introspection/inspector-pane/display.h"
+#include "gtk-version.h"
 
+#include "introspection/inspector-pane/display.h"
+#include "introspection/inspector-pane/inspector-pane-private.h"
 #include "introspection/property-list.h"
 #include "introspection/signal-list.h"
 #include "introspection/type-ancestry.h"

@@ -5,6 +5,8 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
+#include <glib-object.h>
+
 #include "introspection/type-ancestry.h"
 
 gchar *

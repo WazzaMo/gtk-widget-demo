@@ -19,11 +19,11 @@ Three options were compared: Meson, CMake, and GNU make.
 
 # Summary
 
-| System    | Cross-platform | GTK alignment | Maintenance |
-|-----------|----------------|---------------|-------------|
-| Meson     | Strong         | Best          | Low         |
-| CMake     | Strongest      | Good          | Low         |
-| GNU make  | Linux-first    | Legacy        | High        |
+| System   | Cross-platform | GTK alignment | Maintenance |
+| -------- | -------------- | ------------- | --- |
+| Meson    | Strong         | Best          | Low |
+| CMake    | Strongest      | Good          | Low |
+| GNU make | Linux-first    | Legacy        | High |
 
 Meson and CMake are both viable for a cross-platform GTK4 demo.
 GNU make is acceptable only when the project scope is Linux-only (or
@@ -56,12 +56,12 @@ Meson is the build system used by GTK4, GLib, and most modern GNOME projects.
 
 ## Platform fit
 
-| Platform          | Fit        |
-|-------------------|------------|
-| Linux             | Excellent  |
-| macOS             | Excellent  |
-| Windows (MSYS2)   | Very good  |
-| Windows (MSVC)    | Awkward    |
+| Platform        | Fit |
+| --------------- | --- |
+| Linux           | Excellent |
+| macOS           | Excellent |
+| Windows (MSYS2) | Very good |
+| Windows (MSVC)  | Awkward |
 
 ## Getting started
 
@@ -77,11 +77,11 @@ Ninja executes them.
 
 ## Role in this stack
 
-| Layer   | Responsibility                              |
-|---------|---------------------------------------------|
-| Meson   | Project description, dependencies, targets  |
-| Ninja   | Dependency graph, incremental rebuilds      |
-| Compiler| C source to object files and executables    |
+| Layer    | Responsibility |
+| -------- | --- |
+| Meson    | Project description, dependencies, targets |
+| Ninja    | Dependency graph, incremental rebuilds |
+| Compiler | C source to object files and executables |
 
 Meson uses Ninja as its default backend. After setup, day-to-day builds are
 typically:
@@ -157,12 +157,12 @@ CMake is the most widely used cross-platform build system for C and C++ projects
 
 ## Platform fit
 
-| Platform          | Fit        |
-|-------------------|------------|
-| Linux             | Excellent  |
-| macOS             | Excellent  |
-| Windows (MSYS2)   | Very good  |
-| Windows (MSVC)    | Feasible   |
+| Platform        | Fit |
+| --------------- | --- |
+| Linux           | Excellent |
+| macOS           | Excellent |
+| Windows (MSYS2) | Very good |
+| Windows (MSVC)  | Feasible |
 
 # GNU make
 
@@ -190,20 +190,20 @@ Plain GNU make with hand-written rules is the simplest option on Linux.
 
 ## Platform fit
 
-| Platform          | Fit        |
-|-------------------|------------|
-| Linux             | Excellent  |
-| macOS             | Good       |
-| Windows (MSYS2)   | Good       |
-| Windows (native)  | Poor       |
+| Platform         | Fit |
+| ---------------- | --- |
+| Linux            | Excellent |
+| macOS            | Good |
+| Windows (MSYS2)  | Good |
+| Windows (native) | Poor |
 
 # GTK-specific factors
 
 | Factor                     | Meson    | CMake   | GNU make |
-|----------------------------|----------|---------|----------|
-| Matches GTK4 upstream      | Yes      | No      | No       |
-| pkg-config integration     | Built-in | modular | Manual   |
-| GNOME doc examples         | Primary  | Common  | Legacy   |
+| -------------------------- | -------- | ------- | --- |
+| Matches GTK4 upstream      | Yes      | No      | No |
+| pkg-config integration     | Built-in | modular | Manual |
+| GNOME doc examples         | Primary  | Common  | Legacy |
 | Scales with grouped `src/` | Yes      | Yes     | W effort |
 
 All three ultimately invoke the same compiler and link against the same

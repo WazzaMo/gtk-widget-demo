@@ -5,14 +5,15 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
-#include "introspection/inspector-pane.h"
+#include "gtk-version.h"
 
+#include "introspection/inspector-pane/inspector-pane-private.h"
 #include "introspection/inspector-pane/pick-mode.h"
 
 static void
-detach_controller_if_attached(GtkWidget *widget, GtkEventController *controller)
+__detach_controller_if_attached(GtkWidget *widget, GtkEventController *controller)
 {
-  if (widget == NULL || controller == NULL)
+  if (widget == NULL || controller == NULL || !GTK_IS_EVENT_CONTROLLER(controller))
     return;
 
   if (gtk_event_controller_get_widget(controller) == widget)
@@ -20,9 +21,9 @@ detach_controller_if_attached(GtkWidget *widget, GtkEventController *controller)
 }
 
 static void
-attach_controller_if_detached(GtkWidget *widget, GtkEventController *controller)
+__attach_controller_if_detached(GtkWidget *widget, GtkEventController *controller)
 {
-  if (widget == NULL || controller == NULL)
+  if (widget == NULL || controller == NULL || !GTK_IS_EVENT_CONTROLLER(controller))
     return;
 
   if (gtk_event_controller_get_widget(controller) != widget)
@@ -34,29 +35,29 @@ attach_controller_if_detached(GtkWidget *widget, GtkEventController *controller)
 }
 
 static void
-remove_pick_controllers(IntrospectionInspectorPane *pane)
+__remove_pick_controllers(IntrospectionInspectorPane *pane)
 {
   if (pane->pick_root == NULL)
     return;
 
-  detach_controller_if_attached(pane->pick_root,
+  __detach_controller_if_attached(pane->pick_root,
                                 GTK_EVENT_CONTROLLER(pane->pick_gesture));
-  detach_controller_if_attached(pane->pick_root, pane->pick_key_controller);
+  __detach_controller_if_attached(pane->pick_root, pane->pick_key_controller);
 }
 
 static void
-add_pick_controllers(IntrospectionInspectorPane *pane)
+__add_pick_controllers(IntrospectionInspectorPane *pane)
 {
   if (pane->pick_root == NULL)
     return;
 
-  attach_controller_if_detached(pane->pick_root,
+  __attach_controller_if_detached(pane->pick_root,
                                 GTK_EVENT_CONTROLLER(pane->pick_gesture));
-  attach_controller_if_detached(pane->pick_root, pane->pick_key_controller);
+  __attach_controller_if_detached(pane->pick_root, pane->pick_key_controller);
 }
 
 static gboolean
-widget_is_descendant(GtkWidget *widget, GtkWidget *ancestor)
+__widget_is_descendant(GtkWidget *widget, GtkWidget *ancestor)
 {
   while (widget != NULL)
     {
@@ -70,7 +71,7 @@ widget_is_descendant(GtkWidget *widget, GtkWidget *ancestor)
 }
 
 static void
-on_pick_pressed(GtkGestureClick *gesture,
+__on_pick_pressed(GtkGestureClick *gesture,
                 int n_press,
                 double x,
                 double y,
@@ -93,15 +94,38 @@ on_pick_pressed(GtkGestureClick *gesture,
   if (picked == NULL)
     return;
 
-  if (widget_is_descendant(pane->root, picked))
+  if (__widget_is_descendant(pane->root, picked))
     return;
 
   gtk_gesture_set_state(GTK_GESTURE(gesture), GTK_EVENT_SEQUENCE_CLAIMED);
   introspection_inspector_pane_inspect_widget(pane, picked);
 }
 
+static void
+__cancel_exit_pick_mode_idle(IntrospectionInspectorPane *pane)
+{
+  if (pane->exit_pick_mode_idle_id == 0)
+    return;
+
+  g_source_remove(pane->exit_pick_mode_idle_id);
+  pane->exit_pick_mode_idle_id = 0;
+}
+
 static gboolean
-on_pick_root_key_pressed(GtkEventControllerKey *controller,
+__exit_pick_mode_idle(gpointer user_data)
+{
+  IntrospectionInspectorPane *pane = user_data;
+
+  pane->exit_pick_mode_idle_id = 0;
+
+  if (pane->exit_pick_mode_func != NULL)
+    pane->exit_pick_mode_func(pane->exit_pick_mode_data);
+
+  return G_SOURCE_REMOVE;
+}
+
+static gboolean
+__on_pick_root_key_pressed(GtkEventControllerKey *controller,
                          guint keyval,
                          guint keycode,
                          GdkModifierType state,
@@ -116,8 +140,13 @@ on_pick_root_key_pressed(GtkEventControllerKey *controller,
   if (!pane->pick_mode || keyval != GDK_KEY_Escape)
     return FALSE;
 
-  if (pane->exit_pick_mode_func != NULL)
-    pane->exit_pick_mode_func(pane->exit_pick_mode_data);
+  if (pane->exit_pick_mode_func == NULL)
+    return TRUE;
+
+  if (pane->exit_pick_mode_idle_id != 0)
+    return TRUE;
+
+  pane->exit_pick_mode_idle_id = g_idle_add(__exit_pick_mode_idle, pane);
 
   return TRUE;
 }
@@ -129,33 +158,41 @@ introspection_inspector_pane_pick_mode_init(IntrospectionInspectorPane *pane)
   gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(pane->pick_gesture),
                                 GDK_BUTTON_PRIMARY);
   g_signal_connect(pane->pick_gesture, "pressed",
-                   G_CALLBACK(on_pick_pressed), pane);
+                   G_CALLBACK(__on_pick_pressed), pane);
+  g_object_ref(pane->pick_gesture);
 
   pane->pick_key_controller = GTK_EVENT_CONTROLLER(gtk_event_controller_key_new());
   g_signal_connect(pane->pick_key_controller, "key-pressed",
-                   G_CALLBACK(on_pick_root_key_pressed), pane);
+                   G_CALLBACK(__on_pick_root_key_pressed), pane);
+  g_object_ref(pane->pick_key_controller);
 }
 
 void
 introspection_inspector_pane_pick_mode_uninit(IntrospectionInspectorPane *pane)
 {
-  remove_pick_controllers(pane);
+  __cancel_exit_pick_mode_idle(pane);
+  __remove_pick_controllers(pane);
 }
 
 void
 introspection_inspector_pane_set_pick_root(IntrospectionInspectorPane *pane,
                                            GtkWidget *pick_root)
 {
-  gboolean enabled;
-
   if (pane->pick_root == pick_root)
     return;
 
-  remove_pick_controllers(pane);
+  __remove_pick_controllers(pane);
 
   pane->pick_root = pick_root;
-  enabled = pane->pick_mode;
-  introspection_inspector_pane_set_pick_mode(pane, enabled);
+
+  if (pick_root != NULL)
+    __add_pick_controllers(pane);
+
+  if (pick_root == NULL)
+    return;
+
+  gtk_widget_set_cursor_from_name(pick_root,
+                                  pane->pick_mode ? "crosshair" : "default");
 }
 
 void
@@ -177,17 +214,8 @@ introspection_inspector_pane_set_pick_mode(IntrospectionInspectorPane *pane,
   if (pane->pick_root == NULL)
     return;
 
-  remove_pick_controllers(pane);
-
-  if (enabled)
-    {
-      add_pick_controllers(pane);
-      gtk_widget_set_cursor_from_name(pane->pick_root, "crosshair");
-    }
-  else
-    {
-      gtk_widget_set_cursor_from_name(pane->pick_root, "default");
-    }
+  gtk_widget_set_cursor_from_name(pane->pick_root,
+                                  enabled ? "crosshair" : "default");
 }
 
 gboolean

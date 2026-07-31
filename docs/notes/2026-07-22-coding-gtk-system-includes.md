@@ -32,10 +32,10 @@ keeping strict warnings on files under `src/`.
 
 # Alternatives considered
 
-| Approach | Drawback |
-|----------|----------|
-| `-Wno-pedantic` globally | Silences pedantic warnings in project code too |
-| Lower `warning_level` to 2 | Same — removes `-Wpedantic` project-wide |
+| Approach                                               | Drawback |
+| ------------------------------------------------------ | --- |
+| `-Wno-pedantic` globally                               | Silences pedantic warnings in project code too |
+| Lower `warning_level` to 2                             | Same — removes `-Wpedantic` project-wide |
 | `#pragma GCC diagnostic` around `#include <gtk/gtk.h>` | Must repeat in every file that includes GTK |
 
 `include_type: 'system'` is the usual Meson pattern for pkg-config

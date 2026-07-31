@@ -5,12 +5,12 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
-#include <gtk/gtk.h>
+#include "gtk-version.h"
 
 #include "introspection/type-ancestry.h"
 
 static void
-test_gobject_ancestry(void)
+__test_gobject_ancestry(void)
 {
   gchar *chain;
 
@@ -21,7 +21,7 @@ test_gobject_ancestry(void)
 }
 
 static void
-test_gtk_label_ancestry(void)
+__test_gtk_label_ancestry(void)
 {
   gchar *chain;
 
@@ -44,8 +44,8 @@ main(int argc, char *argv[])
   gtk_init();
   g_test_init(&argc, &argv, NULL);
 
-  g_test_add_func("/introspection/type-ancestry/gobject", test_gobject_ancestry);
-  g_test_add_func("/introspection/type-ancestry/gtk-label", test_gtk_label_ancestry);
+  g_test_add_func("/introspection/type-ancestry/gobject", __test_gobject_ancestry);
+  g_test_add_func("/introspection/type-ancestry/gtk-label", __test_gtk_label_ancestry);
 
   status = g_test_run();
 

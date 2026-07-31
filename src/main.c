@@ -5,9 +5,18 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
-#include <gtk/gtk.h>
+#include "gtk-version.h"
 
 #include "main/window-shell.h"
+
+static int
+__on_command_line(GApplication *app, GApplicationCommandLine *command_line)
+{
+  (void) command_line;
+
+  g_application_activate(app);
+  return 0;
+}
 
 int
 main(int argc, char *argv[])
@@ -16,7 +25,8 @@ main(int argc, char *argv[])
   int status;
 
   app = gtk_application_new("com.example.gtk-widget-demo",
-                            G_APPLICATION_DEFAULT_FLAGS);
+                            G_APPLICATION_HANDLES_COMMAND_LINE);
+  g_signal_connect(app, "command-line", G_CALLBACK(__on_command_line), NULL);
   g_signal_connect(app, "startup", G_CALLBACK(main_window_shell_startup), NULL);
   g_signal_connect(app, "activate", G_CALLBACK(main_window_shell_activate), NULL);
 

@@ -5,9 +5,12 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
-#include "introspection/inspector-pane.h"
+#include "gtk-version.h"
 
+
+#include "introspection/inspector-pane.h"
 #include "introspection/inspector-pane/display.h"
+#include "introspection/inspector-pane/inspector-pane-private.h"
 #include "introspection/inspector-pane/pick-mode.h"
 #include "introspection/inspector-pane/selection.h"
 
@@ -59,11 +62,8 @@ introspection_inspector_pane_free(IntrospectionInspectorPane *pane)
   introspection_inspector_pane_selection_clear(pane);
   g_weak_ref_clear(&pane->selected_widget);
 
-  if (pane->pick_gesture != NULL)
-    g_object_unref(pane->pick_gesture);
-
-  if (pane->pick_key_controller != NULL)
-    g_object_unref(pane->pick_key_controller);
+  g_clear_object(&pane->pick_gesture);
+  g_clear_object(&pane->pick_key_controller);
 
   g_free(pane);
 }

@@ -35,8 +35,8 @@ and only made "nicer" to read when rendered as HTML or other manner.
 
 # Table example
 
-| Category | Description          |
-|----------|----------------------|
+| Category | Description |
+| -------- | --- |
 | Note 1   | make it easy to read |
 
 All columns but the last need the `|` column markers to be aligned so the markdown file looks good as a text file, without being rendered.
@@ -59,12 +59,12 @@ List of labelled infos:
 Documentation is organised under `docs/`. The layout below shows which
 directories exist now and which are planned.
 
-| Directory            | Status   |
-|----------------------|----------|
+| Directory            | Status |
+| -------------------- | --- |
 | `docs/notes`         | Existing |
 | `docs/features`      | Existing |
-| `docs/release-notes` | Planned  |
-| `docs/stories`       | Planned  |
+| `docs/release-notes` | Planned |
+| `docs/stories`       | Planned |
 
 AI agents should start with [AGENTS.md](../AGENTS.md) at the repository root,
 which links to this guide and the other convention docs.
