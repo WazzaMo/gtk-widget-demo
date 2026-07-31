@@ -40,12 +40,12 @@ add maintenance without teaching value.
 The gallery has exactly five sections, matching the visual index:
 
 | Visual index section | Registry slug (internal) |
-|----------------------|--------------------------|
-| Display widgets      | `display`                |
-| Buttons              | `buttons`                |
-| Entries              | `entries`                |
-| Containers           | `containers`             |
-| Windows              | `windows`                |
+| -------------------- | --- |
+| Display widgets      | `display` |
+| Buttons              | `buttons` |
+| Entries              | `entries` |
+| Containers           | `containers` |
+| Windows              | `windows` |
 
 Sidebar and other user-visible labels use the **full visual index section
 title** (for example **Display widgets**, not **Display**). Internal code and

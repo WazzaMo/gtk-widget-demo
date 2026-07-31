@@ -92,11 +92,11 @@ gtk_widget_set_vexpand(widget, FALSE);
 
 # Application in this project
 
-| Location | Approach |
-|----------|----------|
-| `src/gallery/demo-page.c` | Wrap demo `content` in a full-width vertical `GtkBox`; force `hexpand = FALSE` on content; default `halign` to `CENTER` only when still `FILL` |
+| Location                     | Approach |
+| ---------------------------- | --- |
+| `src/gallery/demo-page.c`    | Wrap demo `content` in a full-width vertical `GtkBox`; force `hexpand = FALSE` on content; default `halign` to `CENTER` only when still `FILL` |
 | `src/gallery/button-demos.c` | `GtkSwitch` demo sets `halign = CENTER` and `hexpand = FALSE` |
-| `src/main/sample-palette.c` | Set `halign` and `hexpand` on the palette `GtkSwitch` so the grid cell does not stretch it |
+| `src/main/sample-palette.c`  | Set `halign` and `hexpand` on the palette `GtkSwitch` so the grid cell does not stretch it |
 
 Gallery demos inherit the demo-page behaviour automatically. Individual demo
 builders do not need to repeat the fix unless they introduce **nested** layouts

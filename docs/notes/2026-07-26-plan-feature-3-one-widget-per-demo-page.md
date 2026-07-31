@@ -29,12 +29,12 @@ present or operate the primary type.
 
 ### Benefits
 
-| Benefit | Detail |
-|---------|--------|
-| Simple UI | One control to study; minimal visual noise for designers and learners |
-| Clear doc mapping | Page title, sidebar entry, and upstream class URL align one-to-one |
-| Easy inspect | **View → Inspect widget** targets an obvious primary control |
-| Fast to implement | Small demo builders; fits the initial 14-demo Feature 3 scope |
+| Benefit             | Detail |
+| ------------------- | --- |
+| Simple UI           | One control to study; minimal visual noise for designers and learners |
+| Clear doc mapping   | Page title, sidebar entry, and upstream class URL align one-to-one |
+| Easy inspect        | **View → Inspect widget** targets an obvious primary control |
+| Fast to implement   | Small demo builders; fits the initial 14-demo Feature 3 scope |
 | Good starting point | Establishes the demo page pattern and registry before richer pages |
 
 ### Trade-offs
@@ -51,11 +51,11 @@ with different alignment, or several `GtkButton` styles).
 
 ### Benefits
 
-| Benefit | Detail |
-|---------|--------|
-| UI density teaching | Shows how repeated or grouped controls affect busy-ness and spacing |
-| Reusable modules | Shared layout helpers and demo builder functions across pages |
-| Richer examples | Closer to real forms and toolbars without a full application screen |
+| Benefit              | Detail |
+| -------------------- | --- |
+| UI density teaching  | Shows how repeated or grouped controls affect busy-ness and spacing |
+| Reusable modules     | Shared layout helpers and demo builder functions across pages |
+| Richer examples      | Closer to real forms and toolbars without a full application screen |
 | Composition practice | Exercises container properties while staying on one gallery entry |
 
 ### Trade-offs
@@ -81,12 +81,12 @@ outside the per-widget gallery pages.
 
 ## Primary widget
 
-| Rule | Detail |
-|------|--------|
-| Sidebar label | GType name of the primary type (visual-index rule) |
-| Widget area | One primary widget instance unless Option B is adopted for that demo in a later wave |
+| Rule               | Detail |
+| ------------------ | --- |
+| Sidebar label      | GType name of the primary type (visual-index rule) |
+| Widget area        | One primary widget instance unless Option B is adopted for that demo in a later wave |
 | Supporting widgets | Labels, `GtkBox`, `GtkFrame`, dialog launch buttons — not second catalog entries |
-| Inspect | Primary widget should be easy to identify when pick mode is on |
+| Inspect            | Primary widget should be easy to identify when pick mode is on |
 
 ## Container demos
 

@@ -24,16 +24,16 @@ linked from that spec.
 Second major code group under `src/` and `include/` per
 [c-code-standard.md](../c-code-standard.md):
 
-| Unit | Path | Role |
-|------|------|------|
-| gallery-shell | `src/gallery/gallery-shell.c` | Sidebar navigation, `GtkStack` of demo pages |
-| demo-registry | `src/gallery/demo-registry.c` | Five visual-index categories, demo lookup |
-| demo-page | `src/gallery/demo-page.c` | Shared page chrome: title, description, doc link, content slot |
-| display-demos | `src/gallery/display-demos.c` | `GtkLabel`, `GtkSpinner`, `GtkProgressBar`, `GtkScale` |
-| button-demos | `src/gallery/button-demos.c` | `GtkButton`, `GtkCheckButton`, `GtkSwitch`, `GtkToggleButton` |
-| entry-demos | `src/gallery/entry-demos.c` | `GtkEntry`, `GtkSpinButton` |
+| Unit            | Path                            | Role |
+| --------------- | ------------------------------- | --- |
+| gallery-shell   | `src/gallery/gallery-shell.c`   | Sidebar navigation, `GtkStack` of demo pages |
+| demo-registry   | `src/gallery/demo-registry.c`   | Five visual-index categories, demo lookup |
+| demo-page       | `src/gallery/demo-page.c`       | Shared page chrome: title, description, doc link, content slot |
+| display-demos   | `src/gallery/display-demos.c`   | `GtkLabel`, `GtkSpinner`, `GtkProgressBar`, `GtkScale` |
+| button-demos    | `src/gallery/button-demos.c`    | `GtkButton`, `GtkCheckButton`, `GtkSwitch`, `GtkToggleButton` |
+| entry-demos     | `src/gallery/entry-demos.c`     | `GtkEntry`, `GtkSpinButton` |
 | container-demos | `src/gallery/container-demos.c` | `GtkBox`, `GtkGrid`, `GtkFrame`, `GtkNotebook` |
-| window-demos | `src/gallery/window-demos.c` | `GtkAboutDialog`, `GtkMessageDialog` (modal launch) |
+| window-demos    | `src/gallery/window-demos.c`    | `GtkAboutDialog`, `GtkMessageDialog` (modal launch) |
 
 Umbrella header: `include/gallery.h`.
 
@@ -58,8 +58,8 @@ from buttons on the demo page, parented to the main window.
 `meson.build` links the gallery group into `gtk-widget-demo` and adds two test
 executables under `test/gallery/`:
 
-| Test | File | Coverage |
-|------|------|----------|
+| Test                    | File                           | Coverage |
+| ----------------------- | ------------------------------ | --- |
 | `gallery-demo-registry` | `test/gallery/demo-registry.c` | Five categories; demo counts per category |
 | `gallery-demo-builders` | `test/gallery/demo-builders.c` | Each demo builder returns a non-NULL root widget |
 
@@ -112,6 +112,18 @@ Fix in `src/gallery/demo-page.c`: wrap demo content in a full-width vertical
 switch set explicit alignment. See
 [2026-07-30-plan-widget-align-natural-size.md](./2026-07-30-plan-widget-align-natural-size.md).
 
+# Addendum — Help About dialog
+
+Added after initial Feature 3 delivery (2026-07-30):
+
+| Item   | Detail |
+| ------ | --- |
+| Menu   | **Help → About** in `src/main/window-shell.c` |
+| Unit   | `src/main/about-dialog.c`, `include/main/about-dialog.h` |
+| Action | `app.about` registered at startup via `main_about_dialog_register_action()` |
+| Dialog | Modal `GtkAboutDialog` — program name, version `0.1.0`, comments, author, copyright, project GitHub URL, Apache 2.0 license |
+| Parent | Transient for the active window when present; destroyed on close-request |
+
 # Follow-on work
 
 Feature 3 ships the gallery **framework** plus 14 initial demos. Remaining
@@ -130,6 +142,8 @@ registry and demo-page pattern — see
 [2026-07-29-plan-pick-mode-escape-idle-uaf.md](./2026-07-29-plan-pick-mode-escape-idle-uaf.md)
 
 [2026-07-30-plan-widget-align-natural-size.md](./2026-07-30-plan-widget-align-natural-size.md)
+
+[src/main/about-dialog.c](../../src/main/about-dialog.c)
 
 [c-code-standard.md](../c-code-standard.md)
 

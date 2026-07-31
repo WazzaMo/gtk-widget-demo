@@ -32,7 +32,7 @@ separate gallery entry. Fraction and pulse are behaviours of the same widget
 type, not distinct visual-index types.
 
 | Approach              | Verdict |
-|-----------------------|---------|
+| --------------------- | --- |
 | Second sidebar entry  | Rejected — breaks one-type-per-entry taxonomy |
 | Mode selector on page | **Chosen** — one primary bar, supporting chrome switches behaviour |
 
@@ -46,33 +46,33 @@ throughout.
 
 ### Mode selector
 
-| Element             | Detail                                                              |
-|---------------------|---------------------------------------------------------------------|
-| Control             | Two `GtkToggleButton`s in one group: **Fraction** and **Pulse**     |
-| Default             | **Fraction** selected on load (current behaviour)                   |
-| Layout              | Mode row above the progress bar; action row below changes with mode |
+| Element | Detail |
+| ------- | --- |
+| Control | Two `GtkToggleButton`s in one group: **Fraction** and **Pulse** |
+| Default | **Fraction** selected on load (current behaviour) |
+| Layout  | Mode row above the progress bar; action row below changes with mode |
 
 When the user switches mode, tear down the previous mode cleanly (stop pulse
 timer, reset fraction to `0.0`) before showing the controls for the new mode.
 
 ### Fraction mode (existing)
 
-| Element             | Detail                                                              |
-|---------------------|---------------------------------------------------------------------|
-| Primary widget      | `GtkProgressBar` — fraction `0.0` on entry to this mode             |
-| Supporting controls | **Add 10%** and **Reset** (unchanged from interactive plan)         |
-| Add 10%             | Add `0.1` to fraction, clamp to `1.0`                               |
-| Reset               | `gtk_progress_bar_set_fraction(progress, 0.0)`                      |
+| Element             | Detail |
+| ------------------- | --- |
+| Primary widget      | `GtkProgressBar` — fraction `0.0` on entry to this mode |
+| Supporting controls | **Add 10%** and **Reset** (unchanged from interactive plan) |
+| Add 10%             | Add `0.1` to fraction, clamp to `1.0` |
+| Reset               | `gtk_progress_bar_set_fraction(progress, 0.0)` |
 
 ### Pulse mode (new)
 
-| Element             | Detail                                                              |
-|---------------------|---------------------------------------------------------------------|
-| Primary widget      | Same `GtkProgressBar` — indeterminate activity via pulse            |
-| Supporting controls | **Start pulse** and **Stop pulse** buttons                          |
+| Element             | Detail |
+| ------------------- | --- |
+| Primary widget      | Same `GtkProgressBar` — indeterminate activity via pulse |
+| Supporting controls | **Start pulse** and **Stop pulse** buttons |
 | Start pulse         | Start a `GTimeoutSource` (~100 ms) calling `gtk_progress_bar_pulse()` on the bar |
-| Stop pulse          | `g_source_remove()` on the stored timeout id; idle bar              |
-| Initial state       | Not pulsing; **Start pulse** enabled, **Stop pulse** disabled        |
+| Stop pulse          | `g_source_remove()` on the stored timeout id; idle bar |
+| Initial state       | Not pulsing; **Start pulse** enabled, **Stop pulse** disabled |
 
 Pulse teaches “work in progress with unknown duration” — complementary to
 fraction mode’s stepped completion.
@@ -109,13 +109,13 @@ The spinner demo already calls `gtk_spinner_start()` / `gtk_spinner_stop()` from
 **Start spinner** and **Stop spinner**. Optional polish mirrors real UI where
 only valid actions are enabled.
 
-| Element             | Detail                                                              |
-|---------------------|---------------------------------------------------------------------|
-| Primary widget      | `GtkSpinner` — idle on load (unchanged)                             |
-| Initial sensitivity | **Start spinner** enabled; **Stop spinner** disabled                |
-| After Start         | **Start spinner** disabled; **Stop spinner** enabled                |
-| After Stop          | **Start spinner** enabled; **Stop spinner** disabled                |
-| API                 | `gtk_widget_set_sensitive()` on each button after start/stop          |
+| Element             | Detail |
+| ------------------- | --- |
+| Primary widget      | `GtkSpinner` — idle on load (unchanged) |
+| Initial sensitivity | **Start spinner** enabled; **Stop spinner** disabled |
+| After Start         | **Start spinner** disabled; **Stop spinner** enabled |
+| After Stop          | **Start spinner** enabled; **Stop spinner** disabled |
+| API                 | `gtk_widget_set_sensitive()` on each button after start/stop |
 
 Implementation: pass a small struct (spinner + both buttons) to click handlers,
 or update sensitivity in each handler via `g_object_get_data()`.
@@ -180,13 +180,13 @@ GTK examples. Not user-configurable in this demo.
 
 # Risks
 
-| Risk                         | Mitigation                                                          |
-|------------------------------|---------------------------------------------------------------------|
-| Pulse timer after page gone  | Store source id; remove in mode switch and on widget destroy        |
-| Mode switch mid-pulse        | Stop timer before changing visible controls                         |
-| Cluttered demo layout        | Mode row + one action row; hide inactive row                        |
-| Pick mode vs mode toggles    | Same as other display demos; primary widget remains the bar/spinner |
-| Optional scope creep         | Mark spinner sensitivity optional; ship pulse mode independently    |
+| Risk                        | Mitigation |
+| --------------------------- | --- |
+| Pulse timer after page gone | Store source id; remove in mode switch and on widget destroy |
+| Mode switch mid-pulse       | Stop timer before changing visible controls |
+| Cluttered demo layout       | Mode row + one action row; hide inactive row |
+| Pick mode vs mode toggles   | Same as other display demos; primary widget remains the bar/spinner |
+| Optional scope creep        | Mark spinner sensitivity optional; ship pulse mode independently |
 
 # Out of scope
 

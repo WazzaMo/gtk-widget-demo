@@ -23,11 +23,11 @@ Planning background is in
 First code group under `src/` and `include/` per
 [c-code-standard.md](../c-code-standard.md):
 
-| Unit | Path | Role |
-|------|------|------|
-| type-ancestry | `src/introspection/type-ancestry.c` | GType name, ancestry chain, interfaces |
-| property-list | `src/introspection/property-list.c` | Property metadata and read-only values |
-| signal-list | `src/introspection/signal-list.c` | Signal names and parameter counts |
+| Unit           | Path                                 | Role |
+| -------------- | ------------------------------------ | --- |
+| type-ancestry  | `src/introspection/type-ancestry.c`  | GType name, ancestry chain, interfaces |
+| property-list  | `src/introspection/property-list.c`  | Property metadata and read-only values |
+| signal-list    | `src/introspection/signal-list.c`    | Signal names and parameter counts |
 | inspector-pane | `src/introspection/inspector-pane.c` | Side pane UI, pick mode, object lifetime |
 
 Umbrella header: `include/introspection.h`.
@@ -133,10 +133,10 @@ Fix in `inspector-pane.c`:
 After review against [c-code-standard.md](../c-code-standard.md), the shell
 was split out of `src/main.c`:
 
-| Unit | Path | Role |
-|------|------|------|
+| Unit           | Path                        | Role |
+| -------------- | --------------------------- | --- |
 | sample-palette | `src/main/sample-palette.c` | Feature 2 demo widget grid |
-| window-shell | `src/main/window-shell.c` | Menus, paned layout, actions, introspection wiring |
+| window-shell   | `src/main/window-shell.c`   | Menus, paned layout, actions, introspection wiring |
 
 Headers: `include/main.h`, `include/main/sample-palette.h`,
 `include/main/window-shell.h`. Entry point `src/main.c` now only creates

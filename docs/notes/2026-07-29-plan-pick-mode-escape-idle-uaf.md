@@ -145,10 +145,10 @@ manual testing; measure that before switching.
 
 # Risks
 
-| Risk                                      | Mitigation                                      |
-|-------------------------------------------|-------------------------------------------------|
-| Double idle if Escape is pressed rapidly  | Guard with non-zero `exit_pick_mode_idle_id`    |
-| Option C re-introduces regressions        | Manual pick + inspect smoke test after rewrite  |
+| Risk                                     | Mitigation |
+| ---------------------------------------- | --- |
+| Double idle if Escape is pressed rapidly | Guard with non-zero `exit_pick_mode_idle_id` |
+| Option C re-introduces regressions       | Manual pick + inspect smoke test after rewrite |
 
 #### Re-entrancy during pane teardown
 

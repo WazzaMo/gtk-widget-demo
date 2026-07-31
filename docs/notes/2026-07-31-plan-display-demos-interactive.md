@@ -36,12 +36,12 @@ the spinner, progress bar, or scale itself.
 Replace “always spinning on open” with explicit control over spinner lifecycle,
 matching typical use (start when work begins, stop when it finishes).
 
-| Element             | Detail                                                                          |
-|---------------------|---------------------------------------------------------------------------------|
-| Primary widget      | `GtkSpinner` — not spinning on initial display                                  |
-| Supporting controls | **Start spinner** and **Stop spinner** buttons                                  |
-| Start               | `gtk_spinner_start(GTK_SPINNER(spinner))`                                       |
-| Stop                | `gtk_spinner_stop(GTK_SPINNER(spinner))`                                        |
+| Element             | Detail |
+| ------------------- | --- |
+| Primary widget      | `GtkSpinner` — not spinning on initial display |
+| Supporting controls | **Start spinner** and **Stop spinner** buttons |
+| Start               | `gtk_spinner_start(GTK_SPINNER(spinner))` |
+| Stop                | `gtk_spinner_stop(GTK_SPINNER(spinner))` |
 | Layout              | Vertical `GtkBox`: spinner centred, button row below (horizontal `GtkBox` with two buttons) |
 
 Optional polish: disable **Start** while spinning and **Stop** while idle. Not
@@ -55,13 +55,13 @@ spinner reflects application state rather than running unconditionally.
 Show the current numeric value as the user drags the slider, wired to the range
 value signal a real app would listen to.
 
-| Element             | Detail                                                                          |
-|---------------------|---------------------------------------------------------------------------------|
-| Primary widget      | `GtkScale` — horizontal, range `0.0–100.0`, step `1.0`, initial value `50.0`   |
-| Supporting widget   | `GtkLabel` showing the current value (for example `50` or `50.0`)               |
-| Signal              | `value-changed` on the scale (`GtkRange`)                                       |
-| Handler             | Read `gtk_range_get_value()`, format with `g_strdup_printf()` or similar, update label text |
-| Layout              | Vertical `GtkBox`: scale (width ~240 as today), value label below or beside     |
+| Element           | Detail |
+| ----------------- | --- |
+| Primary widget    | `GtkScale` — horizontal, range `0.0–100.0`, step `1.0`, initial value `50.0` |
+| Supporting widget | `GtkLabel` showing the current value (for example `50` or `50.0`) |
+| Signal            | `value-changed` on the scale (`GtkRange`) |
+| Handler           | Read `gtk_range_get_value()`, format with `g_strdup_printf()` or similar, update label text |
+| Layout            | Vertical `GtkBox`: scale (width ~240 as today), value label below or beside |
 
 Teaches `GtkRange:value-changed` and reading the scale value at runtime. Pick
 mode should still target the scale easily; the readout label is secondary chrome.
@@ -71,13 +71,13 @@ mode should still target the scale easily; the readout label is secondary chrome
 Drive fraction updates from buttons instead of a fixed `0.65`, simulating task
 progress in steps.
 
-| Element             | Detail                                                                          |
-|---------------------|---------------------------------------------------------------------------------|
-| Primary widget      | `GtkProgressBar` — initial fraction `0.0`                                       |
-| Supporting controls | **Add 10%** and **Reset** buttons                                               |
+| Element             | Detail |
+| ------------------- | --- |
+| Primary widget      | `GtkProgressBar` — initial fraction `0.0` |
+| Supporting controls | **Add 10%** and **Reset** buttons |
 | Add 10%             | Read current fraction, add `0.1`, clamp to `1.0`, `gtk_progress_bar_set_fraction()` |
-| Reset               | `gtk_progress_bar_set_fraction(progress, 0.0)`                                  |
-| Layout              | Vertical `GtkBox`: progress bar (width ~240), button row below                  |
+| Reset               | `gtk_progress_bar_set_fraction(progress, 0.0)` |
+| Layout              | Vertical `GtkBox`: progress bar (width ~240), button row below |
 
 At `1.0`, **Add 10%** may no-op or stay enabled with no visible change; either
 is acceptable. Clamping avoids fractions above `1.0`.
@@ -133,12 +133,12 @@ No change — static text remains the right teaching example for labels.
 
 # Risks
 
-| Risk                       | Mitigation                                                                               |
-|----------------------------|------------------------------------------------------------------------------------------|
+| Risk                       | Mitigation |
+| -------------------------- | --- |
 | Pick mode vs button clicks | Same as button demos — claimed-click behaviour in Feature 2; verify Start/Stop and Add/Reset in inspect mode |
-| Progress fraction drift    | Use `double` arithmetic and explicit clamp to `[0.0, 1.0]`                               |
-| Scale label churn          | Update label only on `value-changed`; avoid formatting in draw handlers                  |
-| Demo page scope creep      | Do not add second catalog widgets; keep one primary type per page                        |
+| Progress fraction drift    | Use `double` arithmetic and explicit clamp to `[0.0, 1.0]` |
+| Scale label churn          | Update label only on `value-changed`; avoid formatting in draw handlers |
+| Demo page scope creep      | Do not add second catalog widgets; keep one primary type per page |
 
 # Out of scope
 

@@ -38,12 +38,12 @@ content modes and pick roots, not new introspection algorithms.
 
 # Rationale
 
-| Benefit | Detail |
-|---------|--------|
-| Single teaching surface | One inspect workflow for shell, palette, and every gallery demo |
-| No duplication | `type-ancestry`, `property-list`, and `signal-list` stay the single source |
+| Benefit                        | Detail |
+| ------------------------------ | --- |
+| Single teaching surface        | One inspect workflow for shell, palette, and every gallery demo |
+| No duplication                 | `type-ancestry`, `property-list`, and `signal-list` stay the single source |
 | Feature 2 investment preserved | Pick mode, `GWeakRef` lifetime, and claimed-click behaviour carry forward |
-| Aligns with plan Phase B | [2026-07-22-plan-gobject-type-exploration.md](./2026-07-22-plan-gobject-type-exploration.md) placed introspection on the main window globally |
+| Aligns with plan Phase B       | [2026-07-22-plan-gobject-type-exploration.md](./2026-07-22-plan-gobject-type-exploration.md) placed introspection on the main window globally |
 
 Alternatives rejected:
 
@@ -58,31 +58,31 @@ Alternatives rejected:
 
 ## Menu and pick mode
 
-| Item | Detail |
-|------|--------|
-| Menu | **View → Inspect widget** unchanged from Feature 2 |
-| Action | Existing window action (for example `win.inspect`) |
-| Escape | Exits pick mode; syncs menu state via existing handler |
+| Item      | Detail |
+| --------- | --- |
+| Menu      | **View → Inspect widget** unchanged from Feature 2 |
+| Action    | Existing window action (for example `win.inspect`) |
+| Escape    | Exits pick mode; syncs menu state via existing handler |
 | Pick mode | Same `GtkGestureClick` capture-phase and crosshair cursor behaviour |
 
 No new View menu entries for introspection in Feature 3.
 
 ## Introspection pane
 
-| Item | Detail |
-|------|--------|
+| Item      | Detail |
+| --------- | --- |
 | Placement | End child of horizontal `GtkPaned` (Feature 2 layout) |
-| Display | Read-only monospace text: type, ancestry, interfaces, properties, signals |
-| API | `introspection_inspector_pane_*` from `include/introspection.h` |
-| Editing | Property values remain read-only (Feature 2 scope) |
+| Display   | Read-only monospace text: type, ancestry, interfaces, properties, signals |
+| API       | `introspection_inspector_pane_*` from `include/introspection.h` |
+| Editing   | Property values remain read-only (Feature 2 scope) |
 
 ## Algorithms (unchanged units)
 
-| Unit | Role |
-|------|------|
-| `type-ancestry` | GType name, parent chain, interfaces |
-| `property-list` | `GParamSpec` metadata and formatted values |
-| `signal-list` | Signal names and parameter counts |
+| Unit             | Role |
+| ---------------- | --- |
+| `type-ancestry`  | GType name, parent chain, interfaces |
+| `property-list`  | `GParamSpec` metadata and formatted values |
+| `signal-list`    | Signal names and parameter counts |
 | `inspector-pane` | UI assembly, pick mode, selection lifetime (`GWeakRef`) |
 
 Gallery demos must not reimplement these queries locally for display in the demo
@@ -100,10 +100,10 @@ pick root covers the visible content.
 
 ## Code layout
 
-| Path | Feature 3 change |
-|------|------------------|
-| `src/introspection/*` | **No algorithm changes** unless a gallery-exposed bug is found |
-| `src/gallery/*` | **No** introspection units |
+| Path                      | Feature 3 change |
+| ------------------------- | --- |
+| `src/introspection/*`     | **No algorithm changes** unless a gallery-exposed bug is found |
+| `src/gallery/*`           | **No** introspection units |
 | `src/main/window-shell.c` | Retain inspector pane wiring; update pick root when content mode switches if needed |
 
 ## Tests

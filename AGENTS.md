@@ -22,29 +22,29 @@ content), an in-app introspection pane, a sample widget palette, and unit tests.
 Follow-on work can extend the gallery catalog beyond the initial 14 demos per
 [feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md).
 
-| Present | Not yet present |
-|---------|-----------------|
+| Present                                              | Not yet present |
+| ---------------------------------------------------- | --- |
 | `docs/` conventions and feature specs (Features 1–3) | Full visual-index catalog |
-| Meson build and GTK4 executable | `docs/stories/` (planned, unused) |
-| `src/main.c` entry point; `src/main/` shell units | |
-| `src/gallery/` gallery framework and initial demos | |
-| `src/introspection/` introspection units | |
-| `test/introspection/` and `test/gallery/` unit tests | |
+| Meson build and GTK4 executable                      | `docs/stories/` (planned, unused) |
+| `src/main.c` entry point; `src/main/` shell units    |  |
+| `src/gallery/` gallery framework and initial demos   |  |
+| `src/introspection/` introspection units             |  |
+| `test/introspection/` and `test/gallery/` unit tests |  |
 
 When adding code, follow the layout and decisions below before inventing new
 structure.
 
 ## Authoritative docs
 
-| Topic | Document |
-|-------|----------|
+| Topic                              | Document |
+| ---------------------------------- | --- |
 | Markdown, notes, features, stories | [docs/doc-guide.md](./docs/doc-guide.md) |
-| C layout, groups, units, tests | [docs/c-code-standard.md](./docs/c-code-standard.md) |
-| First deliverable | [docs/features/feature-1-base-application.md](./docs/features/feature-1-base-application.md) |
-| GObject introspection | [docs/features/feature-2-gobject-introspection.md](./docs/features/feature-2-gobject-introspection.md) |
-| Widget gallery | [docs/features/feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md) |
-| Feature 3 delivery decisions | [docs/notes/2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md) |
-| Build system choice | [docs/notes/2026-07-16-plan-gtk-build-systems.md](./docs/notes/2026-07-16-plan-gtk-build-systems.md) |
+| C layout, groups, units, tests     | [docs/c-code-standard.md](./docs/c-code-standard.md) |
+| First deliverable                  | [docs/features/feature-1-base-application.md](./docs/features/feature-1-base-application.md) |
+| GObject introspection              | [docs/features/feature-2-gobject-introspection.md](./docs/features/feature-2-gobject-introspection.md) |
+| Widget gallery                     | [docs/features/feature-3-widget-gallery.md](./docs/features/feature-3-widget-gallery.md) |
+| Feature 3 delivery decisions       | [docs/notes/2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md) |
+| Build system choice                | [docs/notes/2026-07-16-plan-gtk-build-systems.md](./docs/notes/2026-07-16-plan-gtk-build-systems.md) |
 
 ## Key decisions
 

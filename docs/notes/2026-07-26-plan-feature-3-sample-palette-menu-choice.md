@@ -30,8 +30,8 @@ The main content area shows **one mode at a time**. The user switches between:
 Expose this as **two mutually exclusive View menu items** (radio group), not a
 hidden default with a single optional toggle:
 
-| Menu item | Content shown |
-|-----------|---------------|
+| Menu item          | Content shown |
+| ------------------ | --- |
 | **Widget gallery** | `gallery-shell` (sidebar + active demo page) |
 | **Sample palette** | Feature 2 sample palette grid |
 
@@ -44,12 +44,12 @@ a **compact introspection sandbox**, not a second catalog.
 
 # Rationale
 
-| Benefit | Detail |
-|---------|--------|
-| Feature 2 workflow preserved | Users who learned inspect on the palette keep a one-screen target |
-| Quick introspection | Pick mode across several widget types without changing gallery demos |
+| Benefit                         | Detail |
+| ------------------------------- | --- |
+| Feature 2 workflow preserved    | Users who learned inspect on the palette keep a one-screen target |
+| Quick introspection             | Pick mode across several widget types without changing gallery demos |
 | No duplicate maintenance burden | Reuse `main_sample_palette_new()`; do not reimplement the grid in gallery |
-| Clear roles | Gallery teaches per-widget examples aligned with the visual index; palette teaches multi-widget picking on one page |
+| Clear roles                     | Gallery teaches per-widget examples aligned with the visual index; palette teaches multi-widget picking on one page |
 
 Replacing the palette entirely would remove a low-friction entry point for
 inspect mode. Deleting `sample-palette.c` is rejected.
@@ -61,11 +61,11 @@ Widget Gallery experience; gallery is default instead.
 
 ## Menu
 
-| Item | Detail |
-|------|--------|
-| Location | **View** menu (alongside **Inspect widget**) |
-| Items | **Widget gallery** and **Sample palette** as a **radio group** |
-| Default | **Widget gallery** selected on startup |
+| Item      | Detail |
+| --------- | --- |
+| Location  | **View** menu (alongside **Inspect widget**) |
+| Items     | **Widget gallery** and **Sample palette** as a **radio group** |
+| Default   | **Widget gallery** selected on startup |
 | Behaviour | Selecting one item shows that content mode and deselects the other |
 
 Implementation should use `GSimpleAction` radio state or equivalent so both
@@ -96,10 +96,10 @@ mode.
 
 ## Code layout
 
-| Path | Detail |
-|------|--------|
-| `src/main/sample-palette.c` | **Retained** — no deprecation wrapper |
-| `src/main/window-shell.c` | Owns mode switching and embeds gallery or palette |
+| Path                          | Detail |
+| ----------------------------- | --- |
+| `src/main/sample-palette.c`   | **Retained** — no deprecation wrapper |
+| `src/main/window-shell.c`     | Owns mode switching and embeds gallery or palette |
 | `src/gallery/gallery-shell.c` | Gallery mode only |
 
 Do not register the sample palette as a visual-index gallery demo; it is not a

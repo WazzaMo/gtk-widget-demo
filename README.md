@@ -111,10 +111,10 @@ upstream GTK documentation.
 This project uses **Meson** for build and VScode works better if you install the Meson
 VScode extension. It is described as **Meson language support for Visual Studio Code.**
 
-| Item      | Value from Extension  |
-|-----------|-----------------------|
-| Identifier| mesonbuild.mesonbuild |
-| Version   | 1.28.2 or better      |
+| Item       | Value from Extension |
+| ---------- | --- |
+| Identifier | mesonbuild.mesonbuild |
+| Version    | 1.28.2 or better |
 
 
 # Documents to note

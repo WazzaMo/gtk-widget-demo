@@ -61,8 +61,8 @@ that displays GObject metadata for the selection.
 
 The Feature 1 window is extended as follows:
 
-| Element | Detail |
-|---------|--------|
+| Element   | Detail |
+| --------- | --- |
 | File menu | **File → Exit** unchanged from Feature 1 |
 | View menu | **View → Inspect widget** toggles widget pick mode |
 | Escape    | Exits pick mode and returns to normal widget interaction |
@@ -79,13 +79,13 @@ The introspection pane remains visible with the last inspected widget.
 
 When the user clicks a widget, the pane updates with read-only metadata:
 
-| Section     | Content |
-|-------------|---------|
-| Type        | GType name (for example `GtkButton`) |
-| Ancestry    | Chain from the concrete type to `GObject` |
-| Interfaces  | Interfaces implemented by the type, when present |
-| Properties  | Name, value type, flags, blurb, and formatted current value |
-| Signals     | Signal names and basic metadata (parameter count); no handlers attached |
+| Section    | Content |
+| ---------- | --- |
+| Type       | GType name (for example `GtkButton`) |
+| Ancestry   | Chain from the concrete type to `GObject` |
+| Interfaces | Interfaces implemented by the type, when present |
+| Properties | Name, value type, flags, blurb, and formatted current value |
+| Signals    | Signal names and basic metadata (parameter count); no handlers attached |
 
 Example output after picking a button might read:
 
@@ -139,11 +139,11 @@ building the full Widget Gallery.
 
 These widgets already exist and are valid pick targets:
 
-| Widget | Typical GType | Why inspect it |
-|--------|---------------|----------------|
-| `GtkApplicationWindow` | `GtkApplicationWindow` | Deep hierarchy; window properties such as `title` |
-| `GtkPopoverMenuBar` | `GtkPopoverMenuBar` | Menu chrome; different branch from content widgets |
-| `GtkBox` (root and content) | `GtkBox` | Container layout properties (`orientation`, `spacing`) |
+| Widget                      | Typical GType          | Why inspect it |
+| --------------------------- | ---------------------- | --- |
+| `GtkApplicationWindow`      | `GtkApplicationWindow` | Deep hierarchy; window properties such as `title` |
+| `GtkPopoverMenuBar`         | `GtkPopoverMenuBar`    | Menu chrome; different branch from content widgets |
+| `GtkBox` (root and content) | `GtkBox`               | Container layout properties (`orientation`, `spacing`) |
 
 ## Sample palette
 
@@ -151,23 +151,23 @@ Place a small fixed set of controls in the content area (one row or a simple
 grid). `GtkLabel` is required because unit tests assert ancestry and properties
 against it.
 
-| Widget | What introspection demonstrates |
-|--------|----------------------------------|
-| `GtkLabel` | Simple string and alignment props; short ancestry chain; test target |
-| `GtkButton` | `clicked` signal; action-related properties |
-| `GtkEntry` | Text properties; `changed` and `activate` signals |
-| `GtkCheckButton` or `GtkSwitch` | Boolean `active` state |
-| `GtkScale` or `GtkSpinButton` | Numeric or range properties (`value`, `adjustment`) |
+| Widget                             | What introspection demonstrates |
+| ---------------------------------- | --- |
+| `GtkLabel`                         | Simple string and alignment props; short ancestry chain; test target |
+| `GtkButton`                        | `clicked` signal; action-related properties |
+| `GtkEntry`                         | Text properties; `changed` and `activate` signals |
+| `GtkCheckButton` or `GtkSwitch`    | Boolean `active` state |
+| `GtkScale` or `GtkSpinButton`      | Numeric or range properties (`value`, `adjustment`) |
 | Nested `GtkBox` with child widgets | Pick parent versus child; container versus control hierarchy |
 
 ## Optional additions
 
 These are not required but add teaching value if layout space allows:
 
-| Widget | Why |
-|--------|-----|
-| `GtkFrame` or `GtkExpander` | Labelled container; nested picking |
-| `GtkImage` | Different property types (`icon-name`, paintable) |
+| Widget                           | Why |
+| -------------------------------- | --- |
+| `GtkFrame` or `GtkExpander`      | Labelled container; nested picking |
+| `GtkImage`                       | Different property types (`icon-name`, paintable) |
 | Widget implementing an interface | Exercises the interfaces section (for example `GtkOrientable` on a box) |
 
 ## Not required for Feature 2
@@ -233,13 +233,13 @@ per-widget curated "type facts" panels.
 
 ## Build system
 
-| Requirement     | Detail                                                      |
-|-----------------|-------------------------------------------------------------|
+| Requirement     | Detail |
+| --------------- | --- |
 | Root build file | Extend `meson.build` to compile `introspection` group sources |
 | GTK dependency  | Continue using `dependency('gtk4', include_type: 'system')` |
-| Warnings        | `warning_level=3` on project code                           |
+| Warnings        | `warning_level=3` on project code |
 | Executable      | Still one target (`gtk-widget-demo`); link introspection objects |
-| Tests           | Meson test target(s) for `test/introspection/`              |
+| Tests           | Meson test target(s) for `test/introspection/` |
 
 Expected contributor workflow on Linux:
 
@@ -254,17 +254,17 @@ meson test -C build
 
 The `introspection` group follows [c-code-standard.md](../c-code-standard.md).
 
-| Path                                    | Role                                      |
-|-----------------------------------------|-------------------------------------------|
-| `include/introspection.h`               | Group umbrella header                     |
-| `include/introspection/type-ancestry.h` | Ancestry and interface queries            |
-| `include/introspection/property-list.h` | Property pspec and value formatting       |
-| `include/introspection/signal-list.h`   | Signal metadata queries                   |
-| `include/introspection/inspector-pane.h` | GTK UI pane and pick-mode integration     |
-| `src/introspection/type-ancestry.c`     | Implementation                            |
-| `src/introspection/property-list.c`     | Implementation                            |
-| `src/introspection/signal-list.c`       | Implementation                            |
-| `src/introspection/inspector-pane.c`    | Implementation                            |
+| Path                                     | Role |
+| ---------------------------------------- | --- |
+| `include/introspection.h`                | Group umbrella header |
+| `include/introspection/type-ancestry.h`  | Ancestry and interface queries |
+| `include/introspection/property-list.h`  | Property pspec and value formatting |
+| `include/introspection/signal-list.h`    | Signal metadata queries |
+| `include/introspection/inspector-pane.h` | GTK UI pane and pick-mode integration |
+| `src/introspection/type-ancestry.c`      | Implementation |
+| `src/introspection/property-list.c`      | Implementation |
+| `src/introspection/signal-list.c`        | Implementation |
+| `src/introspection/inspector-pane.c`     | Implementation |
 
 `src/main.c` remains the entry point. It should delegate introspection UI and
 pick-mode wiring to the `introspection` group rather than growing with
@@ -275,46 +275,46 @@ introspection logic inline.
 Implementation should use upstream introspection APIs rather than hard-coded
 widget knowledge:
 
-| Concern         | Primary APIs                                              | Reference |
-|-----------------|-----------------------------------------------------------|-----------|
-| Type name       | `G_OBJECT_TYPE()`, `G_OBJECT_TYPE_NAME()`                 | [GObject.Object](https://docs.gtk.org/gobject/class.Object.html) |
-| Ancestry        | `g_type_parent()`, `g_type_is_a()`                        | [Type System Concepts](https://docs.gtk.org/gobject/concepts.html) |
-| Type sizes      | `g_type_query()`                                          | [g_type_query](https://docs.gtk.org/gobject/func.type_query.html) |
-| Interfaces      | `g_type_interfaces()`                                     | [Type System Concepts](https://docs.gtk.org/gobject/concepts.html) |
-| Properties      | `g_object_class_list_properties()`, `g_object_get()`      | [Object.list_properties](https://docs.gtk.org/gobject/class_method.Object.list_properties.html) |
-| Property values | `g_strdup_value_contents()`                               | [GObject index](https://docs.gtk.org/gobject/) |
-| Signals         | `g_signal_list_ids()`, `g_signal_query()`                 | [GSignalQuery](https://docs.gtk.org/gobject/struct.SignalQuery.html) |
+| Concern         | Primary APIs                                         | Reference |
+| --------------- | ---------------------------------------------------- | --- |
+| Type name       | `G_OBJECT_TYPE()`, `G_OBJECT_TYPE_NAME()`            | [GObject.Object](https://docs.gtk.org/gobject/class.Object.html) |
+| Ancestry        | `g_type_parent()`, `g_type_is_a()`                   | [Type System Concepts](https://docs.gtk.org/gobject/concepts.html) |
+| Type sizes      | `g_type_query()`                                     | [g_type_query](https://docs.gtk.org/gobject/func.type_query.html) |
+| Interfaces      | `g_type_interfaces()`                                | [Type System Concepts](https://docs.gtk.org/gobject/concepts.html) |
+| Properties      | `g_object_class_list_properties()`, `g_object_get()` | [Object.list_properties](https://docs.gtk.org/gobject/class_method.Object.list_properties.html) |
+| Property values | `g_strdup_value_contents()`                          | [GObject index](https://docs.gtk.org/gobject/) |
+| Signals         | `g_signal_list_ids()`, `g_signal_query()`            | [GSignalQuery](https://docs.gtk.org/gobject/struct.SignalQuery.html) |
 
 ## Application behaviour
 
-| Requirement         | Detail                                                            |
-|---------------------|-------------------------------------------------------------------|
+| Requirement         | Detail |
+| ------------------- | --- |
 | Shell               | Extend Feature 1 `GtkApplication` window; preserve **File → Exit** |
-| Introspection scope | Global pane on the main window (not per-demo pages)               |
-| Sample palette      | Compact set of controls in content area; at least `GtkLabel`      |
+| Introspection scope | Global pane on the main window (not per-demo pages) |
+| Sample palette      | Compact set of controls in content area; at least `GtkLabel` |
 | Pick mode           | **View → Inspect widget** enables picking; Escape exits pick mode |
 | Pane placement      | Side pane or split view; exact layout is an implementation choice |
-| Property editing    | Not supported; display only                                       |
-| Signal handlers     | Not connected for exploration in this feature                     |
-| Object lifetime     | Weak references or equivalent when holding the selected widget    |
+| Property editing    | Not supported; display only |
+| Signal handlers     | Not connected for exploration in this feature |
+| Object lifetime     | Weak references or equivalent when holding the selected widget |
 
 ## Documentation
 
-| Requirement | Detail                                                      |
-|-------------|-------------------------------------------------------------|
+| Requirement | Detail |
+| ----------- | --- |
 | README      | GTK Inspector section (environment variable, shortcuts, upstream link) |
-| README      | In-app inspect workflow                                     |
-| Copyright   | New source files carry the project copyright notice         |
+| README      | In-app inspect workflow |
+| Copyright   | New source files carry the project copyright notice |
 
 ## Tests
 
-| Requirement   | Detail                                                              |
-|---------------|---------------------------------------------------------------------|
-| Location      | `test/introspection/` mirroring group name                          |
-| Ancestry      | Assert expected parent chain for `GtkLabel` (or similar)            |
+| Requirement   | Detail |
+| ------------- | --- |
+| Location      | `test/introspection/` mirroring group name |
+| Ancestry      | Assert expected parent chain for `GtkLabel` (or similar) |
 | Properties    | Assert `g_object_class_list_properties()` returns non-empty for `GtkLabel` |
 | Version drift | Tests query installed GTK via pkg-config; avoid brittle property-name lists |
-| Runner        | Invoked via `meson test -C build`                                   |
+| Runner        | Invoked via `meson test -C build` |
 
 # Design decisions
 
@@ -376,15 +376,15 @@ The following belong in later features or plan phases, not Feature 2:
 
 # As built
 
-| Item | Detail |
-|------|--------|
-| Layout | `GtkPaned` horizontal split: main window (menu + sample palette) and introspection pane |
-| Pick mode | **View → Inspect widget** toggle; Escape exits pick mode; `GtkGestureClick` in capture phase with crosshair cursor |
-| Pick API | `gtk_widget_pick()` on the main `GtkBox` (menu bar and content) |
-| Pane display | Read-only monospace `GtkTextView` with type, ancestry, interfaces, properties, signals |
+| Item            | Detail |
+| --------------- | --- |
+| Layout          | `GtkPaned` horizontal split: main window (menu + sample palette) and introspection pane |
+| Pick mode       | **View → Inspect widget** toggle; Escape exits pick mode; `GtkGestureClick` in capture phase with crosshair cursor |
+| Pick API        | `gtk_widget_pick()` on the main `GtkBox` (menu bar and content) |
+| Pane display    | Read-only monospace `GtkTextView` with type, ancestry, interfaces, properties, signals |
 | Object lifetime | `GWeakRef` on selected widget; pane clears when widget is destroyed |
-| Sample palette | `GtkLabel`, `GtkButton`, `GtkEntry`, `GtkSwitch`, `GtkScale`, nested `GtkBox` + `GtkCheckButton` |
-| Tests | `meson test -C build` — ancestry and property tests for `GObject` and `GtkLabel` |
+| Sample palette  | `GtkLabel`, `GtkButton`, `GtkEntry`, `GtkSwitch`, `GtkScale`, nested `GtkBox` + `GtkCheckButton` |
+| Tests           | `meson test -C build` — ancestry and property tests for `GObject` and `GtkLabel` |
 
 # References
 

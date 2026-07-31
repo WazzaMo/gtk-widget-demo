@@ -68,15 +68,15 @@ and **View → Sample palette** (radio group; gallery selected on startup).
 
 ## Shell
 
-| Element | Detail |
-|---------|--------|
-| File menu | **File → Exit** unchanged from Feature 1 |
-| View menu | **View → Inspect widget** unchanged from Feature 2 |
-| View menu | **View → Widget gallery** and **View → Sample palette** (radio group; gallery default) |
-| Escape | Exits pick mode (Feature 2 behaviour preserved) |
-| Layout | Menu bar; gallery or sample palette in main content; introspection pane |
+| Element         | Detail |
+| --------------- | --- |
+| File menu       | **File → Exit** unchanged from Feature 1 |
+| View menu       | **View → Inspect widget** unchanged from Feature 2 |
+| View menu       | **View → Widget gallery** and **View → Sample palette** (radio group; gallery default) |
+| Escape          | Exits pick mode (Feature 2 behaviour preserved) |
+| Layout          | Menu bar; gallery or sample palette in main content; introspection pane |
 | Default content | Widget gallery on startup |
-| Title | Static **GTK Widget Demo** (see [delivery decisions](#delivery-decisions)) |
+| Title           | Static **GTK Widget Demo** (see [delivery decisions](#delivery-decisions)) |
 
 The introspection pick root continues to cover the menu bar and gallery content
 (the same region as today’s `root_box` in `window-shell.c`).
@@ -95,13 +95,13 @@ Navigation follows the five sections of the upstream visual index:
 
 5. Windows
 
-| UI element | Detail |
-|------------|--------|
-| Category list | Sidebar or equivalent; section headings match visual-index names |
-| Demo list | Entries under each category; label is the GType name (for example `GtkLabel`) |
-| Content area | Shows the active demo page when a demo is selected |
+| UI element        | Detail |
+| ----------------- | --- |
+| Category list     | Sidebar or equivalent; section headings match visual-index names |
+| Demo list         | Entries under each category; label is the GType name (for example `GtkLabel`) |
+| Content area      | Shows the active demo page when a demo is selected |
 | Default selection | Sensible first demo on startup (for example first **Display widgets** entry) |
-| Empty state | Avoided on first run — at least one demo per category in the initial set |
+| Empty state       | Avoided on first run — at least one demo per category in the initial set |
 
 Recommended implementation: `GtkStack` for demo pages plus a sidebar built from
 `GtkListBox`, `GtkColumnView`, or a nested list — exact widgets are an
@@ -128,13 +128,13 @@ flowchart LR
 
 Each gallery demo is a self-contained page in the content area:
 
-| Field | Detail |
-|-------|--------|
-| Title | Widget name (for example **GtkScale**) |
-| Description | One or two sentences on what the demo shows (optional but encouraged) |
+| Field         | Detail |
+| ------------- | --- |
+| Title         | Widget name (for example **GtkScale**) |
+| Description   | One or two sentences on what the demo shows (optional but encouraged) |
 | Upstream link | URL to the matching [docs.gtk.org](https://docs.gtk.org/gtk4/visual_index.html) class page |
-| Widget area | Runnable example(s); may include labels showing key properties or signals |
-| Scope | One primary widget per page in Feature 3; supporting chrome only — see [demo page scope note](../notes/2026-07-26-plan-feature-3-one-widget-per-demo-page.md) |
+| Widget area   | Runnable example(s); may include labels showing key properties or signals |
+| Scope         | One primary widget per page in Feature 3; supporting chrome only — see [demo page scope note](../notes/2026-07-26-plan-feature-3-one-widget-per-demo-page.md) |
 
 Demos are read-only teaching examples unless interaction is inherent to the
 widget (for example clicking a button, toggling a switch). Demos must not
@@ -157,43 +157,43 @@ and mirrors the teaching value of the sample palette widgets as individual demos
 
 ## Display widgets
 
-| Demo | Notes |
-|------|-------|
-| `GtkLabel` | Text and alignment; replaces sample-palette label |
-| `GtkSpinner` | Indeterminate activity indicator |
+| Demo             | Notes |
+| ---------------- | --- |
+| `GtkLabel`       | Text and alignment; replaces sample-palette label |
+| `GtkSpinner`     | Indeterminate activity indicator |
 | `GtkProgressBar` | Fraction and pulse modes |
-| `GtkScale` | Horizontal range; replaces sample-palette scale |
+| `GtkScale`       | Horizontal range; replaces sample-palette scale |
 
 ## Buttons
 
-| Demo | Notes |
-|------|-------|
-| `GtkButton` | Click handler with visible feedback |
-| `GtkCheckButton` | Boolean state; replaces sample-palette check |
-| `GtkSwitch` | Active state; replaces sample-palette switch |
+| Demo              | Notes |
+| ----------------- | --- |
+| `GtkButton`       | Click handler with visible feedback |
+| `GtkCheckButton`  | Boolean state; replaces sample-palette check |
+| `GtkSwitch`       | Active state; replaces sample-palette switch |
 | `GtkToggleButton` | Toggled state distinct from check button |
 
 ## Entries
 
-| Demo | Notes |
-|------|-------|
-| `GtkEntry` | Editable text; replaces sample-palette entry |
+| Demo            | Notes |
+| --------------- | --- |
+| `GtkEntry`      | Editable text; replaces sample-palette entry |
 | `GtkSpinButton` | Numeric entry with adjustment |
 
 ## Containers
 
-| Demo | Notes |
-|------|-------|
-| `GtkBox` | Horizontal box with nested children; replaces sample-palette nested box |
-| `GtkGrid` | Row and column placement |
-| `GtkFrame` | Labelled container |
+| Demo          | Notes |
+| ------------- | --- |
+| `GtkBox`      | Horizontal box with nested children; replaces sample-palette nested box |
+| `GtkGrid`     | Row and column placement |
+| `GtkFrame`    | Labelled container |
 | `GtkNotebook` | Multiple pages; exercises tabbed layout |
 
 ## Windows
 
-| Demo | Notes |
-|------|-------|
-| `GtkAboutDialog` | Opened from a button on the demo page |
+| Demo               | Notes |
+| ------------------ | --- |
+| `GtkAboutDialog`   | Opened from a button on the demo page |
 | `GtkMessageDialog` | Information or question dialog opened from a button |
 
 Total: **14** initial demos across **5** categories.
@@ -248,7 +248,7 @@ Remaining visual-index widgets are listed in
 ## Build system
 
 | Requirement     | Detail |
-|-----------------|--------|
+| --------------- | --- |
 | Root build file | Extend `meson.build` to compile `gallery` group sources |
 | GTK dependency  | Continue using `dependency('gtk4', include_type: 'system')` |
 | Warnings        | `warning_level=3` on project code |
@@ -269,25 +269,25 @@ meson test -C build
 The `gallery` group follows [c-code-standard.md](../c-code-standard.md). Suggested
 units (names may adjust during implementation):
 
-| Path | Role |
-|------|------|
-| `include/gallery.h` | Group umbrella header |
-| `include/gallery/gallery-shell.h` | Navigation UI and stack of demo pages |
-| `include/gallery/demo-registry.h` | Categories, demo metadata, registration API |
-| `include/gallery/demo-page.h` | Shared demo page chrome (title, link, content slot) |
-| `include/gallery/display-demos.h` | Display category demo builders |
-| `include/gallery/button-demos.h` | Buttons category demo builders |
-| `include/gallery/entry-demos.h` | Entries category demo builders |
+| Path                                | Role |
+| ----------------------------------- | --- |
+| `include/gallery.h`                 | Group umbrella header |
+| `include/gallery/gallery-shell.h`   | Navigation UI and stack of demo pages |
+| `include/gallery/demo-registry.h`   | Categories, demo metadata, registration API |
+| `include/gallery/demo-page.h`       | Shared demo page chrome (title, link, content slot) |
+| `include/gallery/display-demos.h`   | Display category demo builders |
+| `include/gallery/button-demos.h`    | Buttons category demo builders |
+| `include/gallery/entry-demos.h`     | Entries category demo builders |
 | `include/gallery/container-demos.h` | Containers category demo builders |
-| `include/gallery/window-demos.h` | Windows category demo builders |
-| `src/gallery/gallery-shell.c` | Implementation |
-| `src/gallery/demo-registry.c` | Implementation |
-| `src/gallery/demo-page.c` | Implementation |
-| `src/gallery/display-demos.c` | Implementation |
-| `src/gallery/button-demos.c` | Implementation |
-| `src/gallery/entry-demos.c` | Implementation |
-| `src/gallery/container-demos.c` | Implementation |
-| `src/gallery/window-demos.c` | Implementation |
+| `include/gallery/window-demos.h`    | Windows category demo builders |
+| `src/gallery/gallery-shell.c`       | Implementation |
+| `src/gallery/demo-registry.c`       | Implementation |
+| `src/gallery/demo-page.c`           | Implementation |
+| `src/gallery/display-demos.c`       | Implementation |
+| `src/gallery/button-demos.c`        | Implementation |
+| `src/gallery/entry-demos.c`         | Implementation |
+| `src/gallery/container-demos.c`     | Implementation |
+| `src/gallery/window-demos.c`        | Implementation |
 
 `src/main/window-shell.c` embeds the gallery shell by default and switches content
 when the user selects **View → Widget gallery** or **View → Sample palette**.
@@ -314,11 +314,11 @@ and one registry entry.
 
 ## Application behaviour
 
-| Requirement | Detail |
-|-------------|--------|
-| Shell | Preserve Feature 1 quit and Feature 2 inspect actions |
-| Content | **View → Widget gallery** (default) or **View → Sample palette** |
-| Navigation | Five categories; demo list; single active demo page |
+| Requirement   | Detail |
+| ------------- | --- |
+| Shell         | Preserve Feature 1 quit and Feature 2 inspect actions |
+| Content       | **View → Widget gallery** (default) or **View → Sample palette** |
+| Navigation    | Five categories; demo list; single active demo page |
 | Introspection | Feature 2 pane and **View → Inspect widget** unchanged; see [reuse introspection note](../notes/2026-07-26-plan-feature-3-reuse-introspection.md) |
 | Demo lifetime | Destroy or hide previous demo widgets when switching demos; no leaked dialogs |
 | Accessibility | Demo pages use sensible default labels where GTK provides them |
@@ -326,24 +326,24 @@ and one registry entry.
 ## Documentation
 
 | Requirement | Detail |
-|-------------|--------|
-| README | **View → Widget gallery** / **Sample palette**; link to visual index |
-| README | Note that introspection (Feature 2) applies to gallery widgets |
+| ----------- | --- |
+| README      | **View → Widget gallery** / **Sample palette**; link to visual index |
+| README      | Note that introspection (Feature 2) applies to gallery widgets |
 | Feature doc | Update [AGENTS.md](../../AGENTS.md) current-state table when Feature 3 ships |
-| Copyright | New source files carry the project copyright notice |
+| Copyright   | New source files carry the project copyright notice |
 
 ## Tests
 
 Gallery UI is primarily exercised manually. Automated tests should focus on
 logic that is stable without driving the full window:
 
-| Requirement | Detail |
-|-------------|--------|
-| Location | `test/gallery/` mirroring group name |
-| Registry | Assert expected category count (5) and demo counts per category for the initial set |
+| Requirement   | Detail |
+| ------------- | --- |
+| Location      | `test/gallery/` mirroring group name |
+| Registry      | Assert expected category count (5) and demo counts per category for the initial set |
 | Demo builders | Each category test invokes demo builder callbacks and asserts non-NULL root widget |
 | Version drift | Avoid brittle property-value assertions; smoke-test widget types where practical |
-| Runner | Invoked via `meson test -C build` |
+| Runner        | Invoked via `meson test -C build` |
 
 # Design decisions
 
@@ -428,11 +428,11 @@ Three items were open before implementation; all were resolved at delivery
 Implementation details are in
 [2026-07-29-coding-feature-3-widget-gallery.md](../notes/2026-07-29-coding-feature-3-widget-gallery.md).
 
-| # | Topic | Resolution |
-|---|-------|------------|
-| 1 | Window title | Static **GTK Widget Demo** (`window-shell.c`) |
-| 2 | Sidebar widget | `GtkListBox` with unselectable category header rows (`gallery-shell.c`) |
-| 3 | Implementation stories | Feature spec only; no `docs/stories/` entries |
+| #   | Topic                  | Resolution |
+| --- | ---------------------- | --- |
+| 1   | Window title           | Static **GTK Widget Demo** (`window-shell.c`) |
+| 2   | Sidebar widget         | `GtkListBox` with unselectable category header rows (`gallery-shell.c`) |
+| 3   | Implementation stories | Feature spec only; no `docs/stories/` entries |
 
 Optional follow-on refinements (dynamic title, tree sidebar, story files for
 catalog expansion) are not blockers for Feature 3 acceptance.

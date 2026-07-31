@@ -31,7 +31,7 @@ single Feature 3 implementation pass.
 # Rationale
 
 | Concern       | Why phasing helps |
-|---------------|-------------------|
+| ------------- | --- |
 | Scope creep   | The full visual index is far larger than one reviewable feature |
 | Time to value | Navigation, registry, and demo page pattern unlock all future demos |
 | Teaching      | The initial set covers every category; gallery demos mirror palette widgets individually |
@@ -56,13 +56,13 @@ Alternatives rejected:
 
 The framework is the reusable gallery infrastructure:
 
-| Component | Role |
-|-----------|------|
-| `gallery-shell` | Category and demo navigation; active demo content area (`GtkStack` or equivalent) |
-| `demo-registry` | Categories, demo metadata, registration and lookup |
-| `demo-page` | Shared page chrome: title, description, upstream doc link, content slot |
-| Category demo units | `display-demos`, `button-demos`, `entry-demos`, `container-demos`, `window-demos` |
-| `window-shell` integration | Content mode from **View → Widget gallery** / **Sample palette** (gallery default) |
+| Component                   | Role |
+| --------------------------- | --- |
+| `gallery-shell`             | Category and demo navigation; active demo content area (`GtkStack` or equivalent) |
+| `demo-registry`             | Categories, demo metadata, registration and lookup |
+| `demo-page`                 | Shared page chrome: title, description, upstream doc link, content slot |
+| Category demo units         | `display-demos`, `button-demos`, `entry-demos`, `container-demos`, `window-demos` |
+| `window-shell` integration  | Content mode from **View → Widget gallery** / **Sample palette** (gallery default) |
 | Tests under `test/gallery/` | Registry counts; non-NULL demo builder smoke tests |
 
 Feature 3 acceptance is met when this framework works end-to-end with the
@@ -76,13 +76,13 @@ wording remain in
 
 Summary:
 
-| Category | Count | Demos |
-|----------|-------|-------|
-| Display widgets | 4 | `GtkLabel`, `GtkSpinner`, `GtkProgressBar`, `GtkScale` |
-| Buttons | 4 | `GtkButton`, `GtkCheckButton`, `GtkSwitch`, `GtkToggleButton` |
-| Entries | 2 | `GtkEntry`, `GtkSpinButton` |
-| Containers | 4 | `GtkBox`, `GtkGrid`, `GtkFrame`, `GtkNotebook` |
-| Windows | 2 | `GtkAboutDialog`, `GtkMessageDialog` |
+| Category        | Count | Demos |
+| --------------- | ----- | --- |
+| Display widgets | 4     | `GtkLabel`, `GtkSpinner`, `GtkProgressBar`, `GtkScale` |
+| Buttons         | 4     | `GtkButton`, `GtkCheckButton`, `GtkSwitch`, `GtkToggleButton` |
+| Entries         | 2     | `GtkEntry`, `GtkSpinButton` |
+| Containers      | 4     | `GtkBox`, `GtkGrid`, `GtkFrame`, `GtkNotebook` |
+| Windows         | 2     | `GtkAboutDialog`, `GtkMessageDialog` |
 
 These mirror the Feature 2 sample palette widgets as individual demos and add at
 least one runnable example per visual-index section. The compact palette remains

@@ -32,12 +32,12 @@ were ordinary child widgets.
 
 # Rationale
 
-| Benefit | Detail |
-|---------|--------|
-| Matches GTK usage | Dialogs and choosers are designed to be transient for a parent window |
-| Honest demos | Users see real modal presentation, focus, and dismiss behaviour |
-| Stable gallery shell | Content area layout stays a single demo page; no nested window chrome |
-| Inspect still works | Pick mode targets the demo page button and chrome; opened dialog can be inspected while visible |
+| Benefit                     | Detail |
+| --------------------------- | --- |
+| Matches GTK usage           | Dialogs and choosers are designed to be transient for a parent window |
+| Honest demos                | Users see real modal presentation, focus, and dismiss behaviour |
+| Stable gallery shell        | Content area layout stays a single demo page; no nested window chrome |
+| Inspect still works         | Pick mode targets the demo page button and chrome; opened dialog can be inspected while visible |
 | Scales to follow-on widgets | File/font/color choosers reuse the same launch pattern in later waves |
 
 # Alternatives considered
@@ -62,43 +62,43 @@ entries where feasible.
 
 ## Demo page layout
 
-| Element | Detail |
-|---------|--------|
-| Primary type | Named in title and sidebar (`GtkAboutDialog`, etc.) |
-| Description | Short text on when the dialog is used |
-| Upstream link | Class page on docs.gtk.org |
+| Element        | Detail |
+| -------------- | --- |
+| Primary type   | Named in title and sidebar (`GtkAboutDialog`, etc.) |
+| Description    | Short text on when the dialog is used |
+| Upstream link  | Class page on docs.gtk.org |
 | Launch control | **Show about dialog**, **Show message dialog**, or equivalent `GtkButton` |
-| Widget area | Page chrome plus launch button — not an embedded top-level window |
+| Widget area    | Page chrome plus launch button — not an embedded top-level window |
 
 Supporting widgets on the page follow the one-primary-widget rule; the dialog
 appears only after the user clicks launch.
 
 ## Modal presentation
 
-| Rule | Detail |
-|------|--------|
-| Parent | Transient for `GtkApplicationWindow` (or active window) |
+| Rule     | Detail |
+| -------- | --- |
+| Parent   | Transient for `GtkApplicationWindow` (or active window) |
 | Modality | Block interaction with parent while open where GTK API supports it |
-| APIs | GTK4 patterns: `gtk_window_present`, dialog present helpers, or async dialog APIs as appropriate |
-| Dismiss | User closes dialog normally; demo page remains in the stack |
+| APIs     | GTK4 patterns: `gtk_window_present`, dialog present helpers, or async dialog APIs as appropriate |
+| Dismiss  | User closes dialog normally; demo page remains in the stack |
 
 Exact API choice per dialog type is implementation detail; behaviour must match
 upstream GTK4 examples.
 
 ## Lifetime and shutdown
 
-| Rule | Detail |
-|------|--------|
-| No zombies | Destroy or dismiss dialogs when closed; do not leak references |
-| App exit | Closing main window while a dialog is open must not crash or warn |
+| Rule        | Detail |
+| ----------- | --- |
+| No zombies  | Destroy or dismiss dialogs when closed; do not leak references |
+| App exit    | Closing main window while a dialog is open must not crash or warn |
 | Demo switch | Switching gallery demos or content mode should not leave orphan dialogs |
-| Pick mode | Launch buttons use claimed-click behaviour consistent with Feature 2 inspect mode |
+| Pick mode   | Launch buttons use claimed-click behaviour consistent with Feature 2 inspect mode |
 
 ## Feature 3 initial demos
 
-| Demo | Launch behaviour |
-|------|------------------|
-| `GtkAboutDialog` | Button opens about dialog modally with sample app metadata |
+| Demo               | Launch behaviour |
+| ------------------ | --- |
+| `GtkAboutDialog`   | Button opens about dialog modally with sample app metadata |
 | `GtkMessageDialog` | Button opens information or question dialog modally |
 
 ## Follow-on Windows category

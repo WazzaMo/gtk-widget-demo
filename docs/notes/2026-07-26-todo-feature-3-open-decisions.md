@@ -19,22 +19,22 @@ follow-up questions until each was closed at delivery.
 
 Resolved design decisions for reference:
 
-| # | Topic | Note |
-|---|-------|------|
-| 1 | Visual index taxonomy | [2026-07-26-plan-feature-3-visual-index-source-of-truth.md](./2026-07-26-plan-feature-3-visual-index-source-of-truth.md) |
-| 2 | Framework first | [2026-07-26-plan-feature-3-framework-first-catalog-later.md](./2026-07-26-plan-feature-3-framework-first-catalog-later.md) |
-| 3 | Sample vs gallery menu | [2026-07-26-plan-feature-3-sample-palette-menu-choice.md](./2026-07-26-plan-feature-3-sample-palette-menu-choice.md) |
-| 4 | Reuse introspection | [2026-07-26-plan-feature-3-reuse-introspection.md](./2026-07-26-plan-feature-3-reuse-introspection.md) |
-| 5 | One widget per page | [2026-07-26-plan-feature-3-one-widget-per-demo-page.md](./2026-07-26-plan-feature-3-one-widget-per-demo-page.md) |
-| 6 | Modal window demos | [2026-07-26-plan-feature-3-modal-dialogs-window-types.md](./2026-07-26-plan-feature-3-modal-dialogs-window-types.md) |
+| #   | Topic                  | Note |
+| --- | ---------------------- | --- |
+| 1   | Visual index taxonomy  | [2026-07-26-plan-feature-3-visual-index-source-of-truth.md](./2026-07-26-plan-feature-3-visual-index-source-of-truth.md) |
+| 2   | Framework first        | [2026-07-26-plan-feature-3-framework-first-catalog-later.md](./2026-07-26-plan-feature-3-framework-first-catalog-later.md) |
+| 3   | Sample vs gallery menu | [2026-07-26-plan-feature-3-sample-palette-menu-choice.md](./2026-07-26-plan-feature-3-sample-palette-menu-choice.md) |
+| 4   | Reuse introspection    | [2026-07-26-plan-feature-3-reuse-introspection.md](./2026-07-26-plan-feature-3-reuse-introspection.md) |
+| 5   | One widget per page    | [2026-07-26-plan-feature-3-one-widget-per-demo-page.md](./2026-07-26-plan-feature-3-one-widget-per-demo-page.md) |
+| 6   | Modal window demos     | [2026-07-26-plan-feature-3-modal-dialogs-window-types.md](./2026-07-26-plan-feature-3-modal-dialogs-window-types.md) |
 
 Resolved at delivery (formerly open in this note):
 
-| # | Topic | Resolution |
-|---|-------|------------|
-| 7 | Window title | Static **GTK Widget Demo** (`window-shell.c`) |
-| 8 | Sidebar widget | `GtkListBox` with unselectable category header rows (`gallery-shell.c`) |
-| 9 | Implementation stories | Feature spec only; no `docs/stories/` entries |
+| #   | Topic                  | Resolution |
+| --- | ---------------------- | --- |
+| 7   | Window title           | Static **GTK Widget Demo** (`window-shell.c`) |
+| 8   | Sidebar widget         | `GtkListBox` with unselectable category header rows (`gallery-shell.c`) |
+| 9   | Implementation stories | Feature spec only; no `docs/stories/` entries |
 
 # Open decision 1 — Window title
 
@@ -46,21 +46,21 @@ Should the main window title stay fixed or reflect the active gallery demo?
 
 ### Static title — **GTK Widget Demo**
 
-| Benefit | Detail |
-|---------|--------|
-| Consistency | Matches Feature 1 and Feature 2 today |
-| Simplicity | No title updates when switching demos or content modes |
+| Benefit        | Detail |
+| -------------- | --- |
+| Consistency    | Matches Feature 1 and Feature 2 today |
+| Simplicity     | No title updates when switching demos or content modes |
 | Platform norms | Many demo and inspector apps use a stable app name |
 
 ### Dynamic title — include active demo
 
 Examples: `GTK Widget Demo — GtkLabel`, or `GtkLabel · GTK Widget Demo`.
 
-| Benefit | Detail |
-|---------|--------|
-| Context | User sees which demo is active without glancing at the sidebar |
+| Benefit      | Detail |
+| ------------ | --- |
+| Context      | User sees which demo is active without glancing at the sidebar |
 | Window lists | Task switcher and screenshot filenames are self-describing |
-| Debugging | Support screenshots and bug reports that name the demo |
+| Debugging    | Support screenshots and bug reports that name the demo |
 
 ### Hybrid
 
@@ -68,9 +68,9 @@ Static title for **Sample palette** mode; dynamic suffix only in **Widget galler
 mode.
 
 | Benefit | Detail |
-|---------|--------|
+| ------- | --- |
 | Balance | App identity preserved; gallery browsing gains context |
-| Cost | Slightly more state wiring in `window-shell.c` |
+| Cost    | Slightly more state wiring in `window-shell.c` |
 
 ## Resolution
 
@@ -93,30 +93,30 @@ Which GTK widget implements category + demo navigation in `gallery-shell`?
 
 ### `GtkListBox` (flat or grouped rows)
 
-| Benefit | Detail |
-|---------|--------|
-| Simplicity | Straightforward for ~14 demos and five category headings |
+| Benefit       | Detail |
+| ------------- | --- |
+| Simplicity    | Straightforward for ~14 demos and five category headings |
 | Accessibility | Familiar list pattern; easy keyboard navigation |
-| Fit | Matches “pick a demo from a list” without tree chrome |
+| Fit           | Matches “pick a demo from a list” without tree chrome |
 
 Grouped sections can use separators, labels, or unselectable header rows.
 
 ### Nested list — category `GtkListBox` + demo `GtkListBox`
 
-| Benefit | Detail |
-|---------|--------|
+| Benefit         | Detail |
+| --------------- | --- |
 | Clear hierarchy | Category selection filters or expands demo list |
-| Scale | Avoids one very long list as catalog grows |
+| Scale           | Avoids one very long list as catalog grows |
 
 ### `GtkColumnView` or `GtkTreeView`
 
-| Benefit | Detail |
-|---------|--------|
+| Benefit   | Detail |
+| --------- | --- |
 | Structure | Explicit parent/child category → demo rows |
-| Scale | Comfortable for dozens of entries and future metadata columns |
+| Scale     | Comfortable for dozens of entries and future metadata columns |
 
-| Trade-off | Detail |
-|-----------|--------|
+| Trade-off  | Detail |
+| ---------- | --- |
 | Complexity | More model and selection code for Feature 3’s first pass |
 
 ## Resolution
@@ -156,22 +156,22 @@ Example story topics:
 
 - `test/gallery/` and README
 
-| Benefit | Detail |
-|---------|--------|
+| Benefit           | Detail |
+| ----------------- | --- |
 | Reviewable slices | Smaller PRs and clearer acceptance per story |
-| Parallel work | Contributors can take one category unit at a time |
-| Traceability | Links feature acceptance criteria to deliverables |
+| Parallel work     | Contributors can take one category unit at a time |
+| Traceability      | Links feature acceptance criteria to deliverables |
 
 ### Implement from feature spec only (no stories yet)
 
 | Benefit | Detail |
-|---------|--------|
-| Speed | One less documentation pass before first code |
-| Fit | Feature 3 is already detailed with notes for decisions |
+| ------- | --- |
+| Speed   | One less documentation pass before first code |
+| Fit     | Feature 3 is already detailed with notes for decisions |
 
 | Trade-off | Detail |
-|-----------|--------|
-| Risk | Single large change set if not disciplined about incremental commits |
+| --------- | --- |
+| Risk      | Single large change set if not disciplined about incremental commits |
 
 ### Minimal stories — framework only
 
@@ -179,7 +179,7 @@ One epic plus stories for registry/shell and “initial demo set” without per-
 story files.
 
 | Benefit | Detail |
-|---------|--------|
+| ------- | --- |
 | Balance | Documents the critical path without N story files for N widgets |
 
 ## Resolution

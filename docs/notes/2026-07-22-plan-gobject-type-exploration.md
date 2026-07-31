@@ -29,11 +29,11 @@ introspection belongs in-app versus in external tools.
 
 Three distinct goals overlap in practice but lead to different designs.
 
-| Goal | Question answered | Typical audience |
-|------|-------------------|------------------|
-| Runtime inspection | What type is this widget, and what can I change on it? | App designers, debuggers |
-| API literacy | How do properties, signals, and inheritance work in GTK? | Developers learning GObject |
-| Custom types | How do I define my own GObject subclass or interface? | Contributors extending the demo |
+| Goal               | Question answered                                        | Typical audience |
+| ------------------ | -------------------------------------------------------- | --- |
+| Runtime inspection | What type is this widget, and what can I change on it?   | App designers, debuggers |
+| API literacy       | How do properties, signals, and inheritance work in GTK? | Developers learning GObject |
+| Custom types       | How do I define my own GObject subclass or interface?    | Contributors extending the demo |
 
 The widget gallery primarily serves the first two. Custom-type tutorials are
 valuable but are a separate track (see Option 4).
@@ -50,14 +50,14 @@ API families are the main building blocks.
 
 ## Type identity and hierarchy
 
-| API | Purpose | Reference |
-|-----|---------|-----------|
-| `G_OBJECT_TYPE()` / `G_OBJECT_TYPE_NAME()` | Type id and name of an instance | [GObject.Object](https://docs.gtk.org/gobject/class.Object.html) |
-| `g_type_name()` | Name from a `GType` value | [gobject index](https://docs.gtk.org/gobject/) |
-| `g_type_parent()` | Direct parent in the inheritance tree | [concepts](https://docs.gtk.org/gobject/concepts.html) |
-| `g_type_is_a()` | Whether a type is a descendant of another | [concepts](https://docs.gtk.org/gobject/concepts.html) |
-| `g_type_query()` | Class size, instance size, type name | [g_type_query](https://docs.gtk.org/gobject/func.type_query.html), [GTypeQuery](https://docs.gtk.org/gobject/struct.TypeQuery.html) |
-| `g_type_interfaces()` | Interfaces implemented by a classed type | [concepts — interfaces](https://docs.gtk.org/gobject/concepts.html) |
+| API                                        | Purpose                                   | Reference |
+| ------------------------------------------ | ----------------------------------------- | --- |
+| `G_OBJECT_TYPE()` / `G_OBJECT_TYPE_NAME()` | Type id and name of an instance           | [GObject.Object](https://docs.gtk.org/gobject/class.Object.html) |
+| `g_type_name()`                            | Name from a `GType` value                 | [gobject index](https://docs.gtk.org/gobject/) |
+| `g_type_parent()`                          | Direct parent in the inheritance tree     | [concepts](https://docs.gtk.org/gobject/concepts.html) |
+| `g_type_is_a()`                            | Whether a type is a descendant of another | [concepts](https://docs.gtk.org/gobject/concepts.html) |
+| `g_type_query()`                           | Class size, instance size, type name      | [g_type_query](https://docs.gtk.org/gobject/func.type_query.html), [GTypeQuery](https://docs.gtk.org/gobject/struct.TypeQuery.html) |
+| `g_type_interfaces()`                      | Interfaces implemented by a classed type  | [concepts — interfaces](https://docs.gtk.org/gobject/concepts.html) |
 
 Walking from a widget instance up through `g_type_parent()` reproduces the
 inheritance chain shown in GTK doc pages (for example `GtkButton` →
@@ -65,12 +65,12 @@ inheritance chain shown in GTK doc pages (for example `GtkButton` →
 
 ## Properties
 
-| API | Purpose | Reference |
-|-----|---------|-----------|
-| `g_object_class_list_properties()` | All `GParamSpec` entries for a class | [Object.list_properties](https://docs.gtk.org/gobject/class_method.Object.list_properties.html) |
-| `g_object_get()` / `g_object_set()` | Read and write by name | [GObject.Object](https://docs.gtk.org/gobject/class.Object.html) |
-| `GParamSpec` fields | Name, nick, blurb, flags, value type | [GParamSpec](https://docs.gtk.org/gobject/class.ParamSpec.html) |
-| `g_strdup_value_contents()` | Debug string for a `GValue` | [gobject index](https://docs.gtk.org/gobject/) |
+| API                                 | Purpose                              | Reference |
+| ----------------------------------- | ------------------------------------ | --- |
+| `g_object_class_list_properties()`  | All `GParamSpec` entries for a class | [Object.list_properties](https://docs.gtk.org/gobject/class_method.Object.list_properties.html) |
+| `g_object_get()` / `g_object_set()` | Read and write by name               | [GObject.Object](https://docs.gtk.org/gobject/class.Object.html) |
+| `GParamSpec` fields                 | Name, nick, blurb, flags, value type | [GParamSpec](https://docs.gtk.org/gobject/class.ParamSpec.html) |
+| `g_strdup_value_contents()`         | Debug string for a `GValue`          | [gobject index](https://docs.gtk.org/gobject/) |
 
 Property metadata is what makes generic inspectors possible: the type system
 stores names and types at runtime so UI can list and edit values without
@@ -78,11 +78,11 @@ hard-coding each widget.
 
 ## Signals
 
-| API | Purpose | Reference |
-|-----|---------|-----------|
-| `g_signal_list_ids()` | Signal ids defined on a type | [gobject index](https://docs.gtk.org/gobject/) |
-| `g_signal_query()` | Name, parameters, flags for a signal | [GSignalQuery](https://docs.gtk.org/gobject/struct.SignalQuery.html) |
-| `g_signal_connect()` | Observe emissions during exploration | [GObject signals](https://docs.gtk.org/gobject/concepts.html) |
+| API                   | Purpose                              | Reference |
+| --------------------- | ------------------------------------ | --- |
+| `g_signal_list_ids()` | Signal ids defined on a type         | [gobject index](https://docs.gtk.org/gobject/) |
+| `g_signal_query()`    | Name, parameters, flags for a signal | [GSignalQuery](https://docs.gtk.org/gobject/struct.SignalQuery.html) |
+| `g_signal_connect()`  | Observe emissions during exploration | [GObject signals](https://docs.gtk.org/gobject/concepts.html) |
 
 Signal exploration is harder to present safely (handlers can have side
 effects), so read-only listing is usually enough for a gallery tool.
@@ -150,12 +150,12 @@ the matching [GTK4 doc page](https://docs.gtk.org/gtk4/visual_index.html).
 Add a code group (for example `src/introspection/` with
 `include/introspection.h`) that implements reusable units:
 
-| Unit | Responsibility |
-|------|----------------|
-| `type-ancestry` | Walk `g_type_parent()` into a human-readable chain |
-| `type-query` | Wrap `g_type_query()` and interface lists |
-| `property-list` | Use `g_object_class_list_properties()` and format pspec metadata |
-| `signal-list` | Use `g_signal_list_ids()` / `g_signal_query()` |
+| Unit             | Responsibility |
+| ---------------- | --- |
+| `type-ancestry`  | Walk `g_type_parent()` into a human-readable chain |
+| `type-query`     | Wrap `g_type_query()` and interface lists |
+| `property-list`  | Use `g_object_class_list_properties()` and format pspec metadata |
+| `signal-list`    | Use `g_signal_list_ids()` / `g_signal_query()` |
 | `inspector-pane` | GTK UI: tree of ancestry, list of properties, read-only values |
 
 The main window (or each demo page) could offer an “Inspect selection” action
@@ -242,13 +242,13 @@ CI snapshots and docs generation.
 
 # Comparison
 
-| Option | Effort | Gallery integration | Teaches GObject APIs | Maintenance |
-|--------|--------|---------------------|----------------------|-------------|
-| 1 GTK Inspector | None in repo | Document only | Indirect | Low |
-| 2 Curated panels | Low per demo | High | Medium | High (N demos) |
-| 3 Introspection module | High once | High | High | Medium |
-| 4 Custom types tutorial | High | Separate section | Highest (authoring) | Medium |
-| 5 CLI dump | Medium | Optional | Medium | Medium |
+| Option                  | Effort       | Gallery integration | Teaches GObject APIs | Maintenance |
+| ----------------------- | ------------ | ------------------- | -------------------- | --- |
+| 1 GTK Inspector         | None in repo | Document only       | Indirect             | Low |
+| 2 Curated panels        | Low per demo | High                | Medium               | High (N demos) |
+| 3 Introspection module  | High once    | High                | High                 | Medium |
+| 4 Custom types tutorial | High         | Separate section    | Highest (authoring)  | Medium |
+| 5 CLI dump              | Medium       | Optional            | Medium               | Medium |
 
 Options 2 and 3 compose well: generic browser for any selection, plus curated
 “why these properties matter” text per demo.
