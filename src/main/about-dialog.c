@@ -12,7 +12,8 @@
 #define MAIN_APP_PROGRAM_NAME "GTK Widget Demo"
 #define MAIN_APP_VERSION "0.1.0"
 #define MAIN_APP_COMMENTS \
-  "Runnable GTK4 widget gallery aligned with the upstream visual index."
+  "Runnable GTK4 widget gallery aligned with the upstream visual index.\n\n" \
+  "Vectors and icons by SVG Repo https://www.svgrepo.com"
 #define MAIN_APP_COPYRIGHT "Copyright © 2026 onwards Warwick Molloy"
 #define MAIN_APP_WEBSITE "https://github.com/WazzaMo/gtk-widget-demo"
 #define MAIN_APP_WEBSITE_LABEL "GTK Widget Demo on GitHub"
