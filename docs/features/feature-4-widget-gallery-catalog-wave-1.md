@@ -88,8 +88,8 @@ Insert after **GtkScale** (last Feature 3 display demo). Stop before **GtkGLArea
 | `GtkLevelBar`  | Filled level in a defined range |
 | `GtkInfoBar`   | Message area with dismiss or action button |
 | `GtkScrollbar` | Vertical scrollbar on a `GtkTextView` inside `GtkScrolledWindow` |
-| `GtkImage`     | Static image from icon name or resource |
-| `GtkPicture`   | Scalable picture from file or resource |
+| `GtkImage`     | Static image from a bundled SVG (SVG Repo) |
+| `GtkPicture`   | Scalable picture from a bundled SVG (SVG Repo; may reuse the same file as GtkImage) |
 | `GtkSeparator` | Horizontal and/or vertical rule |
 | `GtkTextView`  | Editable buffer; toolbar buttons apply `GtkTextTag` scale for small / normal / large text on the selection |
 
@@ -211,12 +211,12 @@ Reuse Feature 3 conventions:
    `g_object_set_data_full()` must clean up on page destroy (same pattern as
    display progress-bar pulse mode).
 
-4. **Assets** — prefer GTK icon names or embedded resources over runtime network
-   or arbitrary host paths; document any small bundled asset in the demo
-   description. Free SVG images may be sourced from
-   [SVG Repo](https://www.svgrepo.com); the Help → About dialog credits them
-   with “Vectors and icons by SVG Repo” linking to that site (GTK about-dialog
-   link format, not HTML markup).
+4. **Assets** — bundle **one or two** SVG files from
+   [SVG Repo](https://www.svgrepo.com) in the repository for the `GtkImage` and
+   `GtkPicture` demos (no runtime network or arbitrary host paths). The same file
+   may be reused in both demos. Document chosen assets in the demo description;
+   Help → About credits SVG Repo with “Vectors and icons by SVG Repo” linking to
+   https://www.svgrepo.com (GTK about-dialog link format, not HTML markup).
 
 ## Tests
 
@@ -249,10 +249,11 @@ and builder stability as in Feature 3.
 4. **Framework unchanged:** resolved — no sidebar search, icons, or dynamic title;
    catalog growth only.
 
-5. **SVG asset source and attribution:** resolved — bundled SVG files from
-   [SVG Repo](https://www.svgrepo.com) for `GtkImage` / `GtkPicture` demos where
-   icon names are insufficient; Help → About includes “Vectors and icons by SVG
-   Repo” with a link to https://www.svgrepo.com (GTK titled-link format in
+5. **SVG asset source and attribution:** resolved — bundle **one or two** SVG
+   files from [SVG Repo](https://www.svgrepo.com) in-repo for `GtkImage` and
+   `GtkPicture` (reuse one file across both demos if sufficient); Help → About
+   includes “Vectors and icons by SVG Repo” with a link to
+   https://www.svgrepo.com (GTK titled-link format in
    `gtk_about_dialog_set_comments()`, not HTML `<a>` markup).
 
 6. **GtkScrollbar demo shape:** resolved — show the scrollbar on a `GtkTextView`
