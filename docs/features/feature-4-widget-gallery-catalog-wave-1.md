@@ -87,11 +87,11 @@ Insert after **GtkScale** (last Feature 3 display demo). Stop before **GtkGLArea
 | `GtkStatusbar` | Status message with push/pop or timed clear |
 | `GtkLevelBar`  | Filled level in a defined range |
 | `GtkInfoBar`   | Message area with dismiss or action button |
-| `GtkScrollbar` | Linked to a scrollable widget or adjustment |
+| `GtkScrollbar` | Vertical scrollbar on a `GtkTextView` inside `GtkScrolledWindow` |
 | `GtkImage`     | Static image from icon name or resource |
 | `GtkPicture`   | Scalable picture from file or resource |
 | `GtkSeparator` | Horizontal and/or vertical rule |
-| `GtkTextView`  | Read-only or editable buffer with short sample text |
+| `GtkTextView`  | Editable buffer; toolbar buttons apply `GtkTextTag` scale for small / normal / large text on the selection |
 
 ## Entries
 
@@ -178,15 +178,16 @@ meson test -C build
 
 ## Code layout
 
-Extend existing category units; prefer one demo per sub-unit file when a category
-unit grows large (established pattern in `src/gallery/display-demos/`).
+Extend existing category units per [c-code-standard.md](../c-code-standard.md).
+Gallery demo builders are separate responsibilities — one sub-unit per demo in
+display and entry categories; parent units hold registry tables only.
 
 | Path                            | Role |
 | ------------------------------- | --- |
 | `src/gallery/display-demos.c`   | Registry table for display category; add new entries |
 | `src/gallery/display-demos/*.c` | One sub-unit per new display demo (headers under `include/gallery/display-demos/`) |
 | `src/gallery/entry-demos.c`     | Registry table for entries category |
-| `src/gallery/entry-demos/*.c`   | New entry demo sub-units when `entry-demos.c` would exceed ~300–400 lines |
+| `src/gallery/entry-demos/*.c`   | One sub-unit per entry demo (each builder is its own responsibility) |
 | `test/gallery/demo-registry.c`  | Assert category demo counts including wave 1 totals |
 | `test/gallery/demo-builders.c`  | Smoke-test all builders, including new demos |
 
@@ -212,7 +213,10 @@ Reuse Feature 3 conventions:
 
 4. **Assets** — prefer GTK icon names or embedded resources over runtime network
    or arbitrary host paths; document any small bundled asset in the demo
-   description.
+   description. Free SVG images may be sourced from
+   [SVG Repo](https://www.svgrepo.com); the Help → About dialog credits them
+   with “Vectors and icons by SVG Repo” linking to that site (GTK about-dialog
+   link format, not HTML markup).
 
 ## Tests
 
@@ -233,9 +237,11 @@ and builder stability as in Feature 3.
    single category to completion; revisit before implementation if effort estimates
    differ.
 
-2. **Sub-unit files per demo:** resolved by precedent — follow
-   `src/gallery/display-demos/<demo>.c` for new display demos; split
-   `entry-demos` similarly when the parent unit grows.
+2. **Sub-unit file splits:** resolved — follow [c-code-standard.md](../c-code-standard.md):
+   file size triggers a split when a unit is hard to reason about; responsibility
+   guides how to divide it. For gallery demos, each demo builder is its own
+   responsibility, so use `src/gallery/display-demos/<demo>.c` and
+   `src/gallery/entry-demos/<demo>.c`; parent units hold the registry table only.
 
 3. **Registry ordering:** resolved — visual-index order within category per
    [2026-07-26-plan-feature-3-visual-index-source-of-truth.md](../notes/2026-07-26-plan-feature-3-visual-index-source-of-truth.md).
@@ -243,17 +249,20 @@ and builder stability as in Feature 3.
 4. **Framework unchanged:** resolved — no sidebar search, icons, or dynamic title;
    catalog growth only.
 
-# Open decisions
+5. **SVG asset source and attribution:** resolved — bundled SVG files from
+   [SVG Repo](https://www.svgrepo.com) for `GtkImage` / `GtkPicture` demos where
+   icon names are insufficient; Help → About includes “Vectors and icons by SVG
+   Repo” with a link to https://www.svgrepo.com (GTK titled-link format in
+   `gtk_about_dialog_set_comments()`, not HTML `<a>` markup).
 
-Record outcomes in dated notes under `docs/notes/` before or during implementation.
+6. **GtkScrollbar demo shape:** resolved — show the scrollbar on a `GtkTextView`
+   inside `GtkScrolledWindow` (not a standalone scrollbar with a bare
+   adjustment).
 
-| #   | Topic                              | Options |
-| --- | ---------------------------------- | --- |
-| 1   | **GtkImage vs GtkPicture assets**  | Icon name only; bundled PNG/SVG in repo; generate at runtime |
-| 2   | **GtkScrollbar demo shape**        | Standalone scrollbar with adjustment vs scrollbar attached to `GtkTextView` / `GtkScrolledWindow` preview |
-| 3   | **GtkTextView interactivity**      | Read-only buffer vs editable; affects pick-mode interaction |
-| 4   | **Entry sub-unit split threshold** | Split at first new entry demo vs when file exceeds ~300 lines |
-| 5   | **Wave 1 delivery split**          | One PR/feature vs stories per category (`docs/stories/` when used) |
+7. **GtkTextView interactivity:** resolved — editable buffer with formatting
+   buttons (for example Small, Normal, Large) that apply named `GtkTextTag`
+   instances using the tag `scale` property on the current selection; no direct
+   Pango API calls.
 
 # Out of scope
 
@@ -284,9 +293,9 @@ The following belong in later features or waves, not Feature 4:
 | Risk                                    | Mitigation |
 | --------------------------------------- | --- |
 | Scope creep into GL/video/popover demos | Hold wave boundary at GtkTextView; defer listed widgets explicitly |
-| Large category files again              | One sub-unit per demo; parent file holds registry only |
+| Large category files again              | Split when size makes a unit hard to reason about; one demo per sub-unit in gallery |
 | Asset path portability                  | Icon names and repo-local resources; no `$HOME` paths |
-| Scrollbar demo without context          | Pair with adjustment or minimal scrollable content; keep one primary widget |
+| Scrollbar demo without context          | Use `GtkTextView` in `GtkScrolledWindow`; primary widget is `GtkScrollbar` for introspection |
 | Registry test drift                     | Update expected counts in same change as new registrations |
 | Pick mode vs search/password entry      | Verify claimed-click on interactive entry demos |
 

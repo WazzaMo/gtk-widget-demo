@@ -25,7 +25,7 @@ Follow-on work can extend the gallery catalog beyond the initial 14 demos per
 | Present                                              | Not yet present |
 | ---------------------------------------------------- | --- |
 | `docs/` conventions and feature specs (Features 1–3) | Full visual-index catalog |
-| Meson build and GTK4 executable                      | `docs/stories/` (planned, unused) |
+| Meson build and GTK4 executable                      |  |
 | `src/main.c` entry point; `src/main/` shell units    |  |
 | `src/gallery/` gallery framework and initial demos   |  |
 | `src/introspection/` introspection units             |  |
@@ -38,7 +38,7 @@ structure.
 
 | Topic                              | Document |
 | ---------------------------------- | --- |
-| Markdown, notes, features, stories | [docs/doc-guide.md](./docs/doc-guide.md) |
+| Markdown, notes, features          | [docs/doc-guide.md](./docs/doc-guide.md) |
 | C layout, groups, units, tests     | [docs/c-code-standard.md](./docs/c-code-standard.md) |
 | First deliverable                  | [docs/features/feature-1-base-application.md](./docs/features/feature-1-base-application.md) |
 | GObject introspection              | [docs/features/feature-2-gobject-introspection.md](./docs/features/feature-2-gobject-introspection.md) |
@@ -131,7 +131,7 @@ Delivered as of 2026-07-29:
 4. Tests under `test/gallery/` via `meson test -C build`; README updated.
 
 Delivery decisions (closed 2026-07-29): static window title **GTK Widget Demo**;
-`GtkListBox` sidebar with category headers; no `docs/stories/` split — see
+`GtkListBox` sidebar with category headers — see
 [2026-07-26-todo-feature-3-open-decisions.md](./docs/notes/2026-07-26-todo-feature-3-open-decisions.md).
 
 See [2026-07-29-coding-feature-3-widget-gallery.md](./docs/notes/2026-07-29-coding-feature-3-widget-gallery.md)
@@ -145,5 +145,4 @@ Full rules are in [doc-guide.md](./docs/doc-guide.md).
 
 - **Notes:** `docs/notes/{YYYY-MM-DD}-{kind}-{name}.md`
 - **Features:** `docs/features/feature-{n}-{short-name}.md`
-- **Stories:** `docs/stories/{epic|story}-{feature}-{component}-{description}.md`
 - **Release notes:** `docs/release-notes/{semver}-Release-{date}.md`

@@ -217,7 +217,7 @@ implementation using `G_DECLARE_*` / `G_DEFINE_*` macros from the
 
 - Not required for browsing existing GTK widgets.
 
-- More code and tests; best treated as a later feature or story, not part of
+- More code and tests; best treated as a later feature, not part of
   the first widget gallery milestone.
 
 
@@ -337,8 +337,9 @@ These were resolved in
    **Done** — see
    [feature-2-gobject-introspection.md](../features/feature-2-gobject-introspection.md).
 
-3. Split stories under `docs/stories/` for `introspection` units before
-   implementation.
+3. Implement Feature 2 from
+   [feature-2-gobject-introspection.md](../features/feature-2-gobject-introspection.md)
+   using plan notes under `docs/notes/` for incremental delivery.
 
 
 # References

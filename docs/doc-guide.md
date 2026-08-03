@@ -64,7 +64,6 @@ directories exist now and which are planned.
 | `docs/notes`         | Existing |
 | `docs/features`      | Existing |
 | `docs/release-notes` | Planned |
-| `docs/stories`       | Planned |
 
 AI agents should start with [AGENTS.md](../AGENTS.md) at the repository root,
 which links to this guide and the other convention docs.
@@ -75,7 +74,7 @@ Notes can have one of the following kinds...
 
 {kind} in the convention below refers to one of these.
 
-1. plan - ideas, concerns and risks for implementing a feature, epic or a user story.
+1. plan - ideas, concerns and risks for implementing a feature.
 
 2. coding - a summary of what code changes were recently made.
 
@@ -134,22 +133,6 @@ and `{short-name}` describes the feature topic. For example:
 `docs/features/feature-1-base-application.md`.
 
 Each feature should include use cases and acceptance criteria.
-
-## Epics and Stories
-
-User stories may be created in the project when breaking down
-features into smaller, buildable components.
-
-These are to be written into `docs/stories/`.
-
-Write requirements to `docs/stories/{epic|story}-{feature-name}-{component}-{description}.md`,
-using either `epic` or `story` as the prefix. For example:
-`docs/stories/story-gobject-introspection-inspector-pane-pick-mode.md`.
-
-Stories should be used to take the intention written in a feature
-and turn it into a set of epics and stories that should be used
-as the context to engineer a single component of the whole feature,
-which is part of the final system.
 
 ## Bugs
 

@@ -83,9 +83,9 @@ adding `GtkTextView` or editable demos to catch font fallback issues early.
 This note informs wave 1 choices in
 [feature-4-widget-gallery-catalog-wave-1.md](../features/feature-4-widget-gallery-catalog-wave-1.md):
 
-1. **GtkTextView** — a short plain-text buffer is enough for a minimal demo;
-   optional `GtkTextTag` or Pango markup in the buffer can show rich text without
-   calling Pango C API directly.
+1. **GtkTextView** — editable buffer with a short sample paragraph; toolbar
+   buttons apply `GtkTextTag` scale values (small / normal / large) to the
+   current selection — no direct Pango C API.
 
 2. **GtkLabel vs GtkTextView** — labels suit single-line static or markup text;
    `GtkTextView` suits multi-line editable or selectable content. Both ultimately

@@ -84,9 +84,6 @@ Closed during implementation (2026-07-29); see
 
 2. **Sidebar widget** — `GtkListBox` with category headers.
 
-3. **Stories** — implemented from the feature spec only; no `docs/stories/`
-   split.
-
 # Fixes after initial delivery
 
 ## Pick-mode Escape idle use-after-free
