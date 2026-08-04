@@ -40,7 +40,7 @@ present or operate the primary type.
 ### Trade-offs
 
 Does not show how multiple instances or mixed controls crowd a layout. That
-composition story is deferred to Option B, the sample palette, or container demos
+composition case is deferred to Option B, the sample palette, or container demos
 that still name one **primary** type.
 
 ## Option B — Two or three demo widgets per page
@@ -70,7 +70,7 @@ suited to a **follow-on wave** after Option A is stable.
 type** matching the visual-index entry; supporting widgets are incidental chrome
 only.
 
-Option B remains a **documented extension**: later demos or stories may add
+Option B remains a **documented extension**: later demos may add
 multi-instance pages using shared modules in `demo-page` or category units, without
 changing the one-type-per-sidebar-entry navigation model.
 

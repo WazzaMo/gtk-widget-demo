@@ -91,7 +91,7 @@ available separately; see
 
 # Follow-on catalog (after Feature 3)
 
-Add the widgets below in later features or stories using the Feature 3 registry
+Add the widgets below in later features using the Feature 3 registry
 and demo page pattern. Order within each category follows the visual index when
 implemented (see the source-of-truth note).
 
@@ -139,8 +139,8 @@ implemented (see the source-of-truth note).
    standard new demo.
 
 Batch follow-on work by category (for example “Display widgets wave 2”) or by
-widget complexity (for example file chooser dialogs together) via stories under
-`docs/stories/` when the project uses them.
+widget complexity (for example file chooser dialogs together) in later feature
+specs and plan notes.
 
 # References
 

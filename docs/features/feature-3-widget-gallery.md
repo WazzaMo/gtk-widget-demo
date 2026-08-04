@@ -375,7 +375,7 @@ logic that is stable without driving the full window:
 
 # Out of scope
 
-The following belong in later features or stories, not Feature 3:
+The following belong in later features, not Feature 3:
 
 1. Every visual-index widget not in the [initial demo set](#initial-demo-set)
    (follow-on catalog in
@@ -417,25 +417,25 @@ The following belong in later features or stories, not Feature 3:
 5. **GTK version drift:** prefer smoke tests and type names over fixed property
    inventories; document GTK4-only APIs (for example `gtk_editable_set_text`).
 
-6. **Large category units:** split into sub-units early if a category file exceeds
-   roughly 300–400 lines.
+6. **Large category units:** when a category file grows hard to reason about,
+   split demo builders into sub-units under `src/gallery/<category>/` using
+   responsibility boundaries per [c-code-standard.md](../c-code-standard.md).
 
 # Delivery decisions
 
-Three items were open before implementation; all were resolved at delivery
+Two items were open before implementation; both were resolved at delivery
 (2026-07-29). Options and rationale are in
 [2026-07-26-todo-feature-3-open-decisions.md](../notes/2026-07-26-todo-feature-3-open-decisions.md).
 Implementation details are in
 [2026-07-29-coding-feature-3-widget-gallery.md](../notes/2026-07-29-coding-feature-3-widget-gallery.md).
 
-| #   | Topic                  | Resolution |
-| --- | ---------------------- | --- |
-| 1   | Window title           | Static **GTK Widget Demo** (`window-shell.c`) |
-| 2   | Sidebar widget         | `GtkListBox` with unselectable category header rows (`gallery-shell.c`) |
-| 3   | Implementation stories | Feature spec only; no `docs/stories/` entries |
+| #   | Topic          | Resolution |
+| --- | -------------- | --- |
+| 1   | Window title   | Static **GTK Widget Demo** (`window-shell.c`) |
+| 2   | Sidebar widget | `GtkListBox` with unselectable category header rows (`gallery-shell.c`) |
 
-Optional follow-on refinements (dynamic title, tree sidebar, story files for
-catalog expansion) are not blockers for Feature 3 acceptance.
+Optional follow-on refinements (dynamic title, tree sidebar) are not blockers
+for Feature 3 acceptance.
 
 # References
 

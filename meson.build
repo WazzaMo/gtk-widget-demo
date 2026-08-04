@@ -6,6 +6,9 @@ gtk4_dep = dependency('gtk4', include_type: 'system')
 
 inc = include_directories('include')
 
+gallery_data_dir = meson.project_source_root() / 'data'
+gallery_c_args = ['-DGALLERY_DATA_DIR="@0@"'.format(gallery_data_dir)]
+
 main_sources = files(
   'src/main/about-dialog.c',
   'src/main/sample-palette.c',
@@ -18,11 +21,24 @@ gallery_sources = files(
   'src/gallery/demo-page.c',
   'src/gallery/demo-registry.c',
   'src/gallery/display-demos.c',
+  'src/gallery/display-demos/gtk-info-bar-demo.c',
+  'src/gallery/display-demos/gtk-image-demo.c',
   'src/gallery/display-demos/gtk-label-demo.c',
+  'src/gallery/display-demos/gtk-level-bar-demo.c',
+  'src/gallery/display-demos/gtk-picture-demo.c',
   'src/gallery/display-demos/gtk-progress-bar-demo.c',
   'src/gallery/display-demos/gtk-scale-demo.c',
+  'src/gallery/display-demos/gtk-scrollbar-demo.c',
+  'src/gallery/display-demos/gtk-separator-demo.c',
   'src/gallery/display-demos/gtk-spinner-demo.c',
+  'src/gallery/display-demos/gtk-statusbar-demo.c',
+  'src/gallery/display-demos/gtk-text-view-demo.c',
   'src/gallery/entry-demos.c',
+  'src/gallery/entry-demos/gtk-editable-label-demo.c',
+  'src/gallery/entry-demos/gtk-entry-demo.c',
+  'src/gallery/entry-demos/gtk-password-entry-demo.c',
+  'src/gallery/entry-demos/gtk-search-entry-demo.c',
+  'src/gallery/entry-demos/gtk-spin-button-demo.c',
   'src/gallery/gallery-shell.c',
   'src/gallery/window-demos.c',
 )
@@ -46,6 +62,7 @@ executable('gtk-widget-demo',
   gallery_sources,
   introspection_sources,
   include_directories : inc,
+  c_args : gallery_c_args,
   dependencies : gtk4_dep,
   install : false)
 
@@ -70,31 +87,35 @@ test_introspection_signal_list = executable('test-introspection-signal-list',
   dependencies : gtk4_dep,
   install : false)
 
-gallery_test_sources = files(
-  'src/gallery/button-demos.c',
-  'src/gallery/container-demos.c',
-  'src/gallery/demo-page.c',
-  'src/gallery/demo-registry.c',
-  'src/gallery/display-demos.c',
-  'src/gallery/display-demos/gtk-label-demo.c',
-  'src/gallery/display-demos/gtk-progress-bar-demo.c',
-  'src/gallery/display-demos/gtk-scale-demo.c',
-  'src/gallery/display-demos/gtk-spinner-demo.c',
-  'src/gallery/entry-demos.c',
-  'src/gallery/window-demos.c',
-)
-
 test_gallery_demo_registry = executable('test-gallery-demo-registry',
   'test/gallery/demo-registry.c',
-  gallery_test_sources,
+  gallery_sources,
   include_directories : inc,
+  c_args : gallery_c_args,
   dependencies : gtk4_dep,
   install : false)
 
 test_gallery_demo_builders = executable('test-gallery-demo-builders',
   'test/gallery/demo-builders.c',
-  gallery_test_sources,
+  gallery_sources,
   include_directories : inc,
+  c_args : gallery_c_args,
+  dependencies : gtk4_dep,
+  install : false)
+
+test_gallery_demo_interactive = executable('test-gallery-demo-interactive',
+  'test/gallery/demo-interactive.c',
+  gallery_sources,
+  include_directories : inc,
+  c_args : gallery_c_args,
+  dependencies : gtk4_dep,
+  install : false)
+
+test_gallery_gallery_shell = executable('test-gallery-gallery-shell',
+  'test/gallery/gallery-shell.c',
+  gallery_sources,
+  include_directories : inc,
+  c_args : gallery_c_args,
   dependencies : gtk4_dep,
   install : false)
 
@@ -103,3 +124,5 @@ test('introspection-property-list', test_introspection_property_list)
 test('introspection-signal-list', test_introspection_signal_list)
 test('gallery-demo-registry', test_gallery_demo_registry)
 test('gallery-demo-builders', test_gallery_demo_builders)
+test('gallery-demo-interactive', test_gallery_demo_interactive)
+test('gallery-gallery-shell', test_gallery_gallery_shell)

@@ -150,6 +150,27 @@ The main entry point should be located at `src/main.c` so that it
 exists outside any code groups. It should refer to other source
 code that exists within groups to compose the program.
 
+## File splitting principles
+
+Source files should be organised so related code is easy to find and each file
+remains easy to read and reason about.
+
+**Responsibility** is the organising principle: keep code that shares a job
+together, and separate code with a clearly different job. That grouping makes
+navigation and filenames meaningful.
+
+**File size** is the trigger and guide for when to split. If related
+responsibilities still fit in a short file, leave them together — there is no
+need to split for its own sake. When a file grows large and becomes harder to
+reason about, split it.
+
+When splitting, use responsibility to decide *what* goes where: look at finer
+details within the file and choose boundaries that keep like things together.
+There is often more than one reasonable way to divide responsibilities; pick
+the split that makes the structure clearest.
+
+See below for groups, subgroups, units and sub-units.
+
 ## Arranging code in groups and subgroups
 
 For clarity code can be arranged in groups which represent an area
@@ -175,8 +196,9 @@ The source code should be organised in groups with multiple units:
 The C file units by their UNIT-NAME should correspond to the include
 file UNIT-NAME include, declaration files.
 
-Subgroups allow a unit to be broken down where needed to keep source files
-smaller and to promote function reuse. Applying this results in files and directories like this:
+Subgroups allow a unit to be broken down where needed — typically when the
+unit file grows hard to reason about, or when a distinct responsibility should
+be reused. Applying this results in files and directories like this:
 
 `src/<GROUP-NAME>/<UNIT-NAME>.c`
 `src/<GROUP-NAME>/<UNIT-NAME>/<SUB-UNIT-NAME>.c`
