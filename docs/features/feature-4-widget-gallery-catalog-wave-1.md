@@ -7,7 +7,7 @@ Contribution to this project is supported and contributors will be recognised.
 
 # Status
 
-**Draft** — not started.
+**Ready to implement** — 2026-08-05.
 
 Extends the Feature 3 gallery with the next visual-index demos in **Display
 widgets** and **Entries**. Builds on the delivered framework, registry, demo page
@@ -39,8 +39,9 @@ widgets that need heavy external assets, OpenGL contexts, or media pipelines
 # Use cases
 
 1. A developer opens the gallery, selects **Display widgets**, and finds new
-   entries (for example **GtkStatusbar**, **GtkImage**) in visual-index order
-   after the Feature 3 demos.
+   entries (for example **GtkStatusbar**, **GtkImage**) interleaved at their
+   visual-index positions among the Feature 3 display demos (not appended after
+   **GtkScale**).
 
 2. A developer opens **Entries** and runs **GtkSearchEntry**,
    **GtkPasswordEntry**, and **GtkEditableLabel** demos distinct from the plain
@@ -79,29 +80,44 @@ display and button demo conventions.
 
 ## Display widgets
 
-Insert after **GtkScale** (last Feature 3 display demo). Stop before **GtkGLArea**
-(deferred — see [Out of scope](#out-of-scope)).
+Eight new demos interleaved with the four Feature 3 display entries. Register in
+**visual-index order** within the category — insert each new row at its upstream
+position without reordering unrelated Feature 3 entries. Stop before **GtkGLArea**
+(deferred to catalog wave 2 — see
+[2026-08-05-plan-widget-gallery-catalog-nine-waves.md](../notes/2026-08-05-plan-widget-gallery-catalog-nine-waves.md)
+and [Out of scope](#out-of-scope)).
 
-| Demo           | Notes |
-| -------------- | --- |
-| `GtkStatusbar` | Status message with push/pop or timed clear |
-| `GtkLevelBar`  | Filled level in a defined range |
-| `GtkInfoBar`   | Message area with dismiss or action button |
-| `GtkScrollbar` | Vertical scrollbar on a `GtkTextView` inside `GtkScrolledWindow` |
-| `GtkImage`     | Static image from a bundled SVG (SVG Repo) |
-| `GtkPicture`   | Scalable picture from a bundled SVG (SVG Repo; may reuse the same file as GtkImage) |
-| `GtkSeparator` | Horizontal and/or vertical rule |
-| `GtkTextView`  | Editable buffer; toolbar buttons apply `GtkTextTag` scale for small / normal / large text on the selection |
+Full Display registry order after Feature 4 (existing entries in **bold**):
+
+| Order | Demo | Notes |
+| ----- | ---- | --- |
+| 1     | **GtkLabel** | Feature 3 |
+| 2     | **GtkSpinner** | Feature 3 |
+| 3     | GtkStatusbar | Status message with push/pop or timed clear |
+| 4     | GtkLevelBar | Filled level in a defined range |
+| 5     | **GtkProgressBar** | Feature 3 |
+| 6     | GtkInfoBar | Message area with dismiss or action button |
+| 7     | GtkScrollbar | Vertical scrollbar on a tall `GtkTextView` inside `GtkScrolledWindow` so the bar is visible and pickable in inspect mode |
+| 8     | GtkImage | Static image from a bundled SVG (SVG Repo) |
+| 9     | GtkPicture | Scalable picture from a bundled SVG (SVG Repo; may reuse the same file as GtkImage) |
+| 10    | GtkSeparator | Horizontal and/or vertical rule |
+| 11    | GtkTextView | Editable buffer; toolbar buttons apply `GtkTextTag` scale for small / normal / large text on the selection |
+| 12    | **GtkScale** | Feature 3 |
 
 ## Entries
 
-Insert after **GtkSpinButton**.
+Three new demos interleaved with the two Feature 3 entry entries. Register in
+visual-index order within the category.
 
-| Demo               | Notes |
-| ------------------ | --- |
-| `GtkSearchEntry`   | Search icon entry; optional placeholder text |
-| `GtkPasswordEntry` | Masked input with visibility toggle if API allows |
-| `GtkEditableLabel` | Label toggling to editable mode |
+Full Entries registry order after Feature 4 (existing entries in **bold**):
+
+| Order | Demo | Notes |
+| ----- | ---- | --- |
+| 1     | **GtkEntry** | Feature 3 |
+| 2     | GtkSearchEntry | Search icon entry; optional placeholder text |
+| 3     | GtkPasswordEntry | Masked input with visibility toggle if API allows |
+| 4     | **GtkSpinButton** | Feature 3 |
+| 5     | GtkEditableLabel | Label toggling to editable mode |
 
 Total after Feature 4: **25** demos (Display **12**, Buttons **4**, Entries **5**,
 Containers **4**, Windows **2**).
@@ -132,8 +148,8 @@ headers when registered in the category demo arrays.
    introspection pick mode, Escape, and modal window demos from Feature 3.
 
 3. Each demo in the [wave 1 demo set](#wave-1-demo-set) is present in the
-   sidebar under the correct category, in visual-index order relative to existing
-   entries.
+   sidebar under the correct category, in the full visual-index order shown in
+   the registry tables (new demos interleaved with Feature 3 entries).
 
 4. Selecting each new demo shows a runnable page with the primary widget type
    described in its table row.
@@ -180,14 +196,17 @@ meson test -C build
 
 Extend existing category units per [c-code-standard.md](../c-code-standard.md).
 Gallery demo builders are separate responsibilities — one sub-unit per demo in
-display and entry categories; parent units hold registry tables only.
+display and entry categories; parent units hold registry tables only. Move the
+existing inline **GtkEntry** and **GtkSpinButton** builders from `entry-demos.c`
+into `src/gallery/entry-demos/*.c` sub-units as part of this feature.
 
 | Path                            | Role |
 | ------------------------------- | --- |
-| `src/gallery/display-demos.c`   | Registry table for display category; add new entries |
-| `src/gallery/display-demos/*.c` | One sub-unit per new display demo (headers under `include/gallery/display-demos/`) |
-| `src/gallery/entry-demos.c`     | Registry table for entries category |
-| `src/gallery/entry-demos/*.c`   | One sub-unit per entry demo (each builder is its own responsibility) |
+| `src/gallery/display-demos.c`   | Registry table for display category; add new entries in visual-index order |
+| `src/gallery/display-demos/*.c` | One sub-unit per display demo (headers under `include/gallery/display-demos/`) |
+| `src/gallery/entry-demos.c`     | Registry table for entries category only |
+| `src/gallery/entry-demos/*.c`   | One sub-unit per entry demo (headers under `include/gallery/entry-demos/`) |
+| `data/` or `assets/`            | Bundled SVG file(s) for image demos; load via path relative to source or build dir (add Meson wiring in the same change) |
 | `test/gallery/demo-registry.c`  | Assert category demo counts including wave 1 totals |
 | `test/gallery/demo-builders.c`  | Smoke-test all builders, including new demos |
 
@@ -212,11 +231,13 @@ Reuse Feature 3 conventions:
    display progress-bar pulse mode).
 
 4. **Assets** — bundle **one or two** SVG files from
-   [SVG Repo](https://www.svgrepo.com) in the repository for the `GtkImage` and
-   `GtkPicture` demos (no runtime network or arbitrary host paths). The same file
-   may be reused in both demos. Document chosen assets in the demo description;
-   Help → About credits SVG Repo with “Vectors and icons by SVG Repo” linking to
-   https://www.svgrepo.com (GTK about-dialog link format, not HTML markup).
+   [SVG Repo](https://www.svgrepo.com) under `data/` or `assets/` in the repository
+   for the `GtkImage` and `GtkPicture` demos (no runtime network or arbitrary host
+   paths). Choose specific files at implementation time and name them in the demo
+   descriptions. The same file may be reused in both demos. Document chosen assets
+   in the demo description; Help → About credits SVG Repo with “Vectors and icons by
+   SVG Repo” linking to https://www.svgrepo.com (GTK about-dialog link format, not
+   HTML markup).
 
 ## Tests
 
@@ -231,11 +252,11 @@ and builder stability as in Feature 3.
 
 # Design decisions
 
-1. **Wave scope — display through TextView plus entries trio:** proposed — covers
+1. **Wave scope — display through TextView plus entries trio:** resolved — covers
    the next visual-index segment that avoids GL, video, and popover-only demos in
-   one reviewable milestone. Alternatives: display-only wave (8 demos) or a
-   single category to completion; revisit before implementation if effort estimates
-   differ.
+   one reviewable milestone. Catalog waves 2–9 (GL, video, and popover risk spike
+   next) are in
+   [2026-08-05-plan-widget-gallery-catalog-nine-waves.md](../notes/2026-08-05-plan-widget-gallery-catalog-nine-waves.md).
 
 2. **Sub-unit file splits:** resolved — follow [c-code-standard.md](../c-code-standard.md):
    file size triggers a split when a unit is hard to reason about; responsibility
@@ -313,6 +334,8 @@ The following belong in later features or waves, not Feature 4:
 [2026-07-30-plan-widget-align-natural-size.md](../notes/2026-07-30-plan-widget-align-natural-size.md)
 
 [2026-08-01-coding-display-demos-interactive-and-pulse.md](../notes/2026-08-01-coding-display-demos-interactive-and-pulse.md)
+
+[2026-08-05-plan-widget-gallery-catalog-nine-waves.md](../notes/2026-08-05-plan-widget-gallery-catalog-nine-waves.md)
 
 [c-code-standard.md](../c-code-standard.md)
 
