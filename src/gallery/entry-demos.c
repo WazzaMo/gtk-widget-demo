@@ -7,34 +7,12 @@
 
 #include "gtk-version.h"
 
-
 #include "gallery/entry-demos.h"
-
-static GtkWidget *
-__build_gtk_entry(GtkWindow *parent_window)
-{
-  GtkWidget *entry;
-
-  (void) parent_window;
-
-  entry = gtk_entry_new();
-  gtk_editable_set_text(GTK_EDITABLE(entry), "Editable text");
-  gtk_widget_set_size_request(entry, 240, -1);
-  return entry;
-}
-
-static GtkWidget *
-__build_gtk_spin_button(GtkWindow *parent_window)
-{
-  GtkWidget *spin;
-  GtkAdjustment *adjustment;
-
-  (void) parent_window;
-
-  adjustment = gtk_adjustment_new(5.0, 0.0, 10.0, 1.0, 2.0, 0.0);
-  spin = gtk_spin_button_new(adjustment, 1.0, 0);
-  return spin;
-}
+#include "gallery/entry-demos/gtk-editable-label-demo.h"
+#include "gallery/entry-demos/gtk-entry-demo.h"
+#include "gallery/entry-demos/gtk-password-entry-demo.h"
+#include "gallery/entry-demos/gtk-search-entry-demo.h"
+#include "gallery/entry-demos/gtk-spin-button-demo.h"
 
 static const GalleryDemoEntry entry_demos[] =
 {
@@ -43,14 +21,35 @@ static const GalleryDemoEntry entry_demos[] =
     "GtkEntry",
     "Single-line text entry for user input.",
     "https://docs.gtk.org/gtk4/class.Entry.html",
-    __build_gtk_entry,
+    gallery_entry_gtk_entry_demo_build,
+  },
+  {
+    "gtk-search-entry",
+    "GtkSearchEntry",
+    "Search entry with placeholder text.",
+    "https://docs.gtk.org/gtk4/class.SearchEntry.html",
+    gallery_entry_gtk_search_entry_demo_build,
+  },
+  {
+    "gtk-password-entry",
+    "GtkPasswordEntry",
+    "Masked password entry with peek icon to reveal text.",
+    "https://docs.gtk.org/gtk4/class.PasswordEntry.html",
+    gallery_entry_gtk_password_entry_demo_build,
   },
   {
     "gtk-spin-button",
     "GtkSpinButton",
     "Numeric entry with stepper buttons bound to a GtkAdjustment.",
     "https://docs.gtk.org/gtk4/class.SpinButton.html",
-    __build_gtk_spin_button,
+    gallery_entry_gtk_spin_button_demo_build,
+  },
+  {
+    "gtk-editable-label",
+    "GtkEditableLabel",
+    "Label that switches to editable mode on activation.",
+    "https://docs.gtk.org/gtk4/class.EditableLabel.html",
+    gallery_entry_gtk_editable_label_demo_build,
   },
 };
 

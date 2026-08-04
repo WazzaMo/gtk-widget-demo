@@ -7,7 +7,7 @@ Contribution to this project is supported and contributors will be recognised.
 
 # Status
 
-**Ready to implement** — 2026-08-05.
+**Complete** — 2026-08-05.
 
 Extends the Feature 3 gallery with the next visual-index demos in **Display
 widgets** and **Entries**. Builds on the delivered framework, registry, demo page
