@@ -16,8 +16,11 @@ the three remaining **Entries** widgets).
 records the full follow-on backlog but leaves batch size open — “by category” or
 “by complexity”. Review of wave 1 scope showed **11 demos** is workable yet at
 the upper bound for a single reviewable milestone. Smaller waves reduce review
-fatigue, keep PRs focused, and isolate risky widgets (GL, media, chooser dialogs)
-into dedicated deliveries.
+fatigue and keep PRs focused. **Wave 2 is a deliberate risk spike:** one OpenGL
+(**GtkGLArea**), one video (**GtkVideo**), and one popover-only display demo
+(**GtkPopoverMenu**) land immediately after wave 1 so platform, GPU, media, and
+popover lifecycle issues surface early — before most of the catalog depends on
+patterns learned from those widgets.
 
 This note proposes **nine catalog expansion waves** (including Feature 4 as wave 1)
 to complete the follow-on catalog from the framework-first plan. Taxonomy, naming,
@@ -26,10 +29,11 @@ and in-category order continue to follow
 
 # Decision
 
-**Nine review-friendly catalog waves**, each adding roughly **4–8** demos (wave 1
-is **11** and already specced in Feature 4). Later waves are grouped by category
-segment and complexity so a single wave does not mix unrelated heavy concerns
-(for example GL rendering and file chooser dialogs).
+**Nine review-friendly catalog waves**, each adding roughly **3–8** demos (wave 1
+is **11** and already specced in Feature 4). **Wave 2** delivers one each of GL,
+video, and popover-only display demos as a small hard-things-first spike. Later
+waves finish the remaining Display segment, then batch Buttons, Containers, and
+Windows by category and complexity (chooser dialogs stay in the final wave).
 
 Each wave is expected to map to one feature spec (or one focused PR series) using
 the existing registry and demo-page pattern — no gallery shell changes unless a
@@ -37,24 +41,31 @@ demo requires a new page pattern (unlikely for standard widgets).
 
 # Wave sizing principles
 
-1. **Target 4–8 demos per wave** for waves 2–9. Fewer is acceptable when
-   complexity is high (GL, video, chooser dialogs).
+1. **Target 4–8 demos per wave** for waves 3–9. Wave 2 is intentionally smaller
+   (**3** demos) for the GL / video / popover risk spike. Fewer is also acceptable
+   when complexity is high (chooser dialogs).
 
-2. **Visual-index order within each category** when registering demos.
+2. **Hard things early** — wave 2 proves **GtkGLArea**, **GtkVideo**, and one
+   popover-only display demo before the bulk of Display, Containers, and Windows
+   land. Fix build, runtime, and asset patterns once; reuse in later waves.
 
-3. **One primary widget per page** — supporting chrome only; see
+3. **Visual-index order within each category** when registering demos. A wave may
+   implement demos out of visual-index sequence for risk reasons; each registration
+   still inserts at the correct index position among entries already shipped.
+
+4. **One primary widget per page** — supporting chrome only; see
    [2026-07-26-plan-feature-3-one-widget-per-demo-page.md](./2026-07-26-plan-feature-3-one-widget-per-demo-page.md).
 
-4. **One sub-unit per demo builder** in category directories; parent units hold
+5. **One sub-unit per demo builder** in category directories; parent units hold
    registry tables only — see [c-code-standard.md](../c-code-standard.md).
 
-5. **Modal window demos** use the launch-button pattern from Feature 3; chooser
+6. **Modal window demos** use the launch-button pattern from Feature 3; chooser
    dialogs batch together — see
    [2026-07-26-plan-feature-3-modal-dialogs-window-types.md](./2026-07-26-plan-feature-3-modal-dialogs-window-types.md).
 
-6. **Update registry smoke tests** in the same change as new registrations.
+7. **Update registry smoke tests** in the same change as new registrations.
 
-7. **Defer cross-cutting gallery features** (search, favourites, live property
+8. **Defer cross-cutting gallery features** (search, favourites, live property
    editing) until after the catalog is complete.
 
 # Summary
@@ -62,8 +73,8 @@ demo requires a new page pattern (unlikely for standard widgets).
 | Wave | Feature (expected) | New demos | Cumulative total | Category focus |
 | ---- | ------------------ | --------- | ---------------- | --- |
 | 1    | Feature 4          | 11        | 25               | Display (8) + Entries (3) |
-| 2    | Feature 5          | 5         | 30               | Display — drawing and chrome |
-| 3    | Feature 6          | 4         | 34               | Display — GL, media, emoji |
+| 2    | Feature 5          | 3         | 28               | Display — GL, video, popover risk spike |
+| 3    | Feature 6          | 6         | 34               | Display — remainder (drawing, media, chrome) |
 | 4    | Feature 7          | 5         | 39               | Buttons — links, menus, toggles |
 | 5    | Feature 8          | 6         | 45               | Buttons — combos and dialog buttons |
 | 6    | Feature 9          | 8         | 53               | Containers — layout and bars |
@@ -73,8 +84,8 @@ demo requires a new page pattern (unlikely for standard widgets).
 
 After wave 9 every widget in the follow-on catalog from the framework-first plan
 is covered, plus the Feature 3 initial set. **Entries** completes in wave 1;
-**Display** in wave 3; **Buttons** in wave 5; **Containers** in wave 7;
-**Windows** in wave 9.
+**Display** in wave 3 (wave 2 proves the three highest-risk display types first);
+**Buttons** in wave 5; **Containers** in wave 7; **Windows** in wave 9.
 
 # Wave descriptions
 
@@ -97,33 +108,39 @@ Stops before **GtkGLArea** (deferred heavy widgets).
 
 Category counts after wave 1: Display **12**, Entries **5**, total **25**.
 
-## Wave 2 — Display drawing and chrome
+## Wave 2 — Display risk spike (GL, video, popover)
 
-Five demos that teach layout-adjacent display types without OpenGL or media
-pipelines. Moderate complexity; popover demos may reuse parent-window patterns
-from Feature 3 window demos.
+Three demos that prove the hardest Display patterns immediately after wave 1.
+Keep each demo minimal. Document platform prerequisites and optional manual
+verification in demo descriptions where CI or host environments may lack GPU,
+GStreamer, or popover parent semantics.
 
-| Demo               | Notes |
-| ------------------ | --- |
-| `GtkDrawingArea`   | Simple draw callback (for example fill or stroke a shape) |
-| `GtkWindowControls`| Window control widget in a representative header context |
-| `GtkPopoverMenuBar`| Menu bar that opens popover menus |
-| `GtkCalendar`      | Date selection; show selected date feedback |
-| `GtkPopoverMenu`   | Popover anchored to a button |
+Deliver out of strict visual-index sequence on purpose; register each demo at
+its visual-index slot among entries already shipped (sidebar gaps fill in when
+wave 3 lands the Display widgets between them).
 
-Category counts after wave 2: Display **17**, total **30**.
+| Demo              | Notes |
+| ----------------- | --- |
+| `GtkGLArea`       | Minimal GL clear or triangle; guard compile/runtime where needed |
+| `GtkVideo`        | Short bundled sample; no network at runtime |
+| `GtkPopoverMenu`  | Popover-only display demo — menu anchored to a button; establishes popover parent and dismiss patterns reused by **GtkPopoverMenuBar** and container **GtkPopover** in later waves |
 
-## Wave 3 — Display GL, media, and emoji
+Category counts after wave 2: Display **15**, total **28**.
 
-Four demos isolated because they need heavier runtime concerns (GPU context,
-GStreamer or platform media, emoji data). Keep each demo minimal; document
-platform prerequisites in the demo description if a widget is unavailable.
+## Wave 3 — Display remainder
+
+Six demos that finish the Display category using patterns established in wave 2
+where applicable (media controls after **GtkVideo**; **GtkPopoverMenuBar** after
+**GtkPopoverMenu**). Straightforward drawing and chrome widgets batch here once
+the risk spike is green.
 
 | Demo                 | Notes |
 | -------------------- | --- |
-| `GtkGLArea`          | Minimal GL clear or triangle; guard compile/runtime where needed |
-| `GtkVideo`           | Short bundled or generated sample; no network at runtime |
-| `GtkMediaControls`   | Paired with a media source or stubbed controller state |
+| `GtkDrawingArea`     | Simple draw callback (for example fill or stroke a shape) |
+| `GtkMediaControls`   | Paired with a media source or stubbed controller state; reuse wave 2 video asset approach |
+| `GtkWindowControls`  | Window control widget in a representative header context |
+| `GtkPopoverMenuBar`  | Menu bar that opens popover menus; builds on wave 2 popover pattern |
+| `GtkCalendar`        | Date selection; show selected date feedback |
 | `GtkEmojiChooser`    | Emoji pick with selection feedback |
 
 **Display category complete** after wave 3 (**21** demos). Cumulative total **34**.
@@ -254,9 +271,18 @@ Each wave should, unless noted otherwise in its feature spec:
 Combine waves 2–3 (all remaining Display), 4–5 (all Buttons), or 6–7 (all
 Containers) into single features.
 
-**Rejected for planning default:** review load and risk concentration (GL/media
-and chooser dialogs in the same milestone as simpler widgets). Revisit if
-maintainer bandwidth favours fewer PRs.
+**Rejected for planning default:** review load and late discovery of GL/video/
+popover failures. Revisit if maintainer bandwidth favours fewer PRs after wave 2
+is green.
+
+## Defer all hard Display widgets to wave 3 (previous plan)
+
+Batch **GtkGLArea**, **GtkVideo**, popover display demos, and simpler Display
+widgets into separate sequential waves without an early spike.
+
+**Superseded:** defers learning from GPU, media, and popover constraints until
+after drawing and calendar demos — higher risk that later waves repeat the same
+fixes. Wave 2 now front-loads one demo of each hard type.
 
 ## More than nine waves
 
@@ -272,9 +298,12 @@ implementation estimates grow.
 | Risk                                       | Mitigation |
 | ------------------------------------------ | ------ |
 | Wave 1 remains large (11 demos)            | Keep Feature 4 boundary; use sub-unit split from the start |
-| GL/video demos fail on some CI hosts       | Minimal demos; document optional manual verification |
+| Wave 2 spike blocks follow-on Display work | Keep wave 2 to three demos; wave 3 completes Display only after spike passes |
+| GL/video demos fail on some CI hosts       | Wave 2 surfaces failures early; minimal demos; document optional manual verification |
+| Popover parent/dismiss bugs found late     | Wave 2 **GtkPopoverMenu** proves pattern before **GtkPopoverMenuBar** and **GtkPopover** |
 | Unix print dialogs on non-Unix platforms   | Guard or skip with clear demo description; no crash on open |
 | TreeView/IconView model boilerplate        | Shared tiny static models; one list per demo |
+| Out-of-order wave delivery vs sidebar      | Register at visual-index slot; accept temporary sidebar gaps until wave 3 fills Display |
 | Feature numbering drift                    | Map feature N+3 to catalog wave N for waves 1–9; adjust when opening each spec |
 | Upstream visual index changes              | Insert new widgets in visual-index order within the relevant category wave |
 
@@ -282,7 +311,7 @@ implementation estimates grow.
 
 | Catalog wave | Expected feature doc |
 | ------------ | --- |
-| 1            | [feature-4-widget-gallery-catalog-wave-1.md](../features/feature-4-widget-gallery-catalog-wave-1.md) (draft) |
+| 1            | [feature-4-widget-gallery-catalog-wave-1.md](../features/feature-4-widget-gallery-catalog-wave-1.md) |
 | 2            | `feature-5-widget-gallery-catalog-wave-2.md` (to create) |
 | 3            | `feature-6-widget-gallery-catalog-wave-3.md` (to create) |
 | 4–9          | `feature-{n}-widget-gallery-catalog-wave-{w}.md` (to create when prior wave completes) |
