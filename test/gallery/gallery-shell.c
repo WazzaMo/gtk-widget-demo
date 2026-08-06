@@ -36,11 +36,13 @@ __shell_get_demo_stack(GtkWidget *shell)
 static void
 __count_sidebar_rows(GtkListBox *list_box,
                      gsize *header_count,
+                     gsize *deprecated_subheader_count,
                      gsize *demo_count)
 {
   int row_index;
 
   *header_count = 0;
+  *deprecated_subheader_count = 0;
   *demo_count = 0;
 
   for (row_index = 0; ; row_index++)
@@ -52,7 +54,13 @@ __count_sidebar_rows(GtkListBox *list_box,
         break;
 
       if (g_object_get_data(G_OBJECT(row), "demo-id") != NULL)
-        (*demo_count)++;
+        {
+          (*demo_count)++;
+          continue;
+        }
+
+      if (g_object_get_data(G_OBJECT(row), "row-kind") != NULL)
+        (*deprecated_subheader_count)++;
       else
         (*header_count)++;
     }
@@ -70,6 +78,28 @@ __total_demo_count(void)
        category_index < gallery_demo_registry_get_category_count();
        category_index++)
     total += gallery_demo_registry_get_category(category_index)->demo_count;
+
+  return total;
+}
+
+static gsize
+__total_deprecated_subheader_count(void)
+{
+  gsize category_index;
+  gsize total;
+
+  total = 0;
+
+  for (category_index = 0;
+       category_index < gallery_demo_registry_get_category_count();
+       category_index++)
+    {
+      const GalleryCategoryEntry *category;
+
+      category = gallery_demo_registry_get_category(category_index);
+      if (gallery_demo_registry_category_has_deprecated(category))
+        total++;
+    }
 
   return total;
 }
@@ -111,13 +141,19 @@ __test_shell_sidebar_structure(void)
   GtkWidget *shell;
   GtkWidget *list_box;
   gsize header_count;
+  gsize deprecated_subheader_count;
   gsize demo_count;
 
   shell = gallery_gallery_shell_new(NULL);
   list_box = __shell_get_list_box(shell);
 
-  __count_sidebar_rows(GTK_LIST_BOX(list_box), &header_count, &demo_count);
+  __count_sidebar_rows(GTK_LIST_BOX(list_box),
+                       &header_count,
+                       &deprecated_subheader_count,
+                       &demo_count);
   g_assert_cmpuint(header_count, ==, gallery_demo_registry_get_category_count());
+  g_assert_cmpuint(deprecated_subheader_count,
+                   ==, __total_deprecated_subheader_count());
   g_assert_cmpuint(demo_count, ==, __total_demo_count());
 
   g_object_ref_sink(shell);
@@ -136,6 +172,7 @@ __test_shell_default_selection(void)
 
   visible_name = gtk_stack_get_visible_child_name(GTK_STACK(stack));
   g_assert_cmpstr(visible_name, ==, gallery_demo_registry_get_default_demo_id());
+  g_assert_cmpstr(visible_name, ==, "gtk-label");
 
   g_object_ref_sink(shell);
   g_object_unref(shell);
@@ -164,6 +201,12 @@ __test_shell_demo_switch(void)
   g_object_unref(shell);
 }
 
+static void
+__test_shell_deprecated_subheader_count(void)
+{
+  g_assert_cmpuint(__total_deprecated_subheader_count(), ==, 2);
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -179,6 +222,8 @@ main(int argc, char *argv[])
                   __test_shell_default_selection);
   g_test_add_func("/gallery/gallery-shell/demo-switch",
                   __test_shell_demo_switch);
+  g_test_add_func("/gallery/gallery-shell/deprecated-subheader-count",
+                  __test_shell_deprecated_subheader_count);
 
   status = g_test_run();
 

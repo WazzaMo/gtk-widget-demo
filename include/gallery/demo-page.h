@@ -9,17 +9,17 @@
 #ifndef GALLERY_DEMO_PAGE_H
 #define GALLERY_DEMO_PAGE_H
 
+#include "gallery/demo-registry.h"
+
 /**
  * Build a demo page with title, description, upstream link, and content area.
- * @param title the widget name shown as the page heading
- * @param description optional short description, may be NULL
- * @param doc_url upstream GTK documentation URL
- * @param content the primary demo widget, may be NULL
+ * @param demo gallery registry entry for title, links, and lifecycle metadata
+ * @param legacy_content the primary demo widget, may be NULL
+ * @param comparison_content optional modern-alternative widget, may be NULL
  * @return a new demo page widget
  */
-GtkWidget *gallery_demo_page_new(const char *title,
-                                 const char *description,
-                                 const char *doc_url,
-                                 GtkWidget *content);
+GtkWidget *gallery_demo_page_new(const GalleryDemoEntry *demo,
+                                 GtkWidget *legacy_content,
+                                 GtkWidget *comparison_content);
 
 #endif

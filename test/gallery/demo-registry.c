@@ -74,6 +74,67 @@ __test_category_demo_order(gsize category_index,
 }
 
 static void
+__test_deprecated_demo_lifecycle(void)
+{
+  const GalleryDemoEntry *demo;
+
+  demo = gallery_demo_registry_find_demo("gtk-statusbar");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_DEPRECATED);
+
+  demo = gallery_demo_registry_find_demo("gtk-info-bar");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_DEPRECATED);
+
+  demo = gallery_demo_registry_find_demo("gtk-message-dialog");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_DEPRECATED);
+  g_assert_nonnull(demo->replacement_doc_url);
+}
+
+static void
+__test_supported_demo_lifecycle(void)
+{
+  gsize category_index;
+
+  for (category_index = 0;
+       category_index < gallery_demo_registry_get_category_count();
+       category_index++)
+    {
+      const GalleryCategoryEntry *category;
+      gsize demo_index;
+
+      category = gallery_demo_registry_get_category(category_index);
+
+      for (demo_index = 0; demo_index < category->demo_count; demo_index++)
+        {
+          const GalleryDemoEntry *demo;
+
+          demo = &category->demos[demo_index];
+          if (g_strcmp0(demo->id, "gtk-statusbar") == 0
+              || g_strcmp0(demo->id, "gtk-info-bar") == 0
+              || g_strcmp0(demo->id, "gtk-message-dialog") == 0)
+            continue;
+
+          g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+        }
+    }
+}
+
+static void
+__test_category_deprecated_flags(void)
+{
+  const GalleryCategoryEntry *display;
+  const GalleryCategoryEntry *buttons;
+
+  display = gallery_demo_registry_get_category(0);
+  buttons = gallery_demo_registry_get_category(1);
+
+  g_assert_true(gallery_demo_registry_category_has_deprecated(display));
+  g_assert_false(gallery_demo_registry_category_has_deprecated(buttons));
+}
+
+static void
 __test_display_demo_order(void)
 {
   static const char *const expected_ids[] =
@@ -156,6 +217,12 @@ main(int argc, char *argv[])
   g_test_add_func("/gallery/demo-registry/default-demo", __test_default_demo);
   g_test_add_func("/gallery/demo-registry/find-demo-missing",
                   __test_find_demo_missing);
+  g_test_add_func("/gallery/demo-registry/deprecated-demo-lifecycle",
+                  __test_deprecated_demo_lifecycle);
+  g_test_add_func("/gallery/demo-registry/supported-demo-lifecycle",
+                  __test_supported_demo_lifecycle);
+  g_test_add_func("/gallery/demo-registry/category-deprecated-flags",
+                  __test_category_deprecated_flags);
   g_test_add_func("/gallery/demo-registry/display-demo-order",
                   __test_display_demo_order);
   g_test_add_func("/gallery/demo-registry/entries-demo-order",
