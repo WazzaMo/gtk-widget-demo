@@ -27,13 +27,13 @@ abandoning the visual index as the naming and linking authority.
 
 # Problem
 
-| Tension | Detail |
-| ------- | --- |
+| Tension                       | Detail |
+| ----------------------------- | --- |
 | Visual index vs GTK lifecycle | Upstream grouping keeps deprecated widgets beside modern ones |
-| Teaching value | Legacy widgets remain useful for maintaining existing apps |
-| New-app guidance | Without separation, the gallery implicitly recommends deprecated APIs |
-| Compile hygiene | Deprecation warnings spread across demo sources |
-| Catalog waves | Nine-wave plan will grow deprecated surface area unless classified early |
+| Teaching value                | Legacy widgets remain useful for maintaining existing apps |
+| New-app guidance              | Without separation, the gallery implicitly recommends deprecated APIs |
+| Compile hygiene               | Deprecation warnings spread across demo sources |
+| Catalog waves                 | Nine-wave plan will grow deprecated surface area unless classified early |
 
 # Goals
 
@@ -111,10 +111,10 @@ supported successor’s own demo. See
 
 Extend `GalleryDemoEntry` with a lifecycle field:
 
-| Value | Meaning | Sidebar |
-| ----- | ------- | --- |
-| `GALLERY_DEMO_SUPPORTED` | Primary type not deprecated in target GTK | Main category list |
-| `GALLERY_DEMO_DEPRECATED` | Primary type deprecated in target GTK | **Deprecated** subsection under same category |
+| Value                     | Meaning                                   | Sidebar |
+| ------------------------- | ----------------------------------------- | --- |
+| `GALLERY_DEMO_SUPPORTED`  | Primary type not deprecated in target GTK | Main category list |
+| `GALLERY_DEMO_DEPRECATED` | Primary type deprecated in target GTK     | **Deprecated** subsection under same category |
 
 Optional later value `GALLERY_DEMO_REMOVED` is out of scope until GTK actually
 drops a visual-index entry.
@@ -163,47 +163,47 @@ registry tables.
 
 ### Already in gallery (25 demos)
 
-| Demo | Lifecycle | Notes |
-| ---- | --------- | --- |
-| GtkStatusbar | Deprecated | `gtk/deprecated/gtkstatusbar.h` |
-| GtkInfoBar | Deprecated | `gtk/deprecated/gtkinfobar.h` |
-| GtkMessageDialog | Deprecated | `gtk/deprecated/gtkmessagedialog.h` |
-| GtkAboutDialog | Supported | Not in deprecated headers |
-| All other shipped demos | Supported | — |
+| Demo                    | Lifecycle  | Notes |
+| ----------------------- | ---------- | --- |
+| GtkStatusbar            | Deprecated | `gtk/deprecated/gtkstatusbar.h` |
+| GtkInfoBar              | Deprecated | `gtk/deprecated/gtkinfobar.h` |
+| GtkMessageDialog        | Deprecated | `gtk/deprecated/gtkmessagedialog.h` |
+| GtkAboutDialog          | Supported  | Not in deprecated headers |
+| All other shipped demos | Supported  | — |
 
 ### Planned catalog (selected deprecated entries)
 
-| Demo | Lifecycle | Typical replacement direction |
-| ---- | --------- | --- |
-| GtkComboBox, GtkComboBoxText | Deprecated | GtkDropDown, GtkStringList |
+| Demo                           | Lifecycle  | Typical replacement direction |
+| ------------------------------ | ---------- | --- |
+| GtkComboBox, GtkComboBoxText   | Deprecated | GtkDropDown, GtkStringList |
 | GtkLockButton, GtkVolumeButton | Deprecated | Custom controls / different patterns |
-| GtkAppChooserButton | Deprecated | Portal or manual app list |
-| GtkTreeView, GtkIconView | Deprecated | GtkListView, GtkColumnView, GtkGridView |
-| GtkDialog | Deprecated | GtkWindow, response handling |
-| GtkAssistant | Deprecated | GtkStack, custom stepped UI |
-| GtkColorChooserDialog | Deprecated | GtkColorDialog |
-| GtkFileChooserDialog | Deprecated | GtkFileDialog |
-| GtkFontChooserDialog | Deprecated | GtkFontDialog |
-| GtkAppChooserDialog | Deprecated | Platform-specific chooser |
-| GtkShortcutsWindow | Deprecated | GtkShortcutController, custom help |
+| GtkAppChooserButton            | Deprecated | Portal or manual app list |
+| GtkTreeView, GtkIconView       | Deprecated | GtkListView, GtkColumnView, GtkGridView |
+| GtkDialog                      | Deprecated | GtkWindow, response handling |
+| GtkAssistant                   | Deprecated | GtkStack, custom stepped UI |
+| GtkColorChooserDialog          | Deprecated | GtkColorDialog |
+| GtkFileChooserDialog           | Deprecated | GtkFileDialog |
+| GtkFontChooserDialog           | Deprecated | GtkFontDialog |
+| GtkAppChooserDialog            | Deprecated | Platform-specific chooser |
+| GtkShortcutsWindow             | Deprecated | GtkShortcutController, custom help |
 
 Modern dialog-button types in later waves (**GtkColorDialogButton**,
 **GtkFontDialogButton**) remain **Supported**.
 
 ### Comparison eligibility (GTK 4.22 baseline)
 
-| Demo | Comparison section | Notes |
-| ---- | ------------------ | --- |
-| GtkComboBox, GtkComboBoxText | Yes — `GtkDropDown` | Side-by-side or stacked controls |
-| GtkColorChooserDialog | Yes — `GtkColorDialog` | Two launch buttons (legacy vs modern) |
-| GtkFileChooserDialog | Yes — `GtkFileDialog` | Two launch buttons |
-| GtkFontChooserDialog | Yes — `GtkFontDialog` | Two launch buttons |
-| GtkMessageDialog | Yes — `GtkAlertDialog` | Two launch buttons; async modern API |
-| GtkStatusbar, GtkInfoBar | No | No single GTK 4 successor widget |
-| GtkLockButton, GtkVolumeButton | No | Pattern replacement, not 1:1 type |
-| GtkAppChooserButton, GtkAppChooserDialog | No | Platform-specific successor |
-| GtkTreeView, GtkIconView | No | Multiple successors (`ListView`, `ColumnView`, `GridView`) |
-| GtkDialog, GtkAssistant, GtkShortcutsWindow | No | Architectural pattern change |
+| Demo                                        | Comparison section     | Notes |
+| ------------------------------------------- | ---------------------- | --- |
+| GtkComboBox, GtkComboBoxText                | Yes — `GtkDropDown`    | Side-by-side or stacked controls |
+| GtkColorChooserDialog                       | Yes — `GtkColorDialog` | Two launch buttons (legacy vs modern) |
+| GtkFileChooserDialog                        | Yes — `GtkFileDialog`  | Two launch buttons |
+| GtkFontChooserDialog                        | Yes — `GtkFontDialog`  | Two launch buttons |
+| GtkMessageDialog                            | Yes — `GtkAlertDialog` | Two launch buttons; async modern API |
+| GtkStatusbar, GtkInfoBar                    | No                     | No single GTK 4 successor widget |
+| GtkLockButton, GtkVolumeButton              | No                     | Pattern replacement, not 1:1 type |
+| GtkAppChooserButton, GtkAppChooserDialog    | No                     | Platform-specific successor |
+| GtkTreeView, GtkIconView                    | No                     | Multiple successors (`ListView`, `ColumnView`, `GridView`) |
+| GtkDialog, GtkAssistant, GtkShortcutsWindow | No                     | Architectural pattern change |
 
 When the supported successor already has its own gallery demo, the comparison
 section is **introductory** — the successor’s full demo remains the authoritative
@@ -313,15 +313,15 @@ flowchart TD
 
 ### Rules
 
-| Rule | Detail |
-| ---- | --- |
-| Sidebar | One row per visual-index GType; title stays the **deprecated** type name |
+| Rule                   | Detail |
+| ---------------------- | --- |
+| Sidebar                | One row per visual-index GType; title stays the **deprecated** type name |
 | Primary inspect target | Legacy widget remains the default pick target |
-| Comparison scope | One modern counterpart per page — not a survey of all successors |
-| Eligibility | Set `build_comparison` only when a runnable 1:1 pair is practical (see [Comparison eligibility](#comparison-eligibility-gtk-422-baseline)) |
-| Dialog pairs | Prefer two labelled launch buttons (“Show legacy …” / “Show modern …”) rather than embedding both dialogs on screen |
-| No pair | Leave `build_comparison` NULL; banner and `replacement_doc_url` suffice |
-| Successor demo | Modern type still gets its own supported sidebar entry when in the catalog |
+| Comparison scope       | One modern counterpart per page — not a survey of all successors |
+| Eligibility            | Set `build_comparison` only when a runnable 1:1 pair is practical (see [Comparison eligibility](#comparison-eligibility-gtk-422-baseline)) |
+| Dialog pairs           | Prefer two labelled launch buttons (“Show legacy …” / “Show modern …”) rather than embedding both dialogs on screen |
+| No pair                | Leave `build_comparison` NULL; banner and `replacement_doc_url` suffice |
+| Successor demo         | Modern type still gets its own supported sidebar entry when in the catalog |
 
 ### Registry hook
 
@@ -352,18 +352,18 @@ all entries. Defer until subsection UX is stable.
 
 # Code layout
 
-| Area | Change |
-| ---- | --- |
+| Area                              | Change |
+| --------------------------------- | --- |
 | `include/gallery/demo-registry.h` | Lifecycle enum; comparison callbacks and URLs on `GalleryDemoEntry` |
-| Category registry tables | Set lifecycle per entry; comparison hooks where eligible |
-| `include/gallery/demo-page.h` | `gallery_demo_page_new(entry, legacy_content, comparison_content)` |
-| `src/gallery/gallery-shell.c` | Two-pass sidebar iteration; invoke `build_comparison` when set |
-| `src/gallery/demo-page.c` | Deprecation banner; optional **Modern alternative** frame |
-| `src/gallery/<category>/` | Comparison builders in deprecated demo sub-units (phase 2) |
-| `test/gallery/demo-builders.c` | Pass `GalleryDemoEntry *` to updated demo page API |
-| `docs/notes/` | Curated deprecation table (this note + updates on GTK bump) |
-| `test/gallery/demo-registry.c` | Assert known deprecated ids; subsection counts |
-| `test/gallery/gallery-shell.c` | Deprecated subheader present when expected; default selection |
+| Category registry tables          | Set lifecycle per entry; comparison hooks where eligible |
+| `include/gallery/demo-page.h`     | `gallery_demo_page_new(entry, legacy_content, comparison_content)` |
+| `src/gallery/gallery-shell.c`     | Two-pass sidebar iteration; invoke `build_comparison` when set |
+| `src/gallery/demo-page.c`         | Deprecation banner; optional **Modern alternative** frame |
+| `src/gallery/<category>/`         | Comparison builders in deprecated demo sub-units (phase 2) |
+| `test/gallery/demo-builders.c`    | Pass `GalleryDemoEntry *` to updated demo page API |
+| `docs/notes/`                     | Curated deprecation table (this note + updates on GTK bump) |
+| `test/gallery/demo-registry.c`    | Assert known deprecated ids; subsection counts |
+| `test/gallery/gallery-shell.c`    | Deprecated subheader present when expected; default selection |
 
 Deprecated demo sources wrap deprecated API calls with
 `G_GNUC_BEGIN_IGNORE_DEPRECATIONS` / `G_GNUC_END_IGNORE_DEPRECATIONS` **only in
@@ -444,16 +444,16 @@ test deterministically.
 
 # Risks
 
-| Risk | Mitigation |
-| ---- | ---------- |
-| Visual-index order vs subsection split | Order within supported and within deprecated blocks separately; document rule |
-| GTK reclassifies APIs | Version the table; review on `gtk-version.h` bumps |
-| Subsection headers confuse tests | Update `gallery-shell` tests to count headers and deprecated rows explicitly |
+| Risk                                        | Mitigation |
+| ------------------------------------------- | --- |
+| Visual-index order vs subsection split      | Order within supported and within deprecated blocks separately; document rule |
+| GTK reclassifies APIs                       | Version the table; review on `gtk-version.h` bumps |
+| Subsection headers confuse tests            | Update `gallery-shell` tests to count headers and deprecated rows explicitly |
 | Long deprecated lists in Containers/Windows | Phase 3 hide toggle; subheaders keep scanability |
-| Replacement links go stale | Link to docs.gtk.org class pages; review in coding notes |
-| Pick mode with two widgets on page | Label sections clearly; legacy block is default inspect target |
-| Comparison duplicates successor demo | Comparison is introductory; full modern demo stays on its own supported row |
-| Comparison builder cost | Opt-in per demo; only where [comparison eligibility](#comparison-eligibility-gtk-422-baseline) applies |
+| Replacement links go stale                  | Link to docs.gtk.org class pages; review in coding notes |
+| Pick mode with two widgets on page          | Label sections clearly; legacy block is default inspect target |
+| Comparison duplicates successor demo        | Comparison is introductory; full modern demo stays on its own supported row |
+| Comparison builder cost                     | Opt-in per demo; only where [comparison eligibility](#comparison-eligibility-gtk-422-baseline) applies |
 
 # Closed decisions
 

@@ -296,7 +296,7 @@ implementation estimates grow.
 # Risks
 
 | Risk                                       | Mitigation |
-| ------------------------------------------ | ------ |
+| ------------------------------------------ | --- |
 | Wave 1 remains large (11 demos)            | Keep Feature 4 boundary; use sub-unit split from the start |
 | Wave 2 spike blocks follow-on Display work | Keep wave 2 to three demos; wave 3 completes Display only after spike passes |
 | GL/video demos fail on some CI hosts       | Wave 2 surfaces failures early; minimal demos; document optional manual verification |
