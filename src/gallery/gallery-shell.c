@@ -12,7 +12,7 @@
 #include "gallery/gallery-shell.h"
 
 static GtkWidget *
-__build_category_header(const char *title)
+__build_header_row(const char *title, int margin_start, int margin_top)
 {
   GtkWidget *row;
   GtkWidget *label;
@@ -24,11 +24,28 @@ __build_category_header(const char *title)
   label = gtk_label_new(title);
   gtk_label_set_xalign(GTK_LABEL(label), 0.0f);
   gtk_widget_add_css_class(label, "heading");
-  gtk_widget_set_margin_start(label, 4);
+  gtk_widget_set_margin_start(label, margin_start);
   gtk_widget_set_margin_end(label, 4);
-  gtk_widget_set_margin_top(label, 12);
+  gtk_widget_set_margin_top(label, margin_top);
   gtk_widget_set_margin_bottom(label, 4);
   gtk_list_box_row_set_child(GTK_LIST_BOX_ROW(row), label);
+
+  return row;
+}
+
+static GtkWidget *
+__build_category_header(const char *title)
+{
+  return __build_header_row(title, 4, 12);
+}
+
+static GtkWidget *
+__build_deprecated_subheader(void)
+{
+  GtkWidget *row;
+
+  row = __build_header_row("Deprecated", 12, 8);
+  g_object_set_data(G_OBJECT(row), "row-kind", "deprecated-subsection");
 
   return row;
 }
@@ -51,6 +68,65 @@ __build_demo_row(const GalleryDemoEntry *demo)
   gtk_list_box_row_set_child(GTK_LIST_BOX_ROW(row), label);
 
   return row;
+}
+
+static void
+__append_demo(GtkWindow *parent_window,
+              GtkListBox *sidebar,
+              GtkStack *demo_stack,
+              const GalleryDemoEntry *demo)
+{
+  GtkWidget *legacy_content;
+  GtkWidget *comparison_content;
+  GtkWidget *page;
+
+  legacy_content = demo->build_content(parent_window);
+  comparison_content = NULL;
+  if (demo->build_comparison != NULL)
+    comparison_content = demo->build_comparison(parent_window);
+
+  page = gallery_demo_page_new(demo, legacy_content, comparison_content);
+  gtk_stack_add_named(demo_stack, page, demo->id);
+  gtk_list_box_append(sidebar, __build_demo_row(demo));
+}
+
+static void
+__append_category_demos(GtkWindow *parent_window,
+                        GtkListBox *sidebar,
+                        GtkStack *demo_stack,
+                        const GalleryCategoryEntry *category)
+{
+  gsize demo_index;
+  gboolean has_deprecated;
+
+  has_deprecated = gallery_demo_registry_category_has_deprecated(category);
+
+  for (demo_index = 0; demo_index < category->demo_count; demo_index++)
+    {
+      const GalleryDemoEntry *demo;
+
+      demo = &category->demos[demo_index];
+      if (demo->lifecycle == GALLERY_DEMO_DEPRECATED)
+        continue;
+
+      __append_demo(parent_window, sidebar, demo_stack, demo);
+    }
+
+  if (!has_deprecated)
+    return;
+
+  gtk_list_box_append(sidebar, __build_deprecated_subheader());
+
+  for (demo_index = 0; demo_index < category->demo_count; demo_index++)
+    {
+      const GalleryDemoEntry *demo;
+
+      demo = &category->demos[demo_index];
+      if (demo->lifecycle != GALLERY_DEMO_DEPRECATED)
+        continue;
+
+      __append_demo(parent_window, sidebar, demo_stack, demo);
+    }
 }
 
 static void
@@ -134,27 +210,14 @@ gallery_gallery_shell_new(GtkWindow *parent_window)
        category_index++)
     {
       const GalleryCategoryEntry *category;
-      gsize demo_index;
 
       category = gallery_demo_registry_get_category(category_index);
       gtk_list_box_append(GTK_LIST_BOX(sidebar),
                           __build_category_header(category->title));
-
-      for (demo_index = 0; demo_index < category->demo_count; demo_index++)
-        {
-          const GalleryDemoEntry *demo;
-          GtkWidget *content;
-          GtkWidget *page;
-
-          demo = &category->demos[demo_index];
-          content = demo->build_content(parent_window);
-          page = gallery_demo_page_new(demo->title,
-                                       demo->description,
-                                       demo->doc_url,
-                                       content);
-          gtk_stack_add_named(GTK_STACK(demo_stack), page, demo->id);
-          gtk_list_box_append(GTK_LIST_BOX(sidebar), __build_demo_row(demo));
-        }
+      __append_category_demos(parent_window,
+                              GTK_LIST_BOX(sidebar),
+                              GTK_STACK(demo_stack),
+                              category);
     }
 
   g_signal_connect(sidebar, "row-selected",

@@ -89,20 +89,20 @@ and [Out of scope](#out-of-scope)).
 
 Full Display registry order after Feature 4 (existing entries in **bold**):
 
-| Order | Demo | Notes |
-| ----- | ---- | --- |
-| 1     | **GtkLabel** | Feature 3 |
-| 2     | **GtkSpinner** | Feature 3 |
-| 3     | GtkStatusbar | Status message with push/pop or timed clear |
-| 4     | GtkLevelBar | Filled level in a defined range |
+| Order | Demo               | Notes |
+| ----- | ------------------ | --- |
+| 1     | **GtkLabel**       | Feature 3 |
+| 2     | **GtkSpinner**     | Feature 3 |
+| 3     | GtkStatusbar       | Status message with push/pop or timed clear |
+| 4     | GtkLevelBar        | Filled level in a defined range |
 | 5     | **GtkProgressBar** | Feature 3 |
-| 6     | GtkInfoBar | Message area with dismiss or action button |
-| 7     | GtkScrollbar | Vertical scrollbar on a tall `GtkTextView` inside `GtkScrolledWindow` so the bar is visible and pickable in inspect mode |
-| 8     | GtkImage | Static image from a bundled SVG (SVG Repo) |
-| 9     | GtkPicture | Scalable picture from a bundled SVG (SVG Repo; may reuse the same file as GtkImage) |
-| 10    | GtkSeparator | Horizontal and/or vertical rule |
-| 11    | GtkTextView | Editable buffer; toolbar buttons apply `GtkTextTag` scale for small / normal / large text on the selection |
-| 12    | **GtkScale** | Feature 3 |
+| 6     | GtkInfoBar         | Message area with dismiss or action button |
+| 7     | GtkScrollbar       | Vertical scrollbar on a tall `GtkTextView` inside `GtkScrolledWindow` so the bar is visible and pickable in inspect mode |
+| 8     | GtkImage           | Static image from a bundled SVG (SVG Repo) |
+| 9     | GtkPicture         | Scalable picture from a bundled SVG (SVG Repo; may reuse the same file as GtkImage) |
+| 10    | GtkSeparator       | Horizontal and/or vertical rule |
+| 11    | GtkTextView        | Editable buffer; toolbar buttons apply `GtkTextTag` scale for small / normal / large text on the selection |
+| 12    | **GtkScale**       | Feature 3 |
 
 ## Entries
 
@@ -111,13 +111,13 @@ visual-index order within the category.
 
 Full Entries registry order after Feature 4 (existing entries in **bold**):
 
-| Order | Demo | Notes |
-| ----- | ---- | --- |
-| 1     | **GtkEntry** | Feature 3 |
-| 2     | GtkSearchEntry | Search icon entry; optional placeholder text |
-| 3     | GtkPasswordEntry | Masked input with visibility toggle if API allows |
+| Order | Demo              | Notes |
+| ----- | ----------------- | --- |
+| 1     | **GtkEntry**      | Feature 3 |
+| 2     | GtkSearchEntry    | Search icon entry; optional placeholder text |
+| 3     | GtkPasswordEntry  | Masked input with visibility toggle if API allows |
 | 4     | **GtkSpinButton** | Feature 3 |
-| 5     | GtkEditableLabel | Label toggling to editable mode |
+| 5     | GtkEditableLabel  | Label toggling to editable mode |
 
 Total after Feature 4: **25** demos (Display **12**, Buttons **4**, Entries **5**,
 Containers **4**, Windows **2**).

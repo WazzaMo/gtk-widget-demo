@@ -124,16 +124,49 @@ gallery_demo_registry_find_demo(const char *demo_id)
   return NULL;
 }
 
+gboolean
+gallery_demo_registry_category_has_deprecated(
+  const GalleryCategoryEntry *category)
+{
+  gsize demo_index;
+
+  if (category == NULL)
+    return FALSE;
+
+  for (demo_index = 0; demo_index < category->demo_count; demo_index++)
+    {
+      if (category->demos[demo_index].lifecycle == GALLERY_DEMO_DEPRECATED)
+        return TRUE;
+    }
+
+  return FALSE;
+}
+
 const char *
 gallery_demo_registry_get_default_demo_id(void)
 {
-  const GalleryCategoryEntry *category;
+  gsize category_index;
 
   __init_categories();
 
-  category = &gallery_categories_runtime[0];
-  if (category->demo_count == 0)
-    return NULL;
+  for (category_index = 0;
+       category_index < G_N_ELEMENTS(gallery_categories_runtime);
+       category_index++)
+    {
+      const GalleryCategoryEntry *category;
+      gsize demo_index;
 
-  return category->demos[0].id;
+      category = &gallery_categories_runtime[category_index];
+
+      for (demo_index = 0; demo_index < category->demo_count; demo_index++)
+        {
+          const GalleryDemoEntry *demo;
+
+          demo = &category->demos[demo_index];
+          if (demo->lifecycle == GALLERY_DEMO_SUPPORTED)
+            return demo->id;
+        }
+    }
+
+  return NULL;
 }

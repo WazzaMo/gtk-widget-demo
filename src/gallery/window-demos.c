@@ -127,6 +127,8 @@ static const GalleryDemoEntry window_demos[] =
     "Information dialog with primary and secondary text.",
     "https://docs.gtk.org/gtk4/class.MessageDialog.html",
     __build_gtk_message_dialog,
+    GALLERY_DEMO_DEPRECATED,
+    "https://docs.gtk.org/gtk4/class.AlertDialog.html",
   },
 };
 

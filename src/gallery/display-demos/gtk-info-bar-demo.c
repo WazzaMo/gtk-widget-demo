@@ -40,6 +40,7 @@ gallery_display_gtk_info_bar_demo_build(GtkWindow *parent_window)
 
   box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 8);
 
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   info_bar = gtk_info_bar_new();
   gtk_info_bar_set_message_type(GTK_INFO_BAR(info_bar), GTK_MESSAGE_INFO);
   gtk_info_bar_set_show_close_button(GTK_INFO_BAR(info_bar), TRUE);
@@ -48,6 +49,7 @@ gallery_display_gtk_info_bar_demo_build(GtkWindow *parent_window)
   gtk_info_bar_add_button(GTK_INFO_BAR(info_bar), "Dismiss", GTK_RESPONSE_CLOSE);
   g_signal_connect(info_bar, "response",
                    G_CALLBACK(__on_info_bar_response), NULL);
+G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_widget_set_visible(info_bar, FALSE);
 
   show_button = gtk_button_new_with_label("Show info bar");

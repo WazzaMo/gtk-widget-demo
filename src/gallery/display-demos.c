@@ -43,6 +43,7 @@ static const GalleryDemoEntry display_demos[] =
     "Push, pop, and timed status messages on the bar.",
     "https://docs.gtk.org/gtk4/class.Statusbar.html",
     gallery_display_gtk_statusbar_demo_build,
+    GALLERY_DEMO_DEPRECATED,
   },
   {
     "gtk-level-bar",
@@ -64,6 +65,7 @@ static const GalleryDemoEntry display_demos[] =
     "Information bar with dismiss control; open it with the button below.",
     "https://docs.gtk.org/gtk4/class.InfoBar.html",
     gallery_display_gtk_info_bar_demo_build,
+    GALLERY_DEMO_DEPRECATED,
   },
   {
     "gtk-scrollbar",

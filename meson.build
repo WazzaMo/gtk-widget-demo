@@ -103,6 +103,14 @@ test_gallery_demo_builders = executable('test-gallery-demo-builders',
   dependencies : gtk4_dep,
   install : false)
 
+test_gallery_demo_page = executable('test-gallery-demo-page',
+  'test/gallery/demo-page.c',
+  gallery_sources,
+  include_directories : inc,
+  c_args : gallery_c_args,
+  dependencies : gtk4_dep,
+  install : false)
+
 test_gallery_demo_interactive = executable('test-gallery-demo-interactive',
   'test/gallery/demo-interactive.c',
   gallery_sources,
@@ -124,5 +132,6 @@ test('introspection-property-list', test_introspection_property_list)
 test('introspection-signal-list', test_introspection_signal_list)
 test('gallery-demo-registry', test_gallery_demo_registry)
 test('gallery-demo-builders', test_gallery_demo_builders)
+test('gallery-demo-page', test_gallery_demo_page)
 test('gallery-demo-interactive', test_gallery_demo_interactive)
 test('gallery-gallery-shell', test_gallery_gallery_shell)

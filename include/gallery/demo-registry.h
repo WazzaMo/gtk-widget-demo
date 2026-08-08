@@ -12,6 +12,13 @@
 
 
 typedef GtkWidget *(*GalleryDemoContentFunc)(GtkWindow *parent_window);
+typedef GtkWidget *(*GalleryDemoComparisonFunc)(GtkWindow *parent_window);
+
+typedef enum
+{
+  GALLERY_DEMO_SUPPORTED = 0,
+  GALLERY_DEMO_DEPRECATED,
+} GalleryDemoLifecycle;
 
 typedef struct
 {
@@ -20,6 +27,12 @@ typedef struct
   const char *description;
   const char *doc_url;
   GalleryDemoContentFunc build_content;
+  GalleryDemoLifecycle lifecycle;
+  const char *replacement_doc_url;
+  const char *deprecation_note;
+  GalleryDemoComparisonFunc build_comparison;
+  const char *comparison_title;
+  const char *comparison_doc_url;
 } GalleryDemoEntry;
 
 typedef struct
@@ -55,5 +68,13 @@ const GalleryDemoEntry *gallery_demo_registry_find_demo(const char *demo_id);
  * @return the default demo id
  */
 const char *gallery_demo_registry_get_default_demo_id(void);
+
+/**
+ * Return whether a category contains at least one deprecated demo.
+ * @param category the category entry
+ * @return TRUE when the category has deprecated demos
+ */
+gboolean gallery_demo_registry_category_has_deprecated(
+  const GalleryCategoryEntry *category);
 
 #endif

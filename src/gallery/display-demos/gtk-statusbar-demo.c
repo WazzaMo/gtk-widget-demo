@@ -38,7 +38,9 @@ __on_status_push_clicked(GtkButton *button, gpointer user_data)
 
   push_count++;
   message = g_strdup_printf("Status message %u", push_count);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   gtk_statusbar_push(GTK_STATUSBAR(data->statusbar), data->context_id, message);
+G_GNUC_END_IGNORE_DEPRECATIONS
   g_free(message);
 }
 
@@ -49,7 +51,9 @@ __on_status_pop_clicked(GtkButton *button, gpointer user_data)
 
   (void) button;
 
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   gtk_statusbar_pop(GTK_STATUSBAR(data->statusbar), data->context_id);
+G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 static gboolean
@@ -57,7 +61,9 @@ __on_status_clear_timeout(gpointer user_data)
 {
   StatusbarDemoData *data = user_data;
 
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   gtk_statusbar_pop(GTK_STATUSBAR(data->statusbar), data->context_id);
+G_GNUC_END_IGNORE_DEPRECATIONS
   data->clear_timeout_id = 0;
   return G_SOURCE_REMOVE;
 }
@@ -72,8 +78,10 @@ __on_status_timed_clear_clicked(GtkButton *button, gpointer user_data)
   if (data->clear_timeout_id != 0)
     g_source_remove(data->clear_timeout_id);
 
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   gtk_statusbar_push(GTK_STATUSBAR(data->statusbar), data->context_id,
                      "Clears automatically in two seconds");
+G_GNUC_END_IGNORE_DEPRECATIONS
 
   data->clear_timeout_id = g_timeout_add_seconds(2,
                                                  __on_status_clear_timeout,
@@ -98,11 +106,13 @@ gallery_display_gtk_statusbar_demo_build(GtkWindow *parent_window)
   g_object_set_data_full(G_OBJECT(box), "statusbar-demo-data", data,
                          __statusbar_demo_data_free);
 
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   statusbar = gtk_statusbar_new();
   data->statusbar = statusbar;
   data->context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar),
                                                   "gallery-statusbar-demo");
   gtk_statusbar_push(GTK_STATUSBAR(statusbar), data->context_id, "Ready");
+G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_widget_set_size_request(statusbar, 320, -1);
 
   button_row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);

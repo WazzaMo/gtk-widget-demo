@@ -34,10 +34,17 @@ __test_all_demo_builders(void)
           content = demo->build_content(NULL);
           g_assert_nonnull(content);
 
-          page = gallery_demo_page_new(demo->title,
-                                       demo->description,
-                                       demo->doc_url,
-                                       content);
+          if (demo->build_comparison != NULL)
+            {
+              GtkWidget *comparison_content;
+
+              comparison_content = demo->build_comparison(NULL);
+              g_assert_nonnull(comparison_content);
+              page = gallery_demo_page_new(demo, content, comparison_content);
+            }
+          else
+            page = gallery_demo_page_new(demo, content, NULL);
+
           g_assert_nonnull(page);
         }
     }

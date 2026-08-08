@@ -58,8 +58,17 @@ runnable demos aligned with the upstream
 2. Use the sidebar to pick a category (Display widgets, Buttons, Entries,
    Containers, or Windows) and a demo entry (for example **GtkSwitch**).
 
+   Within each category, supported demos appear first. Categories that include
+   deprecated GTK APIs also show a **Deprecated** subsection (for example
+   **GtkStatusbar**, **GtkInfoBar** under Display widgets, and
+   **GtkMessageDialog** under Windows).
+
 3. The content area shows the demo page with a short description, a link to
    the matching GTK documentation, and the runnable widget example.
+
+   Deprecated demos also show a notice that the API is deprecated in GTK 4. When
+   GTK documents a replacement, a **See replacement API** link opens the
+   successor class page (for example **GtkAlertDialog** for **GtkMessageDialog**).
 
 4. Windows-category demos (**GtkAboutDialog**, **GtkMessageDialog**) open from
    a **Show …** button on the demo page.
