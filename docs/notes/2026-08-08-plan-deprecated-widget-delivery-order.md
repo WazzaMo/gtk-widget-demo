@@ -39,19 +39,19 @@ valuable once deprecated lists grow.
 
 # Decision
 
-**Deliver deprecation as a horizontal gallery feature, not as part of catalog
-wave milestones.**
+**Deliver deprecation as a horizontal gallery concern within Feature 5, not as a
+separate numbered feature or as part of catalog-only milestones.**
 
-1. **Phase 1 plus phase 2 infrastructure** — one dedicated feature, landing
-   **before or immediately after** catalog wave 1 merges, and **before** wave 2
-   (Feature 5) begins.
+1. **Phase 1 plus phase 2 infrastructure** — Feature 5 **part 1**, landing
+   before Feature 5 **part 2** (catalog wave 2). Spec:
+   [feature-5-widget-gallery-catalog-wave-2.md](../features/feature-5-widget-gallery-catalog-wave-2.md).
 
 2. **Phase 2 comparison content** — incremental: add `build_comparison` builders
    in the same PR (or immediate follow-up) as each **comparison-eligible**
    deprecated demo registers in a catalog wave.
 
 3. **Phase 3** — defer until deprecated subsections become long (roughly catalog
-   waves 7–9), not before wave 2.
+   waves 7–9), not before Feature 5 part 2.
 
 4. **Catalog waves continue on schedule** — classify lifecycle on every new demo;
    do not block waves waiting for comparison builders or the hide toggle.
@@ -61,15 +61,15 @@ wave milestones.**
 ```mermaid
 flowchart LR
   F4[Feature 4 — wave 1 catalog\ncomplete]
-  D1[Deprecation feature\nphase 1 + phase 2 infra]
-  F5[Feature 5 — wave 2 catalog]
+  F5a[Feature 5 part 1\ndeprecation infra]
+  F5b[Feature 5 part 2\nwave 2 catalog]
   D2[Phase 2 comparisons\nper eligible demo]
   F6plus[Features 6–12 — waves 3–9]
   D3[Phase 3 hide toggle\noptional]
 
-  F4 --> D1
-  D1 --> F5
-  F5 --> D2
+  F4 --> F5a
+  F5a --> F5b
+  F5b --> D2
   D2 --> F6plus
   F6plus --> D3
 ```
@@ -77,17 +77,19 @@ flowchart LR
 | Step | Feature / wave                  | Deprecation work                                                            | Rationale |
 | ---- | ------------------------------- | --------------------------------------------------------------------------- | --- |
 | 1    | Feature 4 (wave 1)              | **None required** — catalog only                                            | Already complete; specced without shell changes |
-| 2    | Deprecation feature             | Phase 1 + phase 2 **infrastructure**                                        | Immediate value for Statusbar, InfoBar, MessageDialog |
-| 3    | Feature 5 (wave 2)              | Classify new demos only                                                     | GL / video / popover spike stays focused |
+| 2    | Feature 5 part 1                | Phase 1 + phase 2 **infrastructure**                                        | Immediate value for Statusbar, InfoBar, MessageDialog |
+| 3    | Feature 5 part 2                | Classify new demos only (`GALLERY_DEMO_SUPPORTED`)                          | GL / video / popover spike stays focused |
 | 4    | Features 6–8 (waves 3–5)        | `replacement_doc_url` on new deprecated entries; first comparison at wave 5 | GtkComboBox → GtkDropDown is first eligible pair |
 | 5    | Features 9–12 (waves 6–9)       | Comparisons for eligible dialog demos; expand classification table          | Chooser dialogs batch in wave 9 |
 | 6    | After wave 7 or when lists grow | Phase 3 hide toggle                                                         | Optional; subsections still scannable before then |
 
 # Phase breakdown
 
-## Deprecation feature (phase 1 + phase 2 infrastructure)
+## Feature 5 part 1 (deprecated widget separation)
 
-Ship as **one reviewable feature** separate from catalog wave PRs. Scope matches
+Scope is defined in
+[feature-5-widget-gallery-catalog-wave-2.md](../features/feature-5-widget-gallery-catalog-wave-2.md)
+(part 1). Matches
 [Phasing — phase 1 and phase 2](./2026-08-05-plan-gallery-deprecated-widget-separation.md#phasing)
 in the separation note, with phase 2 limited to **API and page chrome**, not
 comparison builders:
@@ -175,40 +177,39 @@ diagnosis and review.
 
 # Relationship to feature numbering
 
-Catalog features **5–12** map to waves **2–9** per the nine-waves note.
-Deprecation phase 1 + infrastructure is a **cross-cutting gallery feature** —
-spec it as its own feature document (for example **Feature 5 — deprecated widget
-separation** with catalog wave 2 renumbered to Feature 6, or deliver deprecation
-on a focused branch merged before Feature 5 wave 2 work begins). The important
-constraint is **merge order**, not whether deprecation consumes a feature number.
+Catalog features **6–12** map to catalog waves **3–9** per the nine-waves note.
+**Feature 5** combines deprecated-widget separation (part 1) and catalog wave 2
+(part 2) in
+[feature-5-widget-gallery-catalog-wave-2.md](../features/feature-5-widget-gallery-catalog-wave-2.md).
 
-Recommended merge order:
+Recommended delivery order within Feature 5:
 
-1. Feature 4 (done).
+1. Part 1 — deprecation infrastructure — **done** (merged to `main`, PR #6,
+   2026-08-08).
 
-2. Deprecation feature (phase 1 + phase 2 infra).
+2. Part 2 — three Display demos (GL, video, popover) — **in progress** on
+   `wm/feature-5`.
 
-3. Feature 5 / wave 2 and subsequent catalog waves.
+# Delivery status
 
-# Current branch state
-
-Work on branch `wm/deprecated` aligns with step 2 above: lifecycle metadata,
-deprecated subheaders, deprecation banner, comparison API hooks, and
-`replacement_doc_url` on GtkMessageDialog appear implemented; no
-`build_comparison` builders are wired; phase 3 is not started.
+Feature 5 **part 1** is on `main`: lifecycle metadata, deprecated subheaders,
+deprecation banner, comparison API hooks, and `replacement_doc_url` on
+GtkMessageDialog. No `build_comparison` builders are wired; phase 3 is not
+started. Feature 5 **part 2** is in progress on branch `wm/feature-5`.
 
 # Closed decisions
 
 1. **Do not block catalog waves** on deprecation phases beyond classifying each
    new demo.
 
-2. **Phase 1 + phase 2 infrastructure** ship as one dedicated feature before wave
-   2 catalog work.
+2. **Feature 5 part 1 + phase 2 infrastructure** shipped on `main` before part 2
+   (catalog wave 2) on `wm/feature-5`.
 
 3. **Phase 2 comparison builders** ship incrementally with eligible demos in
    waves 5 and 9 (MessageDialog comparison optional earlier).
 
-4. **Phase 3** deferred until deprecated subsections grow — not before wave 2.
+4. **Phase 3** deferred until deprecated subsections grow — not before Feature 5
+   part 2.
 
 # References
 
