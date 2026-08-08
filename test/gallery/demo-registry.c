@@ -126,12 +126,34 @@ __test_category_deprecated_flags(void)
 {
   const GalleryCategoryEntry *display;
   const GalleryCategoryEntry *buttons;
+  const GalleryCategoryEntry *windows;
 
   display = gallery_demo_registry_get_category(0);
   buttons = gallery_demo_registry_get_category(1);
+  windows = gallery_demo_registry_get_category(4);
 
   g_assert_true(gallery_demo_registry_category_has_deprecated(display));
   g_assert_false(gallery_demo_registry_category_has_deprecated(buttons));
+  g_assert_true(gallery_demo_registry_category_has_deprecated(windows));
+}
+
+static void
+__test_no_comparison_builders_wired(void)
+{
+  gsize category_index;
+
+  for (category_index = 0;
+       category_index < gallery_demo_registry_get_category_count();
+       category_index++)
+    {
+      const GalleryCategoryEntry *category;
+      gsize demo_index;
+
+      category = gallery_demo_registry_get_category(category_index);
+
+      for (demo_index = 0; demo_index < category->demo_count; demo_index++)
+        g_assert_null(category->demos[demo_index].build_comparison);
+    }
 }
 
 static void
@@ -223,6 +245,8 @@ main(int argc, char *argv[])
                   __test_supported_demo_lifecycle);
   g_test_add_func("/gallery/demo-registry/category-deprecated-flags",
                   __test_category_deprecated_flags);
+  g_test_add_func("/gallery/demo-registry/no-comparison-builders-wired",
+                  __test_no_comparison_builders_wired);
   g_test_add_func("/gallery/demo-registry/display-demo-order",
                   __test_display_demo_order);
   g_test_add_func("/gallery/demo-registry/entries-demo-order",

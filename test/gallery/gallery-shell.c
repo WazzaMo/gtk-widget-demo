@@ -207,6 +207,60 @@ __test_shell_deprecated_subheader_count(void)
   g_assert_cmpuint(__total_deprecated_subheader_count(), ==, 2);
 }
 
+static gboolean
+__row_is_deprecated_subheader(GtkListBoxRow *row)
+{
+  return g_object_get_data(G_OBJECT(row), "row-kind") != NULL;
+}
+
+static void
+__test_shell_deprecated_sidebar_order(void)
+{
+  GtkWidget *shell;
+  GtkWidget *list_box;
+  gboolean in_deprecated_section;
+  int row_index;
+
+  shell = gallery_gallery_shell_new(NULL);
+  list_box = __shell_get_list_box(shell);
+  in_deprecated_section = FALSE;
+
+  for (row_index = 0; ; row_index++)
+    {
+      GtkListBoxRow *row;
+      const char *demo_id;
+      const GalleryDemoEntry *demo;
+
+      row = gtk_list_box_get_row_at_index(GTK_LIST_BOX(list_box), row_index);
+      if (row == NULL)
+        break;
+
+      if (__row_is_deprecated_subheader(row))
+        {
+          in_deprecated_section = TRUE;
+          continue;
+        }
+
+      demo_id = g_object_get_data(G_OBJECT(row), "demo-id");
+      if (demo_id == NULL)
+        {
+          in_deprecated_section = FALSE;
+          continue;
+        }
+
+      demo = gallery_demo_registry_find_demo(demo_id);
+      g_assert_nonnull(demo);
+
+      if (in_deprecated_section)
+        g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_DEPRECATED);
+      else
+        g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+    }
+
+  g_object_ref_sink(shell);
+  g_object_unref(shell);
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -224,6 +278,8 @@ main(int argc, char *argv[])
                   __test_shell_demo_switch);
   g_test_add_func("/gallery/gallery-shell/deprecated-subheader-count",
                   __test_shell_deprecated_subheader_count);
+  g_test_add_func("/gallery/gallery-shell/deprecated-sidebar-order",
+                  __test_shell_deprecated_sidebar_order);
 
   status = g_test_run();
 
