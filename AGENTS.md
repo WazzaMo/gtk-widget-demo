@@ -19,17 +19,17 @@ content-mode switching, and tests under `test/gallery/`. Feature 4 (catalog wave
 is **complete** — **25** runnable demos with Display and Entries categories
 extended per [feature-4-widget-gallery-catalog-wave-1.md](./docs/features/feature-4-widget-gallery-catalog-wave-1.md).
 
-Deprecated-widget separation (Feature 5 part 1) is **complete** on `main`
-(2026-08-08, PR #6). Catalog wave 2 (Feature 5 part 2) is **in progress** on
-branch `wm/feature-5`. See
+Feature 5 (catalog wave 2 + deprecation infrastructure) is **complete** — **28**
+runnable demos with deprecated-widget separation and three Display risk-spike
+demos. See
 [feature-5-widget-gallery-catalog-wave-2.md](./docs/features/feature-5-widget-gallery-catalog-wave-2.md).
 
 | Present                                               | Not yet present |
 | ----------------------------------------------------- | --- |
-| `docs/` conventions and feature specs (Features 1–5)  | Feature 5 part 2 (wave 2 demos) |
-| Meson build and GTK4 executable                       | Full visual-index catalog (waves 3–9) |
-| `src/main.c` entry point; `src/main/` shell units     | Phase 3 hide-deprecated toggle |
-| `src/gallery/` gallery framework and **25** demos     | Migration comparison builders (phase 2 content) |
+| `docs/` conventions and feature specs (Features 1–5)  | Full visual-index catalog (waves 3–9) |
+| Meson build and GTK4 executable                       | Phase 3 hide-deprecated toggle |
+| `src/main.c` entry point; `src/main/` shell units     | Migration comparison builders (phase 2 content) |
+| `src/gallery/` gallery framework and **28** demos     |  |
 | Deprecated lifecycle metadata and sidebar subsections |  |
 | `src/introspection/` introspection units              |  |
 | `test/introspection/` and `test/gallery/` unit tests  |  |
@@ -85,7 +85,7 @@ structure.
 Prerequisites on Debian/Ubuntu:
 
 ```bash
-sudo apt install build-essential meson ninja-build libgtk-4-dev
+sudo apt install build-essential meson ninja-build libgtk-4-dev libepoxy-dev
 ```
 
 Expected workflow:
@@ -160,14 +160,14 @@ Delivered as of 2026-08-05:
 Catalog waves 2–9 are planned in
 [2026-08-05-plan-widget-gallery-catalog-nine-waves.md](./docs/notes/2026-08-05-plan-widget-gallery-catalog-nine-waves.md).
 
-## Feature 5 (in progress)
+## Feature 5 (complete)
 
 Acceptance criteria are in
 [feature-5-widget-gallery-catalog-wave-2.md](./docs/features/feature-5-widget-gallery-catalog-wave-2.md).
-Two-part delivery:
+Delivered as of 2026-08-08:
 
 **Part 1 — Deprecated widget separation** (phase 1 + phase 2 infrastructure):
-**complete** on `main` (2026-08-08, PR #6).
+merged to `main` (PR #6).
 
 1. `GalleryDemoLifecycle` on `GalleryDemoEntry`; three deprecated demos classified.
 2. Sidebar **Deprecated** subsections under Display and Windows.
@@ -176,9 +176,9 @@ Two-part delivery:
 5. Tests under `test/gallery/` including `demo-page`, `demo-registry`, and
    `gallery-shell`.
 
-**Part 2 — Catalog wave 2:** in progress on `wm/feature-5` — three supported
-Display demos (**GtkGLArea**, **GtkVideo**, **GtkPopoverMenu**); **28** total
-demos when complete.
+**Part 2 — Catalog wave 2:** three supported Display demos (**GtkGLArea**,
+**GtkVideo**, **GtkPopoverMenu**); **28** total demos; bundled `data/demo-sample.mp4`;
+`libepoxy` build dependency for GLArea.
 
 Phase 2 comparison content and phase 3 hide toggle remain follow-on work per
 [2026-08-08-plan-deprecated-widget-delivery-order.md](./docs/notes/2026-08-08-plan-deprecated-widget-delivery-order.md).

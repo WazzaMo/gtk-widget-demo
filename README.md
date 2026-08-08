@@ -20,11 +20,13 @@ a bit easier, by example.
 On Debian or Ubuntu:
 
 ```bash
-sudo apt install build-essential meson ninja-build libgtk-4-dev
+sudo apt install build-essential meson ninja-build libgtk-4-dev libepoxy-dev
 ```
 
 You also need a working C compiler, Meson, Ninja, and pkg-config (included in
-the packages above).
+the packages above). The **GtkVideo** demo plays a bundled sample file and may
+require GStreamer plugins at runtime (`gstreamer1.0-plugins-good` on
+Debian/Ubuntu).
 
 ## Handling library versions in code
 

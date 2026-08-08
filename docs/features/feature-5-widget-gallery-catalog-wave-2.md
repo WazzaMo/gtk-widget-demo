@@ -7,14 +7,13 @@ Contribution to this project is supported and contributors will be recognised.
 
 # Status
 
-**In progress** — two-part feature on `main` / branch `wm/feature-5`:
+**Complete** — two-part feature delivered 2026-08-08:
 
 1. **Part 1 — Deprecated widget separation** (phase 1 and phase 2 **infrastructure**):
    **Complete** — merged to `main` 2026-08-08 ([PR #6](https://github.com/WazzaMo/gtk-widget-demo/pull/6)).
 
-2. **Part 2 — Catalog wave 2** (Display risk spike): **Planned** — **3** new demos
-   for **GtkGLArea**, **GtkVideo**, and **GtkPopoverMenu** on branch
-   `wm/feature-5`.
+2. **Part 2 — Catalog wave 2** (Display risk spike): **Complete** — **3** new demos
+   for **GtkGLArea**, **GtkVideo**, and **GtkPopoverMenu**; **28** total demos.
 
 Part 1 delivers lifecycle metadata, sidebar **Deprecated** subsections, deprecation
 banners, replacement-doc links, and comparison API hooks (no comparison builders).
