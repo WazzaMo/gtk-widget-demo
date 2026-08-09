@@ -282,7 +282,7 @@ static const GalleryDemoEntry display_demos[] =
   {
     "gtk-emoji-chooser",
     "GtkEmojiChooser",
-    "Emoji picker; the label below shows the most recently picked emoji.",
+    "Emoji picker opened from the button; the label shows the picked emoji.",
     "https://docs.gtk.org/gtk4/class.EmojiChooser.html",
     gallery_display_gtk_emoji_chooser_demo_build,
     GALLERY_DEMO_SUPPORTED,

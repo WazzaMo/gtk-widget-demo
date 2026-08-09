@@ -19,6 +19,15 @@ main_sources = files(
 
 gallery_sources = files(
   'src/gallery/button-demos.c',
+  'src/gallery/button-demos/gtk-button-demo.c',
+  'src/gallery/button-demos/gtk-check-button-demo.c',
+  'src/gallery/button-demos/gtk-link-button-demo.c',
+  'src/gallery/button-demos/gtk-lock-button-demo.c',
+  'src/gallery/button-demos/gtk-menu-button-demo.c',
+  'src/gallery/button-demos/gtk-radio-button-demo.c',
+  'src/gallery/button-demos/gtk-switch-demo.c',
+  'src/gallery/button-demos/gtk-toggle-button-demo.c',
+  'src/gallery/button-demos/gtk-volume-button-demo.c',
   'src/gallery/container-demos.c',
   'src/gallery/demo-page.c',
   'src/gallery/demo-registry.c',

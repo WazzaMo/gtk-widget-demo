@@ -19,7 +19,7 @@ static void
 __test_demo_counts(void)
 {
   g_assert_cmpuint(gallery_demo_registry_get_category(0)->demo_count, ==, 21);
-  g_assert_cmpuint(gallery_demo_registry_get_category(1)->demo_count, ==, 4);
+  g_assert_cmpuint(gallery_demo_registry_get_category(1)->demo_count, ==, 9);
   g_assert_cmpuint(gallery_demo_registry_get_category(2)->demo_count, ==, 5);
   g_assert_cmpuint(gallery_demo_registry_get_category(3)->demo_count, ==, 4);
   g_assert_cmpuint(gallery_demo_registry_get_category(4)->demo_count, ==, 2);
@@ -188,6 +188,25 @@ __test_display_demo_order(void)
 }
 
 static void
+__test_button_demo_order(void)
+{
+  static const char *const expected_ids[] =
+  {
+    "gtk-button",
+    "gtk-toggle-button",
+    "gtk-link-button",
+    "gtk-check-button",
+    "gtk-radio-button",
+    "gtk-menu-button",
+    "gtk-lock-button",
+    "gtk-volume-button",
+    "gtk-switch",
+  };
+
+  __test_category_demo_order(1, expected_ids, G_N_ELEMENTS(expected_ids));
+}
+
+static void
 __test_entries_demo_order(void)
 {
   static const char *const expected_ids[] =
@@ -251,6 +270,32 @@ __test_wave3_demo_lifecycle(void)
 }
 
 static void
+__test_wave4_demo_lifecycle(void)
+{
+  const GalleryDemoEntry *demo;
+
+  demo = gallery_demo_registry_find_demo("gtk-link-button");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-radio-button");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-menu-button");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-lock-button");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-volume-button");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+}
+
+static void
 __test_demo_metadata(void)
 {
   gsize category_index;
@@ -306,12 +351,16 @@ main(int argc, char *argv[])
                   __test_no_comparison_builders_wired);
   g_test_add_func("/gallery/demo-registry/display-demo-order",
                   __test_display_demo_order);
+  g_test_add_func("/gallery/demo-registry/button-demo-order",
+                  __test_button_demo_order);
   g_test_add_func("/gallery/demo-registry/entries-demo-order",
                   __test_entries_demo_order);
   g_test_add_func("/gallery/demo-registry/wave2-demo-lifecycle",
                   __test_wave2_demo_lifecycle);
   g_test_add_func("/gallery/demo-registry/wave3-demo-lifecycle",
                   __test_wave3_demo_lifecycle);
+  g_test_add_func("/gallery/demo-registry/wave4-demo-lifecycle",
+                  __test_wave4_demo_lifecycle);
   g_test_add_func("/gallery/demo-registry/demo-metadata",
                   __test_demo_metadata);
 

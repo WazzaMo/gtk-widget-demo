@@ -8,91 +8,15 @@
 #include "gtk-version.h"
 
 #include "gallery/button-demos.h"
-
-static void
-__on_demo_button_clicked(GtkButton *button, gpointer user_data)
-{
-  GtkWidget *feedback = user_data;
-
-  (void) button;
-
-  gtk_label_set_text(GTK_LABEL(feedback), "GtkButton clicked.");
-}
-
-static GtkWidget *
-__build_gtk_button(GtkWindow *parent_window)
-{
-  GtkWidget *box;
-  GtkWidget *button;
-  GtkWidget *feedback;
-
-  (void) parent_window;
-
-  box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 8);
-  button = gtk_button_new_with_label("Click me");
-  feedback = gtk_label_new("Click the button for feedback.");
-  gtk_label_set_xalign(GTK_LABEL(feedback), 0.0f);
-  g_signal_connect(button, "clicked", G_CALLBACK(__on_demo_button_clicked),
-                   feedback);
-  gtk_box_append(GTK_BOX(box), button);
-  gtk_box_append(GTK_BOX(box), feedback);
-  return box;
-}
-
-static GtkWidget *
-__build_gtk_check_button(GtkWindow *parent_window)
-{
-  GtkWidget *check;
-
-  (void) parent_window;
-
-  check = gtk_check_button_new_with_label("Enable option");
-  gtk_check_button_set_active(GTK_CHECK_BUTTON(check), TRUE);
-  return check;
-}
-
-/*
- * Returns the demo widget only. Page chrome (title, frame, full-width wrapper)
- * and default sizing (hexpand FALSE, halign CENTER when still FILL) are applied
- * in gallery_demo_page_new() — see demo-page.c. Set halign here to override
- * centre/start/end placement within that wrapper; see docs/notes/2026-07-30-plan-
- * widget-align-natural-size.md.
- */
-static GtkWidget *
-__build_gtk_switch(GtkWindow *parent_window)
-{
-  GtkWidget *switch_widget;
-
-  (void) parent_window;
-
-  switch_widget = gtk_switch_new();
-  gtk_switch_set_active(GTK_SWITCH(switch_widget), TRUE);
-  return switch_widget;
-}
-
-static void
-__on_toggle_button_toggled(GtkToggleButton *button, gpointer user_data)
-{
-  (void) user_data;
-
-  if (gtk_toggle_button_get_active(button))
-    gtk_button_set_label(GTK_BUTTON(button), "Toggled on");
-  else
-    gtk_button_set_label(GTK_BUTTON(button), "Toggled off");
-}
-
-static GtkWidget *
-__build_gtk_toggle_button(GtkWindow *parent_window)
-{
-  GtkWidget *toggle;
-
-  (void) parent_window;
-
-  toggle = gtk_toggle_button_new_with_label("Toggled off");
-  g_signal_connect(toggle, "toggled",
-                   G_CALLBACK(__on_toggle_button_toggled), NULL);
-  return toggle;
-}
+#include "gallery/button-demos/gtk-button-demo.h"
+#include "gallery/button-demos/gtk-check-button-demo.h"
+#include "gallery/button-demos/gtk-link-button-demo.h"
+#include "gallery/button-demos/gtk-lock-button-demo.h"
+#include "gallery/button-demos/gtk-menu-button-demo.h"
+#include "gallery/button-demos/gtk-radio-button-demo.h"
+#include "gallery/button-demos/gtk-switch-demo.h"
+#include "gallery/button-demos/gtk-toggle-button-demo.h"
+#include "gallery/button-demos/gtk-volume-button-demo.h"
 
 static const GalleryDemoEntry button_demos[] =
 {
@@ -101,28 +25,63 @@ static const GalleryDemoEntry button_demos[] =
     "GtkButton",
     "Standard push button with a click handler and feedback label.",
     "https://docs.gtk.org/gtk4/class.Button.html",
-    __build_gtk_button,
-  },
-  {
-    "gtk-check-button",
-    "GtkCheckButton",
-    "Checkbox control for boolean on/off state.",
-    "https://docs.gtk.org/gtk4/class.CheckButton.html",
-    __build_gtk_check_button,
-  },
-  {
-    "gtk-switch",
-    "GtkSwitch",
-    "Compact on/off switch control.",
-    "https://docs.gtk.org/gtk4/class.Switch.html",
-    __build_gtk_switch,
+    gallery_button_gtk_button_demo_build,
   },
   {
     "gtk-toggle-button",
     "GtkToggleButton",
     "Button that stays pressed until clicked again.",
     "https://docs.gtk.org/gtk4/class.ToggleButton.html",
-    __build_gtk_toggle_button,
+    gallery_button_gtk_toggle_button_demo_build,
+  },
+  {
+    "gtk-link-button",
+    "GtkLinkButton",
+    "Hyperlink button opening the GTK 4 documentation site.",
+    "https://docs.gtk.org/gtk4/class.LinkButton.html",
+    gallery_button_gtk_link_button_demo_build,
+  },
+  {
+    "gtk-check-button",
+    "GtkCheckButton",
+    "Checkbox control for boolean on/off state.",
+    "https://docs.gtk.org/gtk4/class.CheckButton.html",
+    gallery_button_gtk_check_button_demo_build,
+  },
+  {
+    "gtk-radio-button",
+    "GtkRadioButton",
+    "Mutually exclusive options using grouped GtkCheckButton controls.",
+    "https://docs.gtk.org/gtk4/class.CheckButton.html",
+    gallery_button_gtk_radio_button_demo_build,
+  },
+  {
+    "gtk-menu-button",
+    "GtkMenuButton",
+    "Button that opens a dropdown menu from a GMenu model.",
+    "https://docs.gtk.org/gtk4/class.MenuButton.html",
+    gallery_button_gtk_menu_button_demo_build,
+  },
+  {
+    "gtk-lock-button",
+    "GtkLockButton",
+    "Lock control bound to a GPermission with locked state feedback.",
+    "https://docs.gtk.org/gtk4/class.LockButton.html",
+    gallery_button_gtk_lock_button_demo_build,
+  },
+  {
+    "gtk-volume-button",
+    "GtkVolumeButton",
+    "Popover volume control with level feedback.",
+    "https://docs.gtk.org/gtk4/class.VolumeButton.html",
+    gallery_button_gtk_volume_button_demo_build,
+  },
+  {
+    "gtk-switch",
+    "GtkSwitch",
+    "Compact on/off switch control.",
+    "https://docs.gtk.org/gtk4/class.Switch.html",
+    gallery_button_gtk_switch_demo_build,
   },
 };
 
