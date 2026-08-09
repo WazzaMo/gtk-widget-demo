@@ -430,7 +430,7 @@ Implementation details are in
 [2026-07-29-coding-feature-3-widget-gallery.md](../notes/2026-07-29-coding-feature-3-widget-gallery.md).
 
 | #   | Topic          | Resolution |
-| --- | -------------- | --- |
+| --- | -------------- | ---------- |
 | 1   | Window title   | Static **GTK Widget Demo** (`window-shell.c`) |
 | 2   | Sidebar widget | `GtkListBox` with unselectable category header rows (`gallery-shell.c`) |
 
