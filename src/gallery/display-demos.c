@@ -8,12 +8,17 @@
 #include "gtk-version.h"
 
 #include "gallery/display-demos.h"
+#include "gallery/display-demos/gtk-calendar-demo.h"
+#include "gallery/display-demos/gtk-drawing-area-demo.h"
+#include "gallery/display-demos/gtk-emoji-chooser-demo.h"
 #include "gallery/display-demos/gtk-info-bar-demo.h"
 #include "gallery/display-demos/gtk-gl-area-demo.h"
 #include "gallery/display-demos/gtk-image-demo.h"
+#include "gallery/display-demos/gtk-media-controls-demo.h"
 #include "gallery/display-demos/gtk-label-demo.h"
 #include "gallery/display-demos/gtk-level-bar-demo.h"
 #include "gallery/display-demos/gtk-picture-demo.h"
+#include "gallery/display-demos/gtk-popover-menu-bar-demo.h"
 #include "gallery/display-demos/gtk-popover-menu-demo.h"
 #include "gallery/display-demos/gtk-progress-bar-demo.h"
 #include "gallery/display-demos/gtk-scale-demo.h"
@@ -23,6 +28,7 @@
 #include "gallery/display-demos/gtk-statusbar-demo.h"
 #include "gallery/display-demos/gtk-text-view-demo.h"
 #include "gallery/display-demos/gtk-video-demo.h"
+#include "gallery/display-demos/gtk-window-controls-demo.h"
 
 static const GalleryDemoEntry display_demos[] =
 {
@@ -196,11 +202,89 @@ static const GalleryDemoEntry display_demos[] =
     NULL,
   },
   {
+    "gtk-drawing-area",
+    "GtkDrawingArea",
+    "Simple filled rectangle drawn with a GtkDrawingArea draw callback.",
+    "https://docs.gtk.org/gtk4/class.DrawingArea.html",
+    gallery_display_gtk_drawing_area_demo_build,
+    GALLERY_DEMO_SUPPORTED,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+  },
+  {
     "gtk-video",
     "GtkVideo",
     "Plays bundled " DEMO_VIDEO_CLIP " (H.264); requires GStreamer libav or bad plugins at runtime.",
     "https://docs.gtk.org/gtk4/class.Video.html",
     gallery_display_gtk_video_demo_build,
+    GALLERY_DEMO_SUPPORTED,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+  },
+  {
+    "gtk-media-controls",
+    "GtkMediaControls",
+    "Transport controls for bundled " DEMO_VIDEO_CLIP "; same runtime prerequisites as GtkVideo.",
+    "https://docs.gtk.org/gtk4/class.MediaControls.html",
+    gallery_display_gtk_media_controls_demo_build,
+    GALLERY_DEMO_SUPPORTED,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+  },
+  {
+    "gtk-window-controls",
+    "GtkWindowControls",
+    "Window controls in a sample GtkHeaderBar; inspect GtkWindowControls in the end slot.",
+    "https://docs.gtk.org/gtk4/class.WindowControls.html",
+    gallery_display_gtk_window_controls_demo_build,
+    GALLERY_DEMO_SUPPORTED,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+  },
+  {
+    "gtk-popover-menu-bar",
+    "GtkPopoverMenuBar",
+    "Menu bar with popover menus; builds on the GtkPopoverMenu demo pattern.",
+    "https://docs.gtk.org/gtk4/class.PopoverMenuBar.html",
+    gallery_display_gtk_popover_menu_bar_demo_build,
+    GALLERY_DEMO_SUPPORTED,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+  },
+  {
+    "gtk-calendar",
+    "GtkCalendar",
+    "Date selection; the label below shows the chosen day in ISO form.",
+    "https://docs.gtk.org/gtk4/class.Calendar.html",
+    gallery_display_gtk_calendar_demo_build,
+    GALLERY_DEMO_SUPPORTED,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+  },
+  {
+    "gtk-emoji-chooser",
+    "GtkEmojiChooser",
+    "Emoji picker; the label below shows the most recently picked emoji.",
+    "https://docs.gtk.org/gtk4/class.EmojiChooser.html",
+    gallery_display_gtk_emoji_chooser_demo_build,
     GALLERY_DEMO_SUPPORTED,
     NULL,
     NULL,

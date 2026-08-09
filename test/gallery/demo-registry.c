@@ -18,7 +18,7 @@ __test_category_count(void)
 static void
 __test_demo_counts(void)
 {
-  g_assert_cmpuint(gallery_demo_registry_get_category(0)->demo_count, ==, 15);
+  g_assert_cmpuint(gallery_demo_registry_get_category(0)->demo_count, ==, 21);
   g_assert_cmpuint(gallery_demo_registry_get_category(1)->demo_count, ==, 4);
   g_assert_cmpuint(gallery_demo_registry_get_category(2)->demo_count, ==, 5);
   g_assert_cmpuint(gallery_demo_registry_get_category(3)->demo_count, ==, 4);
@@ -174,7 +174,13 @@ __test_display_demo_order(void)
     "gtk-text-view",
     "gtk-scale",
     "gtk-gl-area",
+    "gtk-drawing-area",
     "gtk-video",
+    "gtk-media-controls",
+    "gtk-window-controls",
+    "gtk-popover-menu-bar",
+    "gtk-calendar",
+    "gtk-emoji-chooser",
     "gtk-popover-menu",
   };
 
@@ -210,6 +216,36 @@ __test_wave2_demo_lifecycle(void)
   g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
 
   demo = gallery_demo_registry_find_demo("gtk-popover-menu");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+}
+
+static void
+__test_wave3_demo_lifecycle(void)
+{
+  const GalleryDemoEntry *demo;
+
+  demo = gallery_demo_registry_find_demo("gtk-drawing-area");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-media-controls");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-window-controls");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-popover-menu-bar");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-calendar");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-emoji-chooser");
   g_assert_nonnull(demo);
   g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
 }
@@ -274,6 +310,8 @@ main(int argc, char *argv[])
                   __test_entries_demo_order);
   g_test_add_func("/gallery/demo-registry/wave2-demo-lifecycle",
                   __test_wave2_demo_lifecycle);
+  g_test_add_func("/gallery/demo-registry/wave3-demo-lifecycle",
+                  __test_wave3_demo_lifecycle);
   g_test_add_func("/gallery/demo-registry/demo-metadata",
                   __test_demo_metadata);
 
