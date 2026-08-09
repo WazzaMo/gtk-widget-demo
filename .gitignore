@@ -1,6 +1,6 @@
 .vscode
 .qtcreator
 
-sample.blend*
+sample*.blend*
 
 /build/
