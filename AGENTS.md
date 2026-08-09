@@ -177,7 +177,7 @@ merged to `main` (PR #6).
    `gallery-shell`.
 
 **Part 2 — Catalog wave 2:** three supported Display demos (**GtkGLArea**,
-**GtkVideo**, **GtkPopoverMenu**); **28** total demos; bundled `data/demo-sample.mp4`;
+**GtkVideo**, **GtkPopoverMenu**); **28** total demos; bundled `data/demo-short.mp4`;
 `libepoxy` build dependency for GLArea.
 
 Phase 2 comparison content and phase 3 hide toggle remain follow-on work per
