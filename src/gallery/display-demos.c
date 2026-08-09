@@ -198,7 +198,7 @@ static const GalleryDemoEntry display_demos[] =
   {
     "gtk-video",
     "GtkVideo",
-    "Plays bundled demo-sample.mp4 (2 s); requires GStreamer plugins at runtime.",
+    "Plays bundled " DEMO_VIDEO_CLIP " (H.264); requires GStreamer libav or bad plugins at runtime.",
     "https://docs.gtk.org/gtk4/class.Video.html",
     gallery_display_gtk_video_demo_build,
     GALLERY_DEMO_SUPPORTED,

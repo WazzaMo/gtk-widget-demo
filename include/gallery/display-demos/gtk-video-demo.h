@@ -17,4 +17,6 @@
  */
 GtkWidget *gallery_display_gtk_video_demo_build(GtkWindow *parent_window);
 
+#define DEMO_VIDEO_CLIP "demo-short.mp4"
+
 #endif
