@@ -3,6 +3,8 @@ project('gtk-widget-demo', 'c',
   default_options : ['warning_level=3'])
 
 gtk4_dep = dependency('gtk4', include_type: 'system')
+epoxy_dep = dependency('epoxy')
+gallery_deps = [gtk4_dep, epoxy_dep]
 
 inc = include_directories('include')
 
@@ -21,11 +23,13 @@ gallery_sources = files(
   'src/gallery/demo-page.c',
   'src/gallery/demo-registry.c',
   'src/gallery/display-demos.c',
+  'src/gallery/display-demos/gtk-gl-area-demo.c',
   'src/gallery/display-demos/gtk-info-bar-demo.c',
   'src/gallery/display-demos/gtk-image-demo.c',
   'src/gallery/display-demos/gtk-label-demo.c',
   'src/gallery/display-demos/gtk-level-bar-demo.c',
   'src/gallery/display-demos/gtk-picture-demo.c',
+  'src/gallery/display-demos/gtk-popover-menu-demo.c',
   'src/gallery/display-demos/gtk-progress-bar-demo.c',
   'src/gallery/display-demos/gtk-scale-demo.c',
   'src/gallery/display-demos/gtk-scrollbar-demo.c',
@@ -33,6 +37,7 @@ gallery_sources = files(
   'src/gallery/display-demos/gtk-spinner-demo.c',
   'src/gallery/display-demos/gtk-statusbar-demo.c',
   'src/gallery/display-demos/gtk-text-view-demo.c',
+  'src/gallery/display-demos/gtk-video-demo.c',
   'src/gallery/entry-demos.c',
   'src/gallery/entry-demos/gtk-editable-label-demo.c',
   'src/gallery/entry-demos/gtk-entry-demo.c',
@@ -63,7 +68,7 @@ executable('gtk-widget-demo',
   introspection_sources,
   include_directories : inc,
   c_args : gallery_c_args,
-  dependencies : gtk4_dep,
+  dependencies : gallery_deps,
   install : false)
 
 test_introspection_type_ancestry = executable('test-introspection-type-ancestry',
@@ -92,7 +97,7 @@ test_gallery_demo_registry = executable('test-gallery-demo-registry',
   gallery_sources,
   include_directories : inc,
   c_args : gallery_c_args,
-  dependencies : gtk4_dep,
+  dependencies : gallery_deps,
   install : false)
 
 test_gallery_demo_builders = executable('test-gallery-demo-builders',
@@ -100,7 +105,7 @@ test_gallery_demo_builders = executable('test-gallery-demo-builders',
   gallery_sources,
   include_directories : inc,
   c_args : gallery_c_args,
-  dependencies : gtk4_dep,
+  dependencies : gallery_deps,
   install : false)
 
 test_gallery_demo_page = executable('test-gallery-demo-page',
@@ -108,7 +113,7 @@ test_gallery_demo_page = executable('test-gallery-demo-page',
   gallery_sources,
   include_directories : inc,
   c_args : gallery_c_args,
-  dependencies : gtk4_dep,
+  dependencies : gallery_deps,
   install : false)
 
 test_gallery_demo_interactive = executable('test-gallery-demo-interactive',
@@ -116,7 +121,7 @@ test_gallery_demo_interactive = executable('test-gallery-demo-interactive',
   gallery_sources,
   include_directories : inc,
   c_args : gallery_c_args,
-  dependencies : gtk4_dep,
+  dependencies : gallery_deps,
   install : false)
 
 test_gallery_gallery_shell = executable('test-gallery-gallery-shell',
@@ -124,7 +129,7 @@ test_gallery_gallery_shell = executable('test-gallery-gallery-shell',
   gallery_sources,
   include_directories : inc,
   c_args : gallery_c_args,
-  dependencies : gtk4_dep,
+  dependencies : gallery_deps,
   install : false)
 
 test('introspection-type-ancestry', test_introspection_type_ancestry)

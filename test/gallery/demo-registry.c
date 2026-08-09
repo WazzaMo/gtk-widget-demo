@@ -18,7 +18,7 @@ __test_category_count(void)
 static void
 __test_demo_counts(void)
 {
-  g_assert_cmpuint(gallery_demo_registry_get_category(0)->demo_count, ==, 12);
+  g_assert_cmpuint(gallery_demo_registry_get_category(0)->demo_count, ==, 15);
   g_assert_cmpuint(gallery_demo_registry_get_category(1)->demo_count, ==, 4);
   g_assert_cmpuint(gallery_demo_registry_get_category(2)->demo_count, ==, 5);
   g_assert_cmpuint(gallery_demo_registry_get_category(3)->demo_count, ==, 4);
@@ -173,6 +173,9 @@ __test_display_demo_order(void)
     "gtk-separator",
     "gtk-text-view",
     "gtk-scale",
+    "gtk-gl-area",
+    "gtk-video",
+    "gtk-popover-menu",
   };
 
   __test_category_demo_order(0, expected_ids, G_N_ELEMENTS(expected_ids));
@@ -191,6 +194,24 @@ __test_entries_demo_order(void)
   };
 
   __test_category_demo_order(2, expected_ids, G_N_ELEMENTS(expected_ids));
+}
+
+static void
+__test_wave2_demo_lifecycle(void)
+{
+  const GalleryDemoEntry *demo;
+
+  demo = gallery_demo_registry_find_demo("gtk-gl-area");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-video");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
+
+  demo = gallery_demo_registry_find_demo("gtk-popover-menu");
+  g_assert_nonnull(demo);
+  g_assert_cmpint(demo->lifecycle, ==, GALLERY_DEMO_SUPPORTED);
 }
 
 static void
@@ -251,6 +272,8 @@ main(int argc, char *argv[])
                   __test_display_demo_order);
   g_test_add_func("/gallery/demo-registry/entries-demo-order",
                   __test_entries_demo_order);
+  g_test_add_func("/gallery/demo-registry/wave2-demo-lifecycle",
+                  __test_wave2_demo_lifecycle);
   g_test_add_func("/gallery/demo-registry/demo-metadata",
                   __test_demo_metadata);
 

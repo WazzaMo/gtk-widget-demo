@@ -20,11 +20,20 @@ a bit easier, by example.
 On Debian or Ubuntu:
 
 ```bash
-sudo apt install build-essential meson ninja-build libgtk-4-dev
+sudo apt install build-essential meson ninja-build libgtk-4-dev libepoxy-dev
 ```
 
 You also need a working C compiler, Meson, Ninja, and pkg-config (included in
-the packages above).
+the packages above). The **GtkVideo** demo plays a bundled H.264 MP4 and needs
+GStreamer at runtime. On Debian or Ubuntu:
+
+```bash
+sudo apt install gstreamer1.0-plugins-good gstreamer1.0-plugins-bad \
+  gstreamer1.0-libav libgtk-4-media-gstreamer
+```
+
+`gstreamer1.0-plugins-good` provides MP4 demuxing; `gstreamer1.0-libav` (or
+plugins in `gstreamer1.0-plugins-bad`) provides the H.264 decoder.
 
 ## Handling library versions in code
 
